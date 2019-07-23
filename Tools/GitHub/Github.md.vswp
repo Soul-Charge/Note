@@ -101,15 +101,29 @@ vnote_backup_file_826537664 D:/other/VNote/Note/Tools/GitHub/Github.md
     >例：查看master分支2013年1月1日与现在的区别。(上例仓库)
     >https://github.com/rails/rails/compare/master@{2013-01-01}...master
 
-### issue
+### Issue
+* Issue 的用途
+    * 发现软件的BUG并报告。
+    * 有事想向作者询问、探讨。
+    * 事先列出今后准备实施的任务。
 
+* 描述方法——GFM
+    GitHub的Issue和评论可以使用GFM语法进行描述。
 
+* 添加标签
+    open Issue后可给Issue添加标签(Label)。
+    可以按照语言和技术分类，或者根据BUG、任务、备忘等作业类型分类。
 
+* 添加里程碑
+    可通过添加里程碑的方式来管理Issue。
+    1.先点击`New milestone`创建一个里程碑。
+        Issues->Milestones->New milestone
+    2.然后回到Issue->Milestones的界面点击创建的里程碑，
+    点击`New issue`创建里程碑里的Issue。
+    3.或者在`Create new issue`下方点击蓝色链接将未加入里程碑的Issue加入里程碑。
+![milestone_add_issue](_v_images/20190723222934603_903.jpg =450x)
 
-
-
-
-
+// p92
 
 
 
