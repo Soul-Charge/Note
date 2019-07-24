@@ -100,6 +100,14 @@
     >例：查看master分支2013年1月1日与现在的区别。(上例仓库)
     >https://github.com/rails/rails/compare/master@{2013-01-01}...master
 
+#### 了解对仓库贡献时的规则
+在仓库的根目录下添加CONTRIBUTING.md，
+在其中描述希望贡献者遵循的规则。
+>如Issue的描述方法、Pull Request时的规则要求、许可证的相关信息。  
+
+贡献者将在创建Issue等时候看到一条规范链接。要做贡献应该仔细阅读。  
+链接文本：Please review the guidelines for contributing to this repository.  
+
 ### Issue
 * Issue 的用途
     * 发现软件的BUG并报告。
@@ -108,6 +116,16 @@
 
 * 描述方法——GFM
     GitHub的Issue和评论可以使用GFM语法进行描述。
+    * Tasklist
+        >例：以如下方式编辑
+        >```
+        ># holiday daily task
+        >- [ ]  Learning English at least 80 minutes.
+        >- [ ]  Learning Psychology at least 40 minutes.
+        >- [ ]  Running at least 30 minutes.
+        >```
+        >将显示为
+        >![tasklist](_v_images/20190724202207152_7615.jpg =300x)
 
 * 添加标签
     open Issue后可给Issue添加标签(Label)。
