@@ -129,8 +129,8 @@ vnote_backup_file_826537664 D:/other/VNote/Note/Tools/GitHub/Github.md
         >![tasklist](_v_images/20190724202207152_7615.jpg =300x)
 
 * 添加标签
-    open Issue后可给Issue添加标签(Label)。
-    可以按照语言和技术分类，或者根据BUG、任务、备忘等作业类型分类。
+    open Issue后可给Issue添加标签(Label)。  
+    可以按照语言和技术分类，或者根据BUG、任务、备忘等作业类型分类。  
 
 * 添加里程碑
     可通过添加里程碑的方式来管理Issue。
@@ -140,6 +140,27 @@ vnote_backup_file_826537664 D:/other/VNote/Note/Tools/GitHub/Github.md
     点击`New issue`创建里程碑里的Issue。
     3.或者在`Create new issue`下方点击蓝色链接将未加入里程碑的Issue加入里程碑。
 ![milestone_add_issue](_v_images/20190723222934603_903.jpg =450x)
+
+* 通过提交信息操作Issue
+    * 将提交与Issue关联
+        在提交信息的描述中加入Issue的编号(#n)，可将提交和Issue关联。  
+        在Issue中可以看到相关的提交，可以点击跳转到对应提交。  
+        在提交信息中点击编号可跳转到对应Issue。  
+    * Close Issue
+        在提交中以下列任意一种格式描述提交信息，对应的Issue就会被Close。  
+        fix #n、fixes #n、fixed #n、close #n、closes #n、closed #n、resolve #n、resolves #n、resolved #n
+
+* 将特定的Issue转换为Pull Request
+    Issue与Pull Request的编号相互通用。
+
+### Pull Request
+
+
+
+
+
+
+
 
 
 
