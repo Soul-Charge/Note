@@ -140,7 +140,6 @@
     3.或者在`Create new issue`下方点击蓝色链接将未加入里程碑的Issue加入里程碑。
 ![milestone_add_issue](_v_images/20190723222934603_903.jpg =450x)
 
-// p92
 
 
 
