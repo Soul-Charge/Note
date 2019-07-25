@@ -223,12 +223,23 @@ Insights->Pulse
     未Closed的Issue和Pull Request。  
 
 ### Graphs
+* Contributors
+    Insights->Contributors  
+    可以看到每个用户在相应日期中发送提交、添加代码、删除代码的大致数量。  
+    可以了解到仓库的代码主要由哪些人编写。  
+    还可以分析出该软件大幅修改阶段和稳定维护时期的相应时期。  
 
+* Commit Activity
+    显示了一年内每周提交的大致数量。  
+    还可以查看相应周对应每天的提交数量。  
+    可判断仓库是否有人在积极更新。  
 
+* Code Frequency
+    显示了仓库中代码行数的增加量和删除量。  
+    <font green='orange'>左边的单位是k，怎么感觉是字节数。</font>
 
-
-
-
+* Punchcard
+    找不到。。。  
 
 
 
