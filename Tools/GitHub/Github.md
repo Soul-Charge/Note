@@ -241,11 +241,29 @@ Insights->Pulse
 * Punchcard
     找不到。。。  
 
+### NetWork
+以图表形式显示包括克隆仓库在内的所有分支的提交。  
+将鼠标指针停在提交或合并的点上，可以查看相应的参考内容。
 
-
-
-
-
+### Settings
+* Options
+    * Features
+        可以更改Wiki和Issue的相关设置。  
+        取消勾选的复选框可移除功能。
+    * GitHub Pages
+        可利用仓库中的资料创建web页。
+        * master分支下的docs文件夹
+            1.在master分支下创建一个docs文件夹。  
+            2.在该文件夹内放入页面。  
+            3.在Source的下拉选项中选择`master branch /docs folder`  。  
+            4.之后页面刷新，在Source上有蓝底显示的文本和页面链接。  
+            页面链接形式：https://用户名.github.io/仓库名/
+        * gh-pages分支
+            1.创建`gh-pages`分支。  
+            2.将页面内容放入。  
+            3.在Source的下拉选项中选择`gh-pages branch`。  
+            4.页面刷新，在Source上有蓝底显示的文本额页面链接。  
+    * Danger Zone
 
 
 
