@@ -153,13 +153,26 @@
     Issue与Pull Request的编号相互通用。
 
 ### Pull Request
+* 获取diff格式与patch格式的文件
+    以diff格式和patch格式文件的形式处理Pull Request。  
+    在Pull Request的URL后添加`.diff`或`.patch`。  
+    >例：假设Pull Request的URL为 https://github.com/用户名/仓库名/pull/28
+    >diff格式的文件：https://github.com/用户名/仓库名/pull/28.diff
+    >patch格式的文件：https://github.com/用户名/仓库名/pull/28.patch
 
+* Conversation
+    * 引用评论
+        选择(按住左键右滑)想引用的评论然后按`r`键，选择部分会自动写入评论文本框。  
 
+* Commits
+    提交右侧的哈希值可以连接到该提交的代码。  
+    * 在评论中应用表情
+        可使用的表情：<http://www.emoji-cheat-sheet.com/>  
+        在评论中输入`:`会启动表情自动补全。
 
-
-
-
-
+* Files Changed
+    在URL的末尾添加`?w=1`可以显示不显示空格的差别。  
+    点击蓝底白色加号可以对某一行进行评论。  
 
 
 
