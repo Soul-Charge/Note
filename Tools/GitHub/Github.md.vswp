@@ -175,9 +175,23 @@ vnote_backup_file_826537664 D:/other/VNote/Note/Tools/GitHub/Github.md
     在URL的末尾添加`?w=1`可以显示不显示空格的差别。  
     点击蓝底白色加号可以对某一行进行评论。  
 
-
-
-
+### Wiki
+Wiki的Git仓库URL：git@github.com:用户名/仓库名.wiki.git  
+可通过clone获取wiki仓库，然后本地修改在push。  
+一般wiki记载软件相关的FAQ、文档、代码示例及解说。  
+* 在wiki中显示侧边栏
+    创建一个名为`_sidebar`的页面。  
+    在其中编辑边栏内容。
+    >例：
+    >```
+    >## Getting Started
+    >* [Getting Started with Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Getting-Started-with-Kingfisher)
+    >* [Install Kingfisher](https://github.com/onevcat/Kingfisher/wiki/Installation-Guide)
+    >* [Cheat Sheet](https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet)
+    >* [API Reference](http://onevcat.github.io/Kingfisher/)
+    >```
+    >效果：
+    >![sidebar](_v_images/20190725115606912_23888.jpg =200x)
 
 
 
