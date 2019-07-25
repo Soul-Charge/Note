@@ -193,5 +193,53 @@ Wiki的Git仓库URL：git@github.com:用户名/仓库名.wiki.git
     >效果：
     >![sidebar](_v_images/20190725115606912_23888.jpg =200x)
 
+### Pulse
+Insights->Pulse  
+可以体现一个仓库软件开发的活跃度。  
+* active pull requests
+    特定期间内活动过的Pull Request数。  
+    可以了解到该软件最近正在开发哪些功能。
+
+* active issue
+    特定期间内活动过的Issue数。  
+    通过观察Issue的整体动向，可知道这个软件是否有人在积极维护与支持。
+
+* commits
+    Overview下方，与提交相关的信息。  
+    左侧文字信息包含下面几类。  (冒号后面是显示方式)
+    * 编写过代码的人数: n author
+    * 提交的次数 n commits
+    * default branch 中修改过的文件数: n files
+    * dafault branch 中添加的行数: n additions
+    * default branch 中删除的行数: deletions
+    通过这些信息，可以大致把握该仓库中活跃开发者的人数。  
+    通过图表还可以了解到有哪些开发者在积极的提交。  
+
+* Releases published
+    repository->releases
+    可以了解到该软件的版本升级频率。
+
+* Unresolved Conversations
+    Pulse 页面下可能在最下面。  
+    未Closed的Issue和Pull Request。  
+
+### Graphs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
