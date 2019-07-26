@@ -281,11 +281,22 @@ Insights->Pulse
     可以给仓库单独添加一个SSH公匙，允许以只读方式访问仓库。  
     一对密匙对应一个仓库。  
 
+### Notifications
+页面右上角的铃铛，当创建Issue、收到评论、创建Pull Request等情况发生时会在此收到通知。  
 
+### 其他功能
+* GitHub Jobs
+    面向全世界招聘程序员的职位公告板。  
+    450美元发布30天招聘公告。  
 
+* GitHub Enterprise
+    以虚拟机的形式提供GitHub。  
+    主要面向20人以上的组织。  
+    为无法将源码放到公司之外的企业设计。  
+    <https://enterprise.github.com/pricing>
 
-
-
+* GitHub API
+    <https://developer.github.com/>
 
 
 
