@@ -264,7 +264,28 @@ Insights->Pulse
             2.将页面内容放入。  
             3.在Source的下拉选项中选择`gh-pages branch`。  
             4.页面刷新，在Source上有蓝底显示的文本额页面链接。  
+        * master分支
+            直接将页面内容放在master分支下。下拉选项中选择`master branch`。  
+
     * Danger Zone
+        删除仓库等危险操作。
+
+* Webhooks
+    当仓库有新的操作，会触发调用web接口，通知对应的服务器。
+
+* Collaborators
+    设置仓库的访问权限。  
+    如果仓库属于个人账户，可以添加用户名，赋予用户读写仓库的权限。  
+    如果仓库属于组织账户，需要先创建Team，然后赋予该Team读写仓库的权限。  
+
+* Deploy Keys
+    可以给仓库单独添加一个SSH公匙，允许以只读方式访问仓库。  
+    一对密匙对应一个仓库。  
+
+
+
+
+
 
 
 
