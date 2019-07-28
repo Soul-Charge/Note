@@ -108,7 +108,7 @@
 贡献者将在创建Issue等时候看到一条规范链接。要做贡献应该仔细阅读。  
 链接文本：Please review the guidelines for contributing to this repository.  
 
-### Issue
+#### Issue
 * Issue 的用途
     * 发现软件的BUG并报告。
     * 有事想向作者询问、探讨。
@@ -152,7 +152,7 @@
 * 将特定的Issue转换为Pull Request
     Issue与Pull Request的编号相互通用。
 
-### Pull Request
+#### Pull Request
 * 获取diff格式与patch格式的文件
     以diff格式和patch格式文件的形式处理Pull Request。  
     在Pull Request的URL后添加`.diff`或`.patch`。  
@@ -174,7 +174,7 @@
     在URL的末尾添加`?w=1`可以显示不显示空格的差别。  
     点击蓝底白色加号可以对某一行进行评论。  
 
-### Wiki
+#### Wiki
 Wiki的Git仓库URL：git@github.com:用户名/仓库名.wiki.git  
 可通过clone获取wiki仓库，然后本地修改在push。  
 一般wiki记载软件相关的FAQ、文档、代码示例及解说。  
@@ -192,7 +192,7 @@ Wiki的Git仓库URL：git@github.com:用户名/仓库名.wiki.git
     >效果：
     >![sidebar](_v_images/20190725115606912_23888.jpg =200x)
 
-### Pulse
+#### Pulse
 Insights->Pulse  
 可以体现一个仓库软件开发的活跃度。  
 * active pull requests
@@ -222,7 +222,7 @@ Insights->Pulse
     Pulse 页面下可能在最下面。  
     未Closed的Issue和Pull Request。  
 
-### Graphs
+#### Graphs
 * Contributors
     Insights->Contributors  
     可以看到每个用户在相应日期中发送提交、添加代码、删除代码的大致数量。  
@@ -241,11 +241,11 @@ Insights->Pulse
 * Punchcard
     找不到。。。  
 
-### NetWork
+#### NetWork
 以图表形式显示包括克隆仓库在内的所有分支的提交。  
 将鼠标指针停在提交或合并的点上，可以查看相应的参考内容。
 
-### Settings
+#### Settings
 * Options
     * Features
         可以更改Wiki和Issue的相关设置。  
