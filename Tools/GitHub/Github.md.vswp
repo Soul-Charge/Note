@@ -300,7 +300,68 @@ Insights->Pulse
     <https://developer.github.com/>
 
 ## Pull Request
+### 概要
+* Pull Request 是什么
+    自己修改源代码后，请求对方仓库采纳修改时采取的行为。  
 
+* Pull Request的流程
+    1.本地修改代码。
+    2.发送Pull Request请求合并修改。
+        接受方的仓库会创建一个附带源码的Issue。
+    3.对方仓库管理员接受Pull Request。
+
+### 发送Pull Request前
+1.在要修改的仓库页面下点击`Fork`将仓库克隆到自己的账户下。  
+2.使用`clone`将自己账户下的新仓库复制到本地。  
+3.在仓库创建一个特性分支在其中作业。  
+4.修改完成后提交到自己账户下的Fork过来的仓库。(创造远程分支)  
+```
+git push origin 特性分支名
+```
+
+### 发送PullRequest
+在Fork过来的仓库切换到新建的特性分支。  
+点击`Compare`查看更改是否正确。点击`Create Pull Request`发起。  
+在评论栏中描述Pull Request的理由。  
+
+### 让Pull Request更有效的方法
+* 在开发过程中发送Pull Request进行讨论
+    在想发起讨论时发送Pull Request，不必等代码最终完成。  
+    在Pull Request中加入TaskList描述代办与完成。  
+    注意不要在Pull Request中添加无关的修改。  
+
+* 明确标出“正在开发中”
+    还未开发完成的Pull Request在标题前加上`[WIP]`[^WIP]
+    [^WIP]: Work In Process
+
+* 不Fork直接从分支发送Pull Request
+    对仓库有编辑权限的成员可以直接创造分支，从分支发送Pull Request。  
+
+### 仓库的维护
+使Fork或clone来的仓库保持最新状态。  
+通过将原仓库设置为远程仓库，从该仓库获取(fetch)数据与本地仓库进行合并，让本地仓库的源码保持最新状态。  
+<font color='orange'>那Fork来的仓库怎么保持最新，把本地仓库push上去？</font>
+
+#### 1.将仓库Fork到自己账户下并clone到本地
+
+#### 2.将原仓库设置为本地仓库的远程仓库
+将远程仓库设置`upstream`的名称。  
+```
+$ git remote add upstream git://github.com/用户名/仓库名.git
+```
+<font color='orange'>git:? 不是https:吗</font>
+<font color='orange'>用这个使我电脑蓝屏，应该是书中错误。</font>
+
+#### 3.从远程仓库获取数据与本地仓库分支进行合并
+获取最新分支。  
+```
+$ git fetch upstream
+```
+与本地分支合并。  
+```
+$ git merge upstream/master
+```
+<font color='green'>*//`git fetch`只会获取但不会自动合并。也可以直接使用`git pull`*</font>
 
 
 
