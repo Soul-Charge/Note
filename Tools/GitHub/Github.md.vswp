@@ -363,8 +363,44 @@ $ git merge upstream/master
 ```
 <font color='green'>*//`git fetch`只会获取但不会自动合并。也可以直接使用`git pull`*</font>
 
+## 接收Pull Request
+### 接收准备
+* 代码审查
+    在某个Pull Request的详细页面点击`Files changed`可查看文件的更改，可对某一行进行评论。  
 
+* 查看图片的差别
+    有多种方式查看图片的差别，现在好像用不了了。  
+    <https://github.com/cameronmcefee/Image-Diff-View-Modes>
 
+* 在本地反应Pull Request的内容
+    1.将接收方的本地仓库更新至最新状态
+    clone接收方仓库，已clone就用`git pull`等命令更新。  
+    2.获取发送方的远程仓库
+    ```
+    $ git remote add PR发送者 git@github.com:PR发送者/仓库名.git
+    $ git fetch PR发送者
+    ```
+    3.创建用于检查的分支
+    4.合并
+    切换到用于检查的分支。  
+    ```
+    $ git merge PR发送者/分支名
+    ```
+    5.删除检查用分支
+
+### 接收方法
+* 在GitHub上接收
+    仓库页面点击`Pull Request`进入列表，点击一个Pull Request 进入详细页面点击`Merge pull request`  
+
+* 通过Git接收
+    1.合并到主分支
+    切换到主分支然后合并获取的分支。  
+    2.push修改内容
+    先查看本地与GitHub端仓库的差别。  
+    ```
+    $ git diff origin/gh-pages(分支名)
+    ```
+    之后直接`git push`即可，Pull Request会自动关闭。  
 
 
 
