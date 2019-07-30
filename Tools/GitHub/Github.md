@@ -505,6 +505,37 @@ $ git merge upstream/master
     $ hub push origin, staging, qa
     ```
 
+### Travis CI
+托管面向开源开发组织的CI[^CI]。  
+[^CI]:Continuous Integration, 持续集成  
+
+让CI软件监视仓库，可以在开发者执行提交后自动进行测试或构建。  
+支持Web相关语言。  
+<http://travis-ci.org/>  
+<http://about.travis-ci.org/docs>  
+
+* 与GitHub集成
+在仓库添加`.travis.yml`。  
+    * 编写配置文件
+        参考[官方网站的相关文档](http://about.travis-ci.org/docs/user/getting-started/)进行设置。  
+        编写完成后，将配置文件放到仓库路径下在push给GItHub端。  
+
+    * 检查配置文件
+        使用[Travis WebLint](http://lint.travis-ci.org/)进行检查。  
+        检测是只需指定仓库。  
+        <font color='orange'>不知道怎么指定仓库，好像现在用不了(2019.7.31)。</font>  
+
+    * 在Travis CI的网站上设置
+        访问[官方网站](http://travis-ci.org/)点击`Sing with GitHub`  
+        点击`repositories`可查看仓库列表，将右侧的开关设置为ON即可应用Travis CI。  
+        仓库在Travis CI的位置：<https://travis-ci.org/用户名/仓库名>  
+
+    * 将Travis CI的结果添加至README.md
+        用MarkDown语法如下描述。  
+        ```
+        [![Build Status](https://secure.travis-ci.org/用户名/仓库名.png)](http://travis-ci.org/用户名/仓库名)
+        ```
+
 
 
 
