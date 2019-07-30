@@ -402,6 +402,113 @@ $ git merge upstream/master
     ```
     之后直接`git push`即可，Pull Request会自动关闭。  
 
+## 与GitHub相互协作的工具及服务
+### Hub命令
+#### Hub的安装
+* Windows
+    在powerShell中执行下方命令安装scoop。  
+    ```
+    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+    ```
+    如不能安装则执行下面的命令更改执行策略。  
+    ```
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+    ```
+    scoop 安装成功后安装hub。  
+    ```
+    scoop install hub
+    ```
+    使用下面的命令确认hub已安装。  
+    ```
+    $ hub --version
+    ```
+
+#### 初始设置
+* `~/.config/hub`
+    使用hub命令初次访问GitHub的API时会询问用户名和密码。  
+    输入完后会进行OAuth认证，Token会自动保存在`~/.config/hub`中。  
+    Token可在Settings/Developer Settings/Personal access tokens 页面查看。  
+* 设置别名
+    将相应git设置为hub的别名。  
+    在Shell的配置文件(.bash_profile)添加下面一句。  
+    ```
+    eval "$(hub alias -s)"
+    ```
+    <font color='orange'>Windows不知道在哪设置。</font>  
+
+* 实现Shell上功能的补全
+    GItHub上发布了面向bash和zsh的脚本。  
+    bash:<https://github.com/defunkt/hub/blob/master/etc/hub.bash_completion.sh>  
+    zsh:<https://github.com/defunkt/hub/blob/master/etc/hub.zsh_completion>  
+    将正在使用的shell与相应脚本组合可让hub命令更易用，在某些安装方法会自动安装。  
+    <font color='orange'>不知道怎么组合，也不知道怎么样的更易用，还不知道有没有自动安装。</font>  
+
+#### 命令
+* hub help
+    ```
+    $ hub help
+    ```
+    查看hub命令的相关帮助。  
+
+* hub fork
+    在clone过来的本地仓库中使用此命令，相当于在GitHub上Fork了此仓库。  
+    执行完毕后，Fork出的仓库会被设置为当前本地仓库的远程仓库（以用户名为标识符）。  
+
+* hub pull-request
+    可通过命令行创建Pull Request。  
+    ```
+    $ hub pull-request -b 接收方用户名:接收分支名 -h 发送方用户名:发送分支名
+    ```
+    执行命令后会启动编辑器，第一行写标题，空一行第三行正文。  
+    >例：
+    >```
+    >$ hub pull-request -b github-book:master -h hirocaster:index5-draft
+    >```
+    >从hirocaster的index5-draft分支向github-book的master分支发送Pull Request。  
+
+    如果要发送Pull Request的分支是已存在的Issue的作业内容，可直接将Issue作为Pull Request发送。  
+    ```
+    $ hub pull-request -i Issue编号数字 -b 接收方用户名:接收分支名 -h 发送方用户名:发送分支名
+    ```
+    >例：
+    >index5-draft的作业内容是已创建的Issue#123的作业内容。  
+    >```
+    >$ hub pull-request -i 123 -b github-book:master -h hirocaster:index5-draft
+    >```
+
+* hub create
+    适用于本地已创建仓库但GitHub上没创建仓库的情况。  
+    使用此命令会在GitHub上创建一个同名仓库。  
+
+* hub browse
+    可在浏览器中打开当前操作的仓库在GitHub上的页面。  
+    可用别的等效命令。
+    ```
+    $ open https://github.com/用户名/仓库名
+    ```
+
+* hub compare
+    可在GitHub上查看当前分支与master分支的差别。  
+    查看的是GitHub端仓库的差别。  
+
+* hub clone
+    可以只指定仓库名或用户名/仓库名。  
+    >例：
+    >```
+    >$ hub clone Hello-World
+    >$ hub clone octocat/Hello-World
+    >```
+
+* hub push
+    此命令支持同时向多个远程仓库进行push操作。  
+    仓库名之间用逗号隔开。  
+    ```
+    $ hub push origin, staging, qa
+    ```
+
+
+
+
 
 
 
