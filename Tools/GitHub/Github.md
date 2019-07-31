@@ -557,6 +557,8 @@ $ git merge upstream/master
     配置文件名：`.coveralls.yml`，将此文件放入仓库路径。  
     repo_token 可在仓库的配置文件解说界面找到。  
 
+### Gemnasium
+可以查询GitHub仓库中软件正在使用的RubyGems或npm是否是最新版本。  
 
 
 
