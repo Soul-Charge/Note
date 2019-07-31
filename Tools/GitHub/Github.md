@@ -567,6 +567,89 @@ $ git merge upstream/master
 ### Coderwall
 可以根据GItHub的仓库信息为开发者免费生成个人信息。  
 
+## 使用GitHub的开发流程
+### GitHub Flow——以部署为中心的开发模式
+部署：在正式环境中配置源代码并试运行。  
+
+### GitHub Flow 的流程
+1.令master分支时常保持可部署的状态。  
+2.进行新的作业时要从master分支创建新分支，新分支名称要具有描述性。  
+3.在`2.`新建的本地仓库分支中进行提交。  
+4.在GitHub端仓库创建同名分支，定期push。  
+5.需要帮助或反馈时创建Pull Request，以Pull Request进行交流。  
+6.让其他开发者进行审查，确认完作业后与master分支合并。  
+7.与master分支合并后立刻部署。  
+
+* 关于创建新分支和提交
+    应明确在分支中应该做的，不能在分支中做无关的修改。  
+    应减小提交的规模，使每一次提交清晰。  
+
+* 让其他开发者审查
+    通过自动测试后让其他开发者进行审查。  
+    认为可以合并会发`:+1:`或`:shipit:`等表情或`LGTM`(Looks good to me)。  
+
+### 实践GitHub Flow的前提条件
+* 部署作业完全自动化
+    * 使用部署工具
+        | 名称 | URL | 备注 |
+        | ----- | --- | ------ |
+        | Capistrano | <https://github.com/capistrano/capistrano> | Ruby开发的代表性部署工具 |
+        | Mina          | <https://github.com/nadarei/mina>             | Ruby开发的部署工具 |
+        | Fabric         | <http://fabfile.org/>                                    | Python开发的部署工具 |
+        | Cinnamon   | <https://github.com/kentaro/cinnamon>    | Perl开发的部署工具 |
+        | Webistrano | <https://github.com/kentaro/webistrano>   | 可通过Web执行Capistrano的工具 |
+        | Strano         | <https://github.com/joelmoss/strano>        | 同上，中间件不同 |
+
+    * 导入开发时的注意事项
+        实施部署时通过工具上锁，通知团队。防止一个部署还没完成就开始下一个。  
+
+* 重视测试
+    * 测试自动化
+        <font color='orange'>指的是本地测试？</font>
+    * 编写测试代码，通过全部测试
+        成品代码的Pull Request要包含测试代码且全部通过。  
+        本地代码通过所有测试后，push到远程仓库通过CI工具自动测试。  
+        先写测试代码再写实现。  
+    * 维护测试代码
+
+### GitHub Flow 的建议
+* 减小Pull Request的体积
+
+* 准备可供试运行的环境
+    如果分支中包含对系统有重大影响的关键性修改，最好先将其部署到预演环境部署。  
+
+* 不让Pull Request中有太多反馈
+    交流不足就通过其他手段交流，技术或能力问题就先制定好规则。  
+
+* 不要积攒Pull Request
+
+
+
+
+
+
+
+### 版本号分配规则
+* 格式：x.y.z
+* x：重大功能变更或新版本不向下兼容时，加1，y与z归0
+* y：添加新功能或删除已有功能时加1，z归0
+* z：只在进行内部修改后加1
+>例
+>* 1.0.0：最初发布版本
+>* 1.0.1：修正了轻微BUG
+>* 1.0.2：修复漏洞
+>* 1.1.0：添加新功能
+>* 2.0.0：更新整体UI并添加新功能
+
+
+
+
+
+
+
+
+
+
 
 
 
