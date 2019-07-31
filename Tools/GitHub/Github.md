@@ -536,6 +536,10 @@ $ git merge upstream/master
         [![Build Status](https://secure.travis-ci.org/用户名/仓库名.png)](http://travis-ci.org/用户名/仓库名)
         ```
 
+### Jenkins
+代表性的持续集成服务器，可以自动测试。  
+将Jenkins与GitHub集成，并将Pull Request设置为触发器，可自动测试并将结果发送至GitHub的Pull Request页面。  
+<font color='orange'>感觉暂时用不上，先挂起好了。</font>  
 
 
 
