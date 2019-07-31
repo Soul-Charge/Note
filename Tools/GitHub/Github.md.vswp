@@ -561,6 +561,16 @@ $ git merge upstream/master
 ### Gemnasium
 可以查询GitHub仓库中软件正在使用的RubyGems或npm是否是最新版本。  
 
+### Code Climate
+代码分析报告服务，可以查出质量有问题的代码，同时可给软件评级。  
+收费服务，有14天试用。  
+
+### Coderwall
+可以根据GItHub的仓库信息为开发者免费生成个人信息。  
+
+
+
+
 
 
 
