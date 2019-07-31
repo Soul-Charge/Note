@@ -541,8 +541,21 @@ $ git merge upstream/master
 将Jenkins与GitHub集成，并将Pull Request设置为触发器，可自动测试并将结果发送至GitHub的Pull Request页面。  
 <font color='orange'>感觉暂时用不上，先挂起好了。</font>  
 
+### Coveralls
+借助Travis CI或Jenkins等持续集成服务器，报告自动测试的测试覆盖率。  
+[官方网站的相关文档](https://coveralls.io/docs)  
+使用前提条件：源代码保存在GitHub上，已经集成了Travis CI 或 Jenkins等服务。  
 
+* 注册
+    进入[主页](https://coveralls.io/)点击注册使用GitHub注册账户。  
 
+* 添加对象仓库
+    点击`ADD REPO`将仓库名左边的开关设置为ON。  
+
+* 编写配置文件
+    在coveralls里查看仓库有配置文件解说。  
+    配置文件名：`.coveralls.yml`，将此文件放入仓库路径。  
+    repo_token 可在仓库的配置文件解说界面找到。  
 
 
 
