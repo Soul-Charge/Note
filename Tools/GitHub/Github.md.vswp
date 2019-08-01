@@ -740,7 +740,7 @@ Release 1.0.0
 master分支添加标签后的状态：  
 ![master after tag](_v_images/20190801134731549_27112.jpg =310x)
 
-**将release合并至develop分支。  
+**将release合并至develop分支。**  
 ```
 $ git flow release finish '1.0.0'
 ```
