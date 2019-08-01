@@ -624,6 +624,150 @@ $ git merge upstream/master
 * 不要积攒Pull Request
 
 
+### Git Flow——以发布为中心的开发模式
+#### 流程
+1.从开发版分支(develop)创建工作分支(feature branches)，进行功能的实现或修正。  
+2.工作分支的修改结束后，与开发版分支合并。
+3.重复`1`和`2`直至可以发布。
+4.创建用于发布的分支(release branches)，处理发布的各项工作。
+5.发布完成后与master分支合并，打上版本标签(Tag)进行发布。
+6.如果发布的版本出现BUG，以打了标签的版本为基础进行修正(hotfix)。
+![git-model](_v_images/20190801083938182_9239.png =500x)
+
+#### 前期准备
+* 安装git-flow
+    ```
+    $ git flow
+    ```
+    可运行即可。  
+
+* 仓库的初始设置
+    1.GitHub上新建仓库并clone到本地。  
+    2.`git flow init -d`默认方式初始化，会自动创建develop分支。  
+    3.将develop分支push上去`git push -u origin develop`  
+    <font style='background:yellow'>caution:对分支进行任何操作前必须先执行`pull`获取最新代码。  </font>  
+
+#### 详细内容
+##### master分支与develop分支
+贯彻开发流程的两分支，不会被删除。  
+
+* master 分支
+    保存着软件可以正常运行的状态，不能直接对其进行修改。  
+    其他分支进展到可以发布的程度后，将与master分支进行合并。(只在发布成品时合并，且附带包含版本号的Git标签)  
+
+* develop 分支
+    不能直接进行修改。  
+    以develop分支为起点新建feature分支并在其中进行修改。  
+
+##### 在feature分支中进行的工作
+###### 1.从develop分支创建feature分支
+先确保develop分支为最新状态。  
+创建feature分支。  
+```
+$ git flow feature start add-user(分支名)
+```
+![built feature](_v_images/20190801094649905_15472.jpg =200x)
+
+###### 2.在feature分支中实现目标功能
+![working in feature branchs](_v_images/20190801094325108_24941.jpg =200x)
+
+###### 3.通过GItHub向develop分支发送Pull Request
+先确保develop和feature分支都为最新状态，然后push本地feature分支。  
+在GitHub页面从feature分支发送Pull Request。  
+确保合并对象正确。  
+![merge](_v_images/20190801130159201_12675.jpg =300x)
+
+>设置默认分支
+>可在仓库的`Settings/Default Branch`将默认分支设置为develop
+
+###### 4.接受审查后，将Pull Request合并至develop分支
+* 流程
+    1.由其他开发者进行审查，在Pull Request中反馈。
+    2.修正代码反映反馈内容(在本地feature/add-user分支中)。
+    3.将feature/add-user分支push到远程仓库(会自动添加到之前的Pull Request)。
+    4.重复前三步，没有问题后将分支合并到develop分支。
+
+* 反馈要点
+    * 没测试或测试不通过
+    * 违反编码规则
+    * 代码品质过低（方法不明确，方法冗长等）
+    * 还有重构的余地
+    * 有重复部分
+
+![After PR](_v_images/20190801131928810_16994.jpg =200x)
+
+###### 5.更新本地develop分支
+Pull Request 在GitHub端与develop合并后，要更新本地的develop分支。  
+
+##### 在release分支中进行的工作
+发布所需的工作完成后开始分配版本号进行发布，今后此版本只做BUG修复。  
+###### 1.创建分支
+在最新的develop分支下开始release分支。  
+```
+$ git checkout develop
+$ git pull
+$ git flow release start '1.0.0'(版本)
+```
+创建后的情况：  
+![start release](_v_images/20190801132745819_30769.jpg =300x)
+
+###### 2.分支内的工作
+只处理与发布前准备相关的提交。  
+>版本编号变更等元数据的添加
+相关BUG的修正也添加到此分支。  
+
+###### 3.进行发布与合并
+**发布**
+修正完成后结束分支。  
+```
+$ git flow release finish '1.0.0'
+```
+release发布结束后的状态。  
+![After release finish](_v_images/20190801133631819_13167.jpg =300x)
+
+**合并**
+之后release分支与master分支合并，没有需要特别声明的事项直接保存默认状态关闭编辑器。  
+合并后的master分支会加入一个与版本号相同编号的标签，输入这一版本的相关提交信息。  
+```
+Release 1.0.0
+#
+# Write a tag massage
+# Lines starting with '#' will be ignored.
+#
+```
+<font color='orange'>这里没有试过，不是很清楚。</font>  
+master分支添加标签后的状态：  
+![master after tag](_v_images/20190801134731549_27112.jpg =310x)
+
+**将release合并至develop分支。  
+```
+$ git flow release finish '1.0.0'
+```
+合并后的状态：  
+![merge release with develop](_v_images/20190801152747474_21333.jpg =320x)
+
+**查看版本标签**
+前面的操作创建了与发布版本号相同的Git标签，通过这个标签可回溯到此版本。  
+```
+$ git tag
+```
+
+###### 4.更新到远程仓库
+将develop分支和master分支push到远程仓库，再push标签信息。  
+```
+$ git push --tags
+```
+
+##### 在hotfix分支中进行的工作
+只有在当前发布的版本中出现BUG或漏洞，且严重程度要求开发方必须立即处理，无法等到下一个版本发布时才被创建的分支。  
+
+
+
+
+
+
+
+
 
 
 
