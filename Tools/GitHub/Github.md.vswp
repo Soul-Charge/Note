@@ -761,11 +761,31 @@ $ git push --tags
 
 ##### 在hotfix分支中进行的工作
 只有在当前发布的版本中出现BUG或漏洞，且严重程度要求开发方必须立即处理，无法等到下一个版本发布时才被创建的分支。  
+hotfix分支以发布版本的标签或master分支为起点。  
+###### 1.创建分支和进行修改
+确保本地仓库的标签号最新。  
+```
+$ git fetch origin
+```
+以最新标签号为起点创建新版本分支。  
+```
+$ git flow hotfix start '1.0.1'(新版本) '1.0.0'(旧版本)
+```
+新分支为`hotfix/1.0.1`，在此分支进行修改。  
+修改完成后push到远程仓库在向master分支发送Pull Request。  
 
+###### 2.创建标签和进行发布
+master分支已合并了hotfix分支的Pull Request后，在GitHub端创建新标签。  
+位置：`repository/release`  
+点击`Draft a new release`，在`Tag version`中输入hotfix分支新建的标签名(这里是1.0.1)。  
+点击`Publish release`完成创建标签。  
 
-
-
-
+###### 3.从hotfix分支合并至develop分支
+在GItHub端从hotfix分支向develop分支发送Pull Request，进过审查后合并。  
+如果合并后develop分支出现异常应在合并后在develop分支中修改。  
+hotfix分支只对master分支进行最少的修改。  
+目前状态(部分)：  
+![hotfix status after merge](_v_images/20190801211426606_8318.jpg =300x)
 
 
 
