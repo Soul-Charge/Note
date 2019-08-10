@@ -125,7 +125,7 @@
         >- [ ]  Running at least 30 minutes.
         >```
         >将显示为
-        >![tasklist](_v_images/20190724202207152_7615.jpg =300x)
+        >![tasklist](_v_images/20190724202207152_7615.jpg)
 
 * 添加标签
     open Issue后可给Issue添加标签(Label)。  
@@ -138,7 +138,7 @@
     2.然后回到Issue->Milestones的界面点击创建的里程碑，
     点击`New issue`创建里程碑里的Issue。
     3.或者在`Create new issue`下方点击蓝色链接将未加入里程碑的Issue加入里程碑。
-![milestone_add_issue](_v_images/20190723222934603_903.jpg =450x)
+![milestone_add_issue](_v_images/20190723222934603_903.jpg)
 
 * 通过提交信息操作Issue
     * 将提交与Issue关联
@@ -190,7 +190,7 @@ Wiki的Git仓库URL：git@github.com:用户名/仓库名.wiki.git
     >* [API Reference](http://onevcat.github.io/Kingfisher/)
     >```
     >效果：
-    >![sidebar](_v_images/20190725115606912_23888.jpg =200x)
+    >![sidebar](_v_images/20190725115606912_23888.jpg)
 
 #### Pulse
 Insights->Pulse  
@@ -591,14 +591,15 @@ $ git merge upstream/master
 ### 实践GitHub Flow的前提条件
 * 部署作业完全自动化
     * 使用部署工具
-        | 名称 | URL | 备注 |
-        | ----- | --- | ------ |
-        | Capistrano | <https://github.com/capistrano/capistrano> | Ruby开发的代表性部署工具 |
-        | Mina          | <https://github.com/nadarei/mina>             | Ruby开发的部署工具 |
-        | Fabric         | <http://fabfile.org/>                                    | Python开发的部署工具 |
-        | Cinnamon   | <https://github.com/kentaro/cinnamon>    | Perl开发的部署工具 |
-        | Webistrano | <https://github.com/kentaro/webistrano>   | 可通过Web执行Capistrano的工具 |
-        | Strano         | <https://github.com/joelmoss/strano>        | 同上，中间件不同 |
+    
+        |    名称    |                    URL                     |             备注             |
+        | ---------- | ------------------------------------------ | --------------------------- |
+        | Capistrano | <https://github.com/capistrano/capistrano> | Ruby开发的代表性部署工具      |
+        | Mina       | <https://github.com/nadarei/mina>          | Ruby开发的部署工具            |
+        | Fabric     | <http://fabfile.org/>                      | Python开发的部署工具          |
+        | Cinnamon   | <https://github.com/kentaro/cinnamon>      | Perl开发的部署工具            |
+        | Webistrano | <https://github.com/kentaro/webistrano>    | 可通过Web执行Capistrano的工具 |
+        | Strano     | <https://github.com/joelmoss/strano>       | 同上，中间件不同              |
 
     * 导入开发时的注意事项
         实施部署时通过工具上锁，通知团队。防止一个部署还没完成就开始下一个。  
@@ -632,7 +633,7 @@ $ git merge upstream/master
 4.创建用于发布的分支(release branches)，处理发布的各项工作。
 5.发布完成后与master分支合并，打上版本标签(Tag)进行发布。
 6.如果发布的版本出现BUG，以打了标签的版本为基础进行修正(hotfix)。
-![git-model](_v_images/20190801083938182_9239.png =500x)
+![20190801083938182_9239](_v_images/20190810135318718_8356.png)
 
 #### 前期准备
 * 安装git-flow
@@ -666,16 +667,16 @@ $ git merge upstream/master
 ```
 $ git flow feature start add-user(分支名)
 ```
-![built feature](_v_images/20190801094649905_15472.jpg =200x)
+![built feature](_v_images/20190801094649905_15472.jpg)
 
 ###### 2.在feature分支中实现目标功能
-![working in feature branchs](_v_images/20190801094325108_24941.jpg =200x)
+![working in feature branchs](_v_images/20190801094325108_24941.jpg)
 
 ###### 3.通过GItHub向develop分支发送Pull Request
 先确保develop和feature分支都为最新状态，然后push本地feature分支。  
 在GitHub页面从feature分支发送Pull Request。  
 确保合并对象正确。  
-![merge](_v_images/20190801130159201_12675.jpg =300x)
+![merge](_v_images/20190801130159201_12675.jpg)
 
 >设置默认分支
 >可在仓库的`Settings/Default Branch`将默认分支设置为develop
@@ -694,7 +695,7 @@ $ git flow feature start add-user(分支名)
     * 还有重构的余地
     * 有重复部分
 
-![After PR](_v_images/20190801131928810_16994.jpg =200x)
+![After PR](_v_images/20190801131928810_16994.jpg)
 
 ###### 5.更新本地develop分支
 Pull Request 在GitHub端与develop合并后，要更新本地的develop分支。  
@@ -709,7 +710,7 @@ $ git pull
 $ git flow release start '1.0.0'(版本)
 ```
 创建后的情况：  
-![start release](_v_images/20190801132745819_30769.jpg =300x)
+![start release](_v_images/20190801132745819_30769.jpg)
 
 ###### 2.分支内的工作
 只处理与发布前准备相关的提交。  
@@ -723,7 +724,7 @@ $ git flow release start '1.0.0'(版本)
 $ git flow release finish '1.0.0'
 ```
 release发布结束后的状态。  
-![After release finish](_v_images/20190801133631819_13167.jpg =300x)
+![After release finish](_v_images/20190801133631819_13167.jpg)
 
 **合并**
 之后release分支与master分支合并，没有需要特别声明的事项直接保存默认状态关闭编辑器。  
@@ -737,14 +738,14 @@ Release 1.0.0
 ```
 <font color='orange'>这里没有试过，不是很清楚。</font>  
 master分支添加标签后的状态：  
-![master after tag](_v_images/20190801134731549_27112.jpg =310x)
+![master after tag](_v_images/20190801134731549_27112.jpg)
 
 **将release合并至develop分支。**  
 ```
 $ git flow release finish '1.0.0'
 ```
 合并后的状态：  
-![merge release with develop](_v_images/20190801152747474_21333.jpg =320x)
+![merge release with develop](_v_images/20190801152747474_21333.jpg)
 
 **查看版本标签**
 前面的操作创建了与发布版本号相同的Git标签，通过这个标签可回溯到此版本。  
@@ -784,7 +785,7 @@ master分支已合并了hotfix分支的Pull Request后，在GitHub端创建新�
 如果合并后develop分支出现异常应在合并后在develop分支中修改。  
 hotfix分支只对master分支进行最少的修改。  
 目前状态(部分)：  
-![hotfix status after merge](_v_images/20190801211426606_8318.jpg =300x)
+![hotfix status after merge](_v_images/20190801211426606_8318.jpg)
 
 ### 版本号分配规则
 * 格式：x.y.z
