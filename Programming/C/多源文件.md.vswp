@@ -1,0 +1,77 @@
+vnote_backup_file_826537664 D:/other/VNote/Note/Programming/C/多源文件.md
+# 多源文件
+## 多源文件编译(gcc)
+编译时把文件加入，之间用空格隔开。  
+```
+gcc file1.c file2.c ...
+```
+
+## 加快编译速度
+编译过程：源文件->目标代码文件->二进制文件  
+先生成目标代码文件，修改后在生成修改过的源文件的目标代码文件，避免编译没有修改的文件。  
+1.生成目标文件。  
+```
+gcc -c *.c
+//使用通配符将当前目录下的所有源文件编译
+```
+2.链接目标文件。  
+```
+gcc *.o -o launch
+和普通编译的方法一样，使用-o选项可改变生成文件名
+```
+3.编译修改过的源文件，之后链接所有目标文件。
+```
+gcc -c modified.c
+gcc *.o -o launch
+```
+
+### make工具
+make会检查源文件和目标文件的时间戳，如果目标文件过期则会重新编译。  
+
+#### 使用make
+创建一个`makefile`或`Makefile`文件，并在里面描述依赖项和生成方法。  
+然后使用make命令自动构建。  
+```
+$ make 生成文件
+```
+
+`makefile`内的设置。  
+```
+目标(希望生成的文件): 依赖项(生成该文件需要的文件)
+    生成方法
+```
+<font style='background:yellow'>生成方法要以tab键开头，用空格缩进不行</font>
+一个目标和生成方法成一个规则。  <font color='orange'>猜的，看例子应该是这样。</font>
+<font color='green'>*//每个规则的顺序需要考虑。*</font>
+<font color='green'>*//主要就是某些文件的生成依赖项可能是别的需要生成的文件，*</font>
+<font color='green'>*//具体看下面的例子：.o文件的规则在二进制文件前。*</font>
+
+>例：源文件:file_a.c file_b.c file_c.h 生成文件:test.exe
+>```
+>file_a.o: file_a.c file_c.h
+>    gcc -c file_a.c
+>
+>file_b.o: file_b.c file_c.h
+>    gcc -c file_b.c
+>
+>test.exe: file_a.o file_b.o
+>    gcc file_a.o file_.o
+> ```
+> ```
+> $ make test.exe
+> ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

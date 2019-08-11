@@ -8,6 +8,9 @@
     "sub_directories": [
         {
             "name": "Shell script"
+        },
+        {
+            "name": "C"
         }
     ],
     "tags": [
