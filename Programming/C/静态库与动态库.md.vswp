@@ -1,0 +1,103 @@
+vnote_backup_file_826537664 D:/other/VNote/Note/Programming/C/静态库与动态库.md
+# 静态库与动态库
+## #include的包含位置
+### #include <...>
+表示标准头文件目录。  
+
+#### 类UNIX系统
+第三方库的头文件：`/usr/local/include`  
+操作系统的头文件：`/usr/include`  
+
+#### windows
+MinGW版的gcc：`C:\MinGW\include`  
+
+### #include "..."
+表示本地(当前)目录。  
+
+## 共享代码
+### 头文件
+#### 1.把头文件保存在标准目录
+##### 类UNIX
+第三方库的头文件：`/usr/local/include`  
+操作系统的头文件：`/usr/include`  
+
+##### Windows
+MinGW版的gcc：`C:\MinGW\include`  
+
+#### 2.使用完整路径名
+```c
+#include "路径"
+```
+>例：头文件路径：`/my_header_files`
+>```c
+>#include "/my_header_files`
+>```
+
+#### 3.告诉编译器头文件位置
+使用gcc的`-I`选项。  
+```
+gcc -I/目录 要编译的文件 ...
+```
+>例：头文件路径：`/my_header_files`
+>```
+>gcc -I/my_header_files test_code.c
+>```
+
+### 目标文件
+#### 使用完整路径名
+>例：
+>```
+>gcc -I/my_header_files test_code.c /my_object_files/encrypt.o -o test_code
+>```
+
+#### 使用存档——静态库
+使用存档把目标文件打包到一起。  
+
+##### 创建存档
+存档命名：`libXXX.a`  
+```
+ar -rcs 要创建的.a文件名 要保存在存档中的文件，文件之间用空格隔开
+```
+
+##### 查看存档内容
+```
+nm libXXX.a(存档名)
+```
+显示内容中如果某个名字前出现了`T`，说明他是某个函数名。  
+使用`ar -t 文件名`以查看存档中的目标文件。  
+
+##### 从存档中提取
+```
+ar -x(这里有没有空格不知道)完整存档名 要提取的文件名
+```
+
+##### 保存存档
+###### 保存到标准目录
+本地自定义库：`/usr/local/lib`  
+
+###### 保存到其他目录
+随便保存到哪都行了。  
+
+##### 使用存档编译
+```
+/* 保存在标准目录时 */
+gcc 要编译的文件 -l存档名(去除lib和.a)
+```
+>例：存档名：libawesome.a
+>gcc test.c -lawesome -o test
+```
+/* 保存在其他目录时，需要用-l选项 */
+gcc 要编译的文件 -L/路径 -I存档名(去除lib和.a)
+```
+>例：存档名：libawesome.a，存档路径：/mylib
+>gcc test.c -L/mylib -lawesome -o test
+
+
+
+
+
+
+
+
+
+
