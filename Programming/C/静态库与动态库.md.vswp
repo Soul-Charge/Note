@@ -114,10 +114,38 @@ gcc -shared 目标文件 -o 动态库名
 >libhfcal.so中记录的库名：hfcal
 
 ##### 使用动态库编译
+和存档的用法相同。  
+```
+/* 保存在其他目录时，需要用-l选项 */
+gcc 要编译的文件 -L/路径 -I存档名(去除lib和.a)
+```
 
+##### 运行使用动态库编译的程序
+###### Mac
+可以直接运行程序，因为动态库的完整路径保存在程序中。  
 
+###### Linux
+和大部分Unix一样，在程序中只记录动态库名。  
+只有动态库在标准目录时才可直接运行程序，否则需要设置环境变量。  
+设置LD_LIBRARY_PATH:  
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:(动态库路径)
+```
 
+###### Windows
+会现在当前目录下查找，没找到就去PATH变量中的目录查找。  
 
+* Cygwin
+    在Bash Shell中。  
+    ```
+    PATH="$PATH:(动态库路径)"
+    ```
 
+* MinGW
+    命令提示符中。  
+    ```
+    PATH="%PATH%:C:\libs(路径)"
+    ```
 
+<font color='orange'>从使用上看不出与静态库的差别。</font>  
 
