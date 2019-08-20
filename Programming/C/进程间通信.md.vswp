@@ -103,7 +103,10 @@ get_input < input.txt
 >|  4  |        guitar.mp3文件        |
 >| 略  |              略              |
 
-
+##### 使用相关
+对标准输出重定向后，使用标准输出的函数输出内容将在文件头部开始添加内容。  
+<font color='green'>*//输出内容的顺序不会变，只是整体都在原内容前*</font>
+<font color='orange'>还会把原内容删掉？</font>
 
 
 
