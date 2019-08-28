@@ -1,0 +1,15 @@
+vnote_backup_file_826537664 D:/other/VNote/Note/Computing/Windows/实现一些功能的方法.md
+# 实现一些功能的方法
+## 判断按键是否按下
+用GetAsyncKeyState()定义一个宏，再把按键宏传入。  
+按键宏可在WinUser.h中查看。  
+
+```c
+#define KEY_DOWN(vk_c)(GetAsyncKeyState(vk_c)&0x8000)
+```
+```c
+if (KEY_DOWN(VK_RETURN))
+{
+    /* 回车键按下 */
+}
+```
