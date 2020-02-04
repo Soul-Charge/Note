@@ -1,5 +1,6 @@
 # CentOS 7 使用vsftpd 安装ftp 服务
-[参考内容](https://blog.51cto.com/andyxu/2168875)
+[参考内容1](https://blog.51cto.com/andyxu/2168875)
+[参考内容2](https://www.cnblogs.com/haiyabtx/p/10762745.html)
 
 ## 关于vsftpd
 
@@ -15,8 +16,7 @@
 ### 配置文件的参数和作用
 
 <font color="green">/* *引用51CTO博客 xuad88的表格* */</font>
-![watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=](_v_images/20200204092858656_17289.png)
-
+![表格](https://s1.51cto.com/images/blog/201809/01/a494619d4854f119174ae0103e681bef.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=)
 ## 安装流程
 
 <font color="green">/* *项目的链接待会发到github再搞* */</font>
@@ -32,7 +32,7 @@ graph LR
     global --> local
     global --> virtual
 
-    click global "https://www.baidu.com" "test"
+    click global "https://github.com/Soul-Charge/Note/blob/master/Tools/ftp/ftp%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85.md#%E6%B5%81%E7%A8%8B%E7%BB%86%E8%8A%82"
 ```
 
 ## 流程细节
