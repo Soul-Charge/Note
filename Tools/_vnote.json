@@ -11,6 +11,9 @@
         },
         {
             "name": "ftp"
+        },
+        {
+            "name": "Regular Expression"
         }
     ],
     "tags": [
