@@ -8,6 +8,9 @@
     "sub_directories": [
         {
             "name": "Temp"
+        },
+        {
+            "name": "Calculation"
         }
     ],
     "tags": [
