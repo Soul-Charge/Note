@@ -14,6 +14,9 @@
         },
         {
             "name": "Temp"
+        },
+        {
+            "name": "Schedule"
         }
     ],
     "tags": [
