@@ -2,7 +2,7 @@
 
 ## 运算符
 
-## +
+### +
 
 当其中一个操作数是字符串时表示字符串拼接，否则表示加法运算
 计算顺序：从左到右
@@ -35,12 +35,161 @@ alert('220 + 230 = ' + (220 + 230));
 
 可以连接两个字符串判断字符串是否相等
 
+## 数据类型
+
+### 基本数据类型
+
+#### 布尔型(Boolean)
+
+只有`true`和`false`两个值  
+<span style="color:green">貌似不能用1和0来表示真假</span>  
+
+```javascript
+var flag1 = true;
+var flag2 = false;
+```
+
+#### 数值型(Number)
+
+不区分整数和浮点数，支持八、十六进制和科学计数法表示，也可以设置为`NaN`表示非数值
+
+```javascript
+var oct = 032;        // 八进制值26
+var hex = 0x1a;       // 十六进制值26
+var fnum1 = 3.16E6;   // 3.16*10^6
+var fnum2 = 8.96E-6;  // 8.96*10^-6
+```
+
+**关于NaN**:
+> JS中NaN是一个全局对象的属性，初始值就是`NaN`，其没有一个确定值，`NaN`不一定等于`NaN`
+> <span style="color:green">试了一下`NaN == NaN`全是`false`</span>
+
+#### 字符(串)型(String)
+
+可以用`'...'`或`"..."`作为字符串标注，两者区别在于对内部对引号的解析
+> 双引号内的单引号可以直接使用`"...'...'..."`
+> 单引号内的双引号可以直接使用`'..."..."...'`
+> 但如果在双引号内使用双引号需要反斜杠转义，单引号内同理
+
+**转义序列**
+<span style="color:green">好像和C一样，不需过多在意</span>
+
+#### 空型(Null)
+
+`null`表示空，表示一个不存在或无效的对象或地址
+
+#### 未定义型(Undefined)
+
+变量未赋值时的初始值`undefined`
+注意`undefined`与`null`和`''`和`0`都不相等
+
+### 复合数据类型
+
+#### 对象(Object)
+
+### 数据类型检测
+
+#### typeof操作符
+
+用法：
+
+```javascript
+typeof 对象
+// 表达式的值为数据类型
+```
+
+> 例：
+> ```javascript
+> var a = 123;
+> alert(typeof a);    // 输出：number
+> alert(typeof '123');// 输出：string
+> ```
+
+#### 对象原型的扩展函数
+
+```javascript
+var data = null;    // 待判断的数据
+var type = 'Null';  // 数据类型，首字母要大写
+Object.prototype.toString.call(data) == '[object ' + type + ']';
+// 返回值：true 或 false
+```
+
+### 数据类型转换
+
+#### 转布尔型
+
+```javascript
+Boolean(对象); // 返回值：true 或 false
+```
+
+> 将非空字符串和非0值转换为`true`，将`空字符串`, `0`, `NaN`, `undefined`, `null`转换为`false`
+
+#### 转数值型
+
+使用下列转换函数，下列函数转换纯数字时会忽略前导0
+> `0123`转换成`123`
+
+|     待转数据      |  Number()   |             parseInt()              | parseFloat() |
+| :--------------: | :---------: | :---------------------------------: | :----------: |
+|       特性        |             | 省略小数部分，第二个参数设置进制(2~36) | 转换为浮点数  |
+|   纯数字字符串    | 转成对应数字 |             转成对应数字             | 转成对应数字  |
+|     空字符串      |      0      |                 NaN                 |     NaN      |
+|  数字开头的字符串  |     NaN     |             转成开头数字             | 转成开头数字  |
+| 非数字开头的字符串 |     NaN     |                 NaN                 |     NaN      |
+|       null       |      0      |                 NaN                 |     NaN      |
+|    undefined     |     NaN     |                 NaN                 |     NaN      |
+|       true       |      0      |                 NaN                 |     NaN      |
+|      false       |      1      |                 NaN                 |     NaN      |
+
+> 转换后进行计算前要判断是否为`NaN`，使用`isNaN()`函数来检测，参数为`NaN`返回`true`
+
+#### 转字符型
+
+##### String()
+
+将任何类型转换为字符串
+
+```javascript
+var num = 12;
+alert(String(num)); // 输出：12
+```
+
+##### toString()
+
+除了`null`和`undefined`以外都可以，括号内接受一个数字参数表示进制
+
+```javascript
+var num = 2;
+alert(num.toString());  // 输出:2
+alert(num.toString(2)); // 输出:10(二进制的2)
+```
+
+### 对象
+
 ## 变量
 
-使用`var`关键字定义变量
+使用`var`关键字定义变量，变量的数据类型根据上下文在运行时决定
+
 ```javascript
 var num1 = 22;
 alert(num1);
+```
+
+> 未初始化的变量默认值为`undefined`
+
+声明变量也可以省略`var`关键字
+```javascript
+flag = false;
+a = 1, b = 2;
+```
+
+### 定义常量
+
+用`const`关键字定义变量并初始化，变量名长常使用全大写
+
+```javascript
+const PI = 3.14
+alert(PI); // 输出：3.14
 ```
 
 ## 函数
