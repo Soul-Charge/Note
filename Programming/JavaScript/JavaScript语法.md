@@ -110,6 +110,17 @@ JS仅能对Number类型的数据进行运算，运算前操作数会被自动转
 > `-9 >>> 2 (base 10): 00111111111111111111111111111101 (base 2) = 1073741821 (base 10)`
 > <span style="color:orange">可是浏览器显示`-9`的二进制是`-1001`啊，难道是省略了前面的吗？</span>
 
+### 逻辑运算符
+
+<span style="background-color:yellow">CAUTION：只有两个操作数都是布尔值时才返回布尔值，否则返回某个操作数的值</span>
+[参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Logical_Operators)  
+
+|       运算符       |       语法       |                               说明                                |
+| ------------------ | ---------------- | ----------------------------------------------------------------- |
+| 逻辑与，AND（`&&`） | `expr1 && expr2` | 若 `expr1` 可转换为 `true`，则返回 `expr2`；否则，返回 `expr1`。     |
+| 逻辑或，OR（`||`）  | `expr1 || expr2` | 若 `expr**1**` 可转换为 `true`，则返回 `expr1`；否则，返回 `expr2`。 |
+| 逻辑非，NOT（`!`）  | `!expr`          | 若 `expr` 可转换为 `true`，则返回 `false`；否则，返回 `true`。       |
+
 ### 运算符优先级
 
 ![javascript运算符优先级](_v_images/20200318202800234_622.png =700x)
