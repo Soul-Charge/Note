@@ -121,6 +121,8 @@ JS仅能对Number类型的数据进行运算，运算前操作数会被自动转
 | 逻辑或，OR（`||`）  | `expr1 || expr2` | 若 `expr**1**` 可转换为 `true`，则返回 `expr1`；否则，返回 `expr2`。 |
 | 逻辑非，NOT（`!`）  | `!expr`          | 若 `expr` 可转换为 `true`，则返回 `false`；否则，返回 `true`。       |
 
+> 除了`false`, `0`, `null`, `''`, `""`, `undefined`, `NaN`以外的都是`true`
+
 ### 运算符优先级
 
 ![javascript运算符优先级](_v_images/20200318202800234_622.png =700x)
@@ -234,6 +236,7 @@ Boolean(对象); // 返回值：true 或 false
 |      false       |      1      |                 NaN                 |     NaN      |
 
 > 转换后进行计算前要判断是否为`NaN`，使用`isNaN()`函数来检测，参数为`NaN`返回`true`
+> <span style="color:orange">parseFloat的转浮点数是什么鬼，不是只有Number类型吗，而且Number()也可以啊</span>
 
 #### 转字符型
 
@@ -258,6 +261,34 @@ alert(num.toString(2)); // 输出:10(二进制的2)
 
 ### 对象
 
+## 流程控制
+
+### 跳转语句
+
+`break`和`continue`可以跳转到指定的标签语句
+<span style="background-color:yellow">CAUTION:只能跳转到其内嵌的标签中</span>[参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/break)
+```javascript
+outer_block:{
+
+  inner_block:{
+    console.log ('1');
+    break outer_block;      // breaks out of both inner_block and outer_block
+    console.log (':-(');    // skipped
+  }
+
+  console.log ('2');        // skipped
+}
+// 下面这个是错误用法
+block_1:{
+  console.log ('1');
+  break block_2;            // SyntaxError: label not found
+}
+
+block_2:{
+  console.log ('2');
+}
+```
+
 ## 变量
 
 使用`var`关键字定义变量，变量的数据类型根据上下文在运行时决定
@@ -266,6 +297,17 @@ alert(num.toString(2)); // 输出:10(二进制的2)
 var num1 = 22;
 alert(num1);
 ```
+
+使用`let`关键字定义一个块级作用域的变量，即变量的作用域只在代码块内({}之间)
+> ```javascript
+> for (let i = 0; i < 10; i++)
+>     continue;
+> console.log(i); //输出：i is not defined
+>
+> for (var i = 0; i < 10; i++)
+>     continue;
+> console.log(i); //输出：10
+> ```
 
 > 未初始化的变量默认值为`undefined`
 
