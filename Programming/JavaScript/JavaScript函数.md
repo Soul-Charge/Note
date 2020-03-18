@@ -14,7 +14,9 @@ alert('Hello World');
 在控制台输出消息
 
 ```javascript
-console.log('Hello World');
+console.log('Hello World'); //输出：Hello World
+// 可以传入多个参数,参数之间自动添加一个空格
+console.log('hello', 'world'); //输出：hello world
 ```
 
 ### document.write()
@@ -24,6 +26,8 @@ console.log('Hello World');
 
 ```javascript
 document.write('<b>Hello World</b>');
+// 可以传入多个参数,参数之间不添加空格
+document.write('hello', 'world'); //输出：helloworld
 ```
 > 注意在单引号内部使用`</script>`需要用`\/`转义，否则会使标签提前结束产生错误
 
