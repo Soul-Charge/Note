@@ -13,7 +13,7 @@
 ### C
 
 1. 重新做一遍*C Primer Plus 5th*的练习题，每天两题
-    **9.5/100+**
+    **9.7/100+**
     > 少说还有100题吧，懒得数还有多少，用`章节.题号`得了
     > [位置](https://github.com/Soul-Charge/C_Primer_Plus_5_Programming_exercises)
 2. 看香蕉地的视频学习
