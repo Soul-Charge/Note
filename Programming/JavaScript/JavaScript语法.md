@@ -164,6 +164,7 @@ var fnum2 = 8.96E-6;  // 8.96*10^-6
 > 双引号内的单引号可以直接使用`"...'...'..."`  
 > 单引号内的双引号可以直接使用`'..."..."...'`  
 > 但如果在双引号内使用双引号需要反斜杠转义，单引号内同理  
+> 空字符串`''` == `0`
 
 **转义序列**
 <span style="color:green">好像和C一样，不需过多在意</span>  
@@ -291,7 +292,9 @@ block_2:{
 
 ## 变量
 
-使用`var`关键字定义变量，变量的数据类型根据上下文在运行时决定
+使用`var`关键字定义变量，变量的数据类型根据上下文在运行时决定  
+变量命名：可以用`$`字符  
+<span style="color:green">C也可以（gcc 7.5.0)</span>
 
 ```javascript
 var num1 = 22;
@@ -337,6 +340,65 @@ function sum(a, b)
 }
 alert(sum(1,2)); // 输出结果：3
 ```
+
+## 数组(Array)
+
+数组最后一个元素后的逗号可以存在
+
+### 创建数组
+
+#### 使用Array对象创建数组
+
+```javascript
+var area = new Array('Beijin', 'Shanghai', 'Shenzhen');
+var score = new Array(1, 2, 50);
+var mix = new Array('abc', 12, 43, null, 'aa', undefined);
+// 空数组
+var emptyArr = new Array(); //括号可省略
+// 指定数组长度的创建,不影响之后为数组添加元素，长度也会随之改变
+var arr = new Array(3);
+console.log(arr);     //输出：(3) [empty x 3]
+```
+
+#### 使用[]创建数组
+
+```javascript
+var area = ['Beijin', 'Shanghai', 'Shenzhen'];
+var score = [1, 2, 50,]; // 最后一个元素的逗号可以存在
+var mix = ['abc', 12, 43, null, 'aa', undefined];
+// 空数组
+var emptyArr = [];
+// 含有空存储位的数组
+var mood = ['sad', , , , 'happy'];
+```
+> 使用[]可以创建有空存储位的数组，而使用Array对象不行
+
+### 数组操作
+
+#### 数组长度操作
+
+```javascript
+var arr1 = [1,2,3];
+var arr2 = [1,,2,3];   //空存储位也会增加长度
+alert(arr1.length);    //输出：3
+alert(arr2.length);    //输出：4
+```
+
+可以给数组的`length`属性赋值来修改数组长度，大于原长会增加空存储位，小于原长会截断丢弃元素
+
+```javascript
+var arr1 = [];
+arr1.length = 5;
+console.log(arr1);     //输出：(5) [empty x 5]
+var arr2 = [1,2,3];
+arr2.length = 4;
+console.log(arr2);     //输出：(4) [1, 2, 3, empty]
+var arr3 = [1, , , ,2];
+console.log(arr3);     //输出：(5) [1, empty x 3, 2]
+arr3.length = 1;
+console.log(arr3);     //输出：[1]
+```
+
 
 ## 对象
 
@@ -400,11 +462,11 @@ alert(stu.name);
 alert(stu.introduce()); //输出：我叫小明，今年18岁
 ```
 
-### 事件
+## 事件
 
 可以被JS侦测到的交互行为，事件发生后可以用JS实现交互效果
 
-#### onclick事件
+### onclick事件
 
 元素被点击时产生
 
