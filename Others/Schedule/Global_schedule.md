@@ -13,7 +13,7 @@
 ### C
 
 1. 重新做一遍*C Primer Plus 5th*的练习题，每天两题
-    **7.4/100+**
+    **9.5/100+**
     > 少说还有100题吧，懒得数还有多少，用`章节.题号`得了
     > [位置](https://github.com/Soul-Charge/C_Primer_Plus_5_Programming_exercises)
 2. 看香蕉地的视频学习
@@ -27,7 +27,8 @@
 
 ### JavaScript
 
-等前两个完成了再说，可能会用HeadFirst的书
+《JavaScript前端开发案例教程》 
+46/
 
 ### OverTheWire:wargames
 
@@ -38,7 +39,7 @@
 ## English
 
 1. 新概念英语3的60课读熟并背诵
-    **13/60**
+    **3/60**
     > 每天至少读个半小时就是了
 2. 新概念英语4
     > 完成了3再说吧，有生之年系列(lll￢ω￢)
