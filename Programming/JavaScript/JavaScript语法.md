@@ -399,6 +399,85 @@ arr3.length = 1;
 console.log(arr3);     //输出：[1]
 ```
 
+#### 访问数组元素
+
+```javascript
+var arr = ['ko', 'no', 'dio', 'da'];
+console.log(arr[3]);    //输出：da
+console.log(arr);       //输出：(4) ["ko", "no", "dio", "da"]
+alert(arr);             //输出：ko,no,dio,da
+```
+
+#### 遍历数组元素
+
+##### for (variable in object) {...} 遍历数组取得索引
+
+```javascript
+var arr = [1,2,3];
+for (var i in arr) { //将数组的索引赋值给变量i
+    alert(arr[i]); //输出：1 2 3(三个弹窗分别显示一个值)
+}
+```
+
+> for ... in 也可以遍历对象
+
+##### for (variable of object) {...} 遍历数组取得元素值(ES6)
+
+```javascript
+var arr = [1,2,3];
+for (var i of arr) { //将数组的元素值赋值给变量i
+    alert(i); //输出：1 2 3(三个弹窗分别显示一个值)
+}
+```
+
+#### 数组元素的添加与修改
+
+直接用数组下标选择元素进行赋值，可以不按数字顺序添加元素，中间未设置的元素会以空存储位的形式存在
+
+```javascript
+var emptyArr = [];
+emptyArr[0] = 1;
+emptyArr[3] = 4;
+emptyArr[5] = 6;
+console.log(emptyArr); //输出：(6) [1, empty × 2, 4, empty, 6]
+emptyArr[0] = 10;
+emptyArr[1] = 11;
+console.log(emptyArr); //输出：(6) [10, 11, empty, 4, empty, 6]
+```
+
+#### 数组元素的删除
+
+使用`delete`关键字将指定元素的值设为空存储位
+```javascript
+var arr = [1, 2, 3];
+delete arr[1];
+console.log(arr);  //输出：(3) [1, empty, 3]
+```
+
+### 解构赋值（ES6)
+
+```javascript
+var arr = [1, 2, 3];
+[a, b, c] = arr;
+console.log(a, b, c);    //输出：1 2 3
+[a, b, c] = [2, 3, 3];
+console.log(a, b, c);    //输出：2 3 3
+[a, b, c] = [2, ,3];
+console.log(a, b, c);    //输出：2 undefined 3
+[a, b, c] = [1, 2, 3, 4];
+console.log(a, b, c);    //输出：1 2 3
+[a, b, c] = [1, 2];
+console.log(a, b, c);    //输出：1 2 undefined
+```
+
+使用解构赋值的方式交换两个变量的值
+
+```javascript
+var val1 = 2;
+var val2 = 3;
+[val1, val2] = [val2, val1];
+console.log(val1, val2);
+```
 
 ## 对象
 
