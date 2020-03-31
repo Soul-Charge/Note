@@ -555,7 +555,7 @@ console.log([[4, 5], [1, 2]].toString());       //输出:4,5,1,2
 
 > 只有`slice()`和`concat()`会返回新数组而不修改原数组
 
-##### fill()
+##### `fill()`
 
 ```javascript
 var arr = [1, 9, , 5, 6];
@@ -566,7 +566,7 @@ console.log(arr);    //输出：(5) [1, 1, 1, 1, 1]
 
 > 后两个位置参数指定的值大于末尾索引则表示数组末尾，其他情况同splice()中的位置指示参数
 
-##### splice()
+##### `splice()`
 
 ```javascript
 var arr = ['a', 'b', 'c', 'd'];
@@ -583,7 +583,7 @@ console.log(arr);         //输出：(5) ["e", "bye", "f", "a", "b"]
 
 > 第一个参数大于等于数组长度则从数组末尾开始操作，若为负数则表示数组长度加上该值的位置，若仍为负数则从开头操作。
 
-##### concat()
+##### `concat()`
 
 ```javascript
 var arr = [1, 2, 3];
