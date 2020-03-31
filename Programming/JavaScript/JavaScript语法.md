@@ -329,17 +329,6 @@ const PI = 3.14
 alert(PI); // 输出：3.14
 ```
 
-## 函数
-
-### 自定函数
-
-```javascript
-function sum(a, b)
-{
-    return a + b;
-}
-alert(sum(1,2)); // 输出结果：3
-```
 
 ## 数组(Array)
 
@@ -590,6 +579,67 @@ var arr = [1, 2, 3];
 var arr2 = ['a', 'b'];
 console.log(arr);                        //输出： (3) [1, 2, 3]
 console.log(arr.concat(8, 9, 10, arr2)); //输出：(10) [1, 2, 3, 8, 9, 10, "a", "b"]
+```
+
+## 函数
+
+### 自定函数
+
+```javascript
+function sum(a, b)
+{
+    return a + b;
+}
+alert(sum(1,2)); // 输出结果：3
+```
+
+> 函数名命名规则与变量相同
+
+#### 设置形参
+
+##### 形参默认值(ES6)
+
+```javascript
+function greet(name, say = "Hi, I'm ")
+{
+    alert(say + name);
+}
+// 没有传入第二个参数时将使用默认值
+```
+
+##### 可变参数
+
+###### 参数列表留空使用arguments数组
+
+```javascript
+function transferParam()
+{
+    console.log(arguments.length);
+    console.log(arguments);
+    for (let i in arguments)
+      alert(arguments[i]);
+}
+transferParam(1, 2, 'a');
+//输出
+//3
+//Temp.html:12 Arguments(3) [1, 2, "a", callee: ƒ, Symbol(Symbol.iterator): ƒ]
+//3个alert()弹窗，值分别为1 2 a
+```
+
+###### 剩余参数(ES6)
+
+创建一个`...变量名`的形参用于接收剩余参数  
+
+```javascript
+function transferParam(argv1, ...argvs)
+{
+    console.log(argv1); //输出第一个参数
+    console.log(argvs); //输出剩余接收到的参数
+}
+transferParam(1, 2, 'a');
+//输出
+//1
+//Temp.html:12 (2) [2, "a"]
 ```
 
 ## 对象
