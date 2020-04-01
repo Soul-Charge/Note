@@ -606,6 +606,7 @@ alert(sum(1,2)); // 输出结果：3
 ```
 
 > 函数名命名规则与变量相同
+> 函数的调用可以在函数定义前
 
 #### 设置形参
 
@@ -652,6 +653,54 @@ transferParam(1, 2, 'a');
 //输出
 //1
 //Temp.html:12 (2) [2, "a"]
+```
+
+### 匿名函数
+
+#### 函数表达式
+
+将函数赋值给一个变量，之后使用`变量名()`来调用函数，定义必须在调用前
+
+```javascript
+console.log(fn(1,2));  //错误调用-输出：fn is not a function
+var fn = function sum(x, y) //定义函数表达式
+{
+    return x + y;
+};
+console.log(fn(1,2));   //输出：3
+console.log(sum(1,2));  //错误调用-输出：sum is not defined
+```
+
+### 匿名函数的使用方法
+
+```javascript
+// 函数表达式中省略函数名
+var sum = function (x, y) {return x + y;};
+console.log(sum(1,1)); //输出：2
+// 将函数定义用括号包裹(这是一次性函数吗，那还有什么意义)
+console.log( (function (x, y) {return x + y;})(1,1) );
+// 添加事件处理
+document.body.onclick = function() {alert('Hello');};
+// 因为函数体只有一行所以就放一行了
+```
+
+### 箭头函数(ES6)
+
+```javascript
+// 标准语法
+(参数列表) => {函数体}
+// 函数体只有一条return语句可以省略return和{}
+(参数列表) => {return expression;} 等价于 (参数列表) => expression
+// 只有一个参数可以省略()
+参数 => {函数体}
+// 无参数需要保留()或使用一个_
+() => {函数体} 等价于 _ => {函数体}
+```
+
+```javascript
+//例：
+var sum = (x, y) => x + y;
+console.log(sum(1,1)); //输出：2
 ```
 
 ## 对象
