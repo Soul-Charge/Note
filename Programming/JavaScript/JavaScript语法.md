@@ -301,17 +301,6 @@ var num1 = 22;
 alert(num1);
 ```
 
-使用`let`关键字定义一个块级作用域的变量，即变量的作用域只在代码块内({}之间)
-> ```javascript
-> for (let i = 0; i < 10; i++)
->     continue;
-> console.log(i); //输出：i is not defined
->
-> for (var i = 0; i < 10; i++)
->     continue;
-> console.log(i); //输出：10
-> ```
-
 > 未初始化的变量默认值为`undefined`
 
 声明变量也可以省略`var`关键字
@@ -329,6 +318,29 @@ const PI = 3.14
 alert(PI); // 输出：3.14
 ```
 
+### 变量作用域
+
+#### 全局作用域
+
+不在任何函数内声明的变量，或在函数内部省略`var`关键字声明的变量
+
+#### 函数作用域
+
+在函数体内利用`var`关键字声明的变量
+
+#### 块级作用域(ES6)
+
+使用`let`关键字定义一个块级作用域的变量，即变量的作用域只在代码块内({}之间)
+
+```javascript
+for (let i = 0; i < 10; i++)
+    continue;
+console.log(i); //输出：i is not defined
+
+for (var i = 0; i < 10; i++)
+    continue;
+console.log(i); //输出：10
+```
 
 ## 数组(Array)
 
