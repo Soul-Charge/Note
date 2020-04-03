@@ -46,6 +46,19 @@ var reverse = arr[0].map( //arr[0]可以改成arr[1]或arr[2]
 );
 ```
 
+### 对象深复制
+
+```javascript
+function DeepCopy(obj)
+{
+    var o = {};
+    for (let i in obj)
+        o[i] = (typeof obj[i] === 'object') ? DeepCopy(obj[i]) : obj[i];
+    return o;
+}
+```
+
+
 ## 排序算法
 
 ### 冒泡排序

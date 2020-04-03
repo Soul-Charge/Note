@@ -790,18 +790,87 @@ alert('apple'.toUpperCase());// 同上
 
 ### 自定对象
 
+#### 定义和初始化对象
+
 ```javascript
-var stu = {};    // 创建一个名为stu的空对象
-stu.name = '小明'; // 为对象添加name属性
-stu.gender = '男';
-stu.age = 18;
-stu.introduce = function () { // 添加方法
-    return '我叫' + this.name + '今年' + this.age + '岁。';
+var obj1 = {};     //定义空对象
+var obj2 = {name: 'Jim'}; //定义含有name属性的对象
+var obj3 = {       //定义含有两个属性的对象
+  name: 'Jim',
+  age: '19
+};
+```
+
+> 字面量语法：在源码中直接书写的一个表示数据和类型的量，如`123`(数值型), `'123'`(字符型), `[123]`(数组)
+
+#### 添加和访问对象成员
+
+```javascript
+var boki = {};         // 创建一个名为boki的空对象
+boki.name = '吉良吉影'; // 为对象添加name属性
+boki.age = 33;
+boki.introduce = function () { // 添加方法
+    return '我的名字叫' + this.name + ',年龄' + this.age + '岁。';
     // 用this指代当前对象，可以使对象内部不依赖对象外部的变量名
 };
 // 访问对象的属性和方法
-alert(stu.name);
-alert(stu.introduce()); //输出：我叫小明，今年18岁
+alert(boki.name); //输出：吉良吉影
+alert(boki.introduce()); //输出：我的名字叫吉良吉影，年龄33岁
+```
+
+```javascript
+// 使用可变成员名
+var boki = {};
+var key = 'stand'; //用变量保存属性名
+boki[key] = 'killer queen';
+// 相当于 boki['stand'] 或 boki.stand
+```
+
+```javascript
+// 遍历对象成员
+var obj = {a: 1, b: 2, c: 3};
+for (let i in obj)
+    console.log(i + ':' + obj[i]);
+// 输出：(\n表示换行，这里用来减少占用空间)
+a:1\nb:2\nc:3
+```
+
+### 对象操作
+
+#### 判断成员是否存在
+
+```javascript
+var obj = {a: 1, b: 2, c: 3};
+console.log('a' in obj); //输出：true
+console.log('d' in obj); //输出：false
+```
+
+#### 对象复制
+
+##### 浅复制(shallow copy)
+
+直接将对象赋值给另一个对象，修改其中一个对象同时也会修改另一个对象
+
+```javascript
+var obj1 = {a: 1, b: 2, c: 3};
+var obj2 = obj1;
+obj2.b = 'bbb';
+console.log(obj1); //输出：{a: 1, b: "bbb", c: 3}
+console.log(obj2); //输出：{a: 1, b: "bbb", c: 3}
+```
+
+##### 深复制(shallow copy)
+
+赋值对象的成员到另一个对象，创建对象真正的副本
+
+```javascript
+function DeepCopy(obj)
+{
+    var o = {};
+    for (let i in obj)
+        o[i] = (typeof obj[i] === 'object') ? DeepCopy(obj[i]) : obj[i];
+    return o;
+}
 ```
 
 ## 事件
