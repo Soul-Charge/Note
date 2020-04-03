@@ -655,6 +655,28 @@ transferParam(1, 2, 'a');
 //Temp.html:12 (2) [2, "a"]
 ```
 
+#### 作用域链
+
+内层函数在当前作用域中寻找变量，若未找到则向上一级作用域中寻找，直到全局作用域
+
+```javascript
+var i = 10;
+function fn1()
+{
+    var i = 5;
+    function fn2()
+    {
+        function fn3()
+        {
+            console.log(i); //输出：5
+        }
+        fn3();
+    }
+    fn2();
+}
+fn1();
+```
+
 ### 匿名函数
 
 #### 函数表达式
@@ -671,7 +693,7 @@ console.log(fn(1,2));   //输出：3
 console.log(sum(1,2));  //错误调用-输出：sum is not defined
 ```
 
-### 匿名函数的使用方法
+#### 匿名函数的使用方法
 
 ```javascript
 // 函数表达式中省略函数名
@@ -684,7 +706,7 @@ document.body.onclick = function() {alert('Hello');};
 // 因为函数体只有一行所以就放一行了
 ```
 
-### 箭头函数(ES6)
+#### 箭头函数(ES6)
 
 ```javascript
 // 标准语法
@@ -701,6 +723,23 @@ document.body.onclick = function() {alert('Hello');};
 //例：
 var sum = (x, y) => x + y;
 console.log(sum(1,1)); //输出：2
+```
+
+### 闭包函数
+
+闭包函数可以在函数外部读取函数内部的变量，并能让函数内部的变量一直保存在内存中
+
+```javascript
+function fn()
+{
+    var times = 0;
+    var c = function () { return ++times; };
+    return c;
+}
+var count = fn();
+console.log(count()); //输出：1
+console.log(count()); //输出：2
+console.log(count()); //输出：3
 ```
 
 ## 对象

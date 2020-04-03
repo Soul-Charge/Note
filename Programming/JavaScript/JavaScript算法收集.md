@@ -36,6 +36,16 @@ input = parseFloat(input) && Number(input);
 </script>
 ```
 
+```javascript
+var arr = [[1,2,3], [4,5,6], [7,8,9]];
+var reverse = arr[0].map( //arr[0]可以改成arr[1]或arr[2]
+    function (col, i) //用i获取一维数组对应下标
+    {
+        return arr.map(function (row) {return row[i];});
+    }
+);
+```
+
 ## 排序算法
 
 ### 冒泡排序
