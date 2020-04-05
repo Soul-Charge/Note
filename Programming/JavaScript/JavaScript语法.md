@@ -1020,6 +1020,99 @@ alert(str.toUpperCase());    // 获取字符串转大写后的结果
 alert('apple'.toUpperCase());// 同上
 ```
 
+##### String对象的常用属性和方法
+
+![](_v_images/20200405093940336_30772.png =700x)
+> 上表的方法结果都通过返回值返回，位置皆从0开始
+
+```javascript
+var str = '1234554321';
+console.log(str.charAt(3));        //4
+console.log(str.indexOf('2'));     //1
+console.log(str.lastIndexOf('2')); //8
+console.log(str.substring(5));     //54321
+console.log(str.substring(4,6));   //55
+console.log(str.substr(5));        //54321
+console.log(str.substr(4, 2));     //55
+console.log(str.split('4'));       //(3) ["123", "55", "321"]
+console.log(str.split('4', 2));    //(2) ["123", "55"]
+console.log(str.split('4', 3));    //(3) ["123", "55", "321"]
+console.log(str.replace('55', '5'));// 123454321
+```
+
+#### Number对象
+
+##### Number对象的常用属性和方法
+
+![](_v_images/20200405101225628_8460.png =600x)
+
+```javascript
+var number = 12345.6789;
+console.log(number.toFixed()); //12346
+console.log(number.toFixed(1));//12345.7
+console.log(number.toFixed(6));//12345.678900
+console.log(Number.MAX_VALUE); //1.7976931348623157e+308
+console.log(Number.MIN_VALUE); //5e-324
+```
+
+#### Math对象
+
+##### Math对象的常用属性和方法
+
+![](_v_images/20200405102337684_4313.png =700x)
+![](_v_images/20200405102443314_3940.png =700x)
+
+```javascript
+var num = 1.23;
+var n   = 1;
+var m   = 100;
+console.log(Math.ceil(num));  //2
+console.log(Math.floor(num)); //1
+console.log(Math.round(num)); //1
+console.log(Math.random());   //随机数0.806025420290184
+console.log(Math.random() * (n - m) + m); //[m,n]的随机数
+console.log(Math.abs(-23));   //23
+console.log(Math.abs('-25')); //25
+console.log(Math.max(1, 3, 0, 8)); //8
+console.log(Math.max('1', '3', '0', '8')); //8
+```
+
+#### Date 对象
+
+##### Date对象的常用方法
+
+![](_v_images/20200405104755215_4572.png =700x)
+![](_v_images/20200405104850340_7966.png =700x)
+
+> 基于当前时间创建对象
+
+```javascript
+var date = new Date();
+console.log(date.toString());   //Sun Apr 05 2020 10:55:29 GMT+0800 (中国标准时间)
+console.log(date.getFullYear());//2020
+console.log(date.getMonth());   //4
+console.log(date.getDate());    //5
+```
+
+> 指定时间创建对象
+> 传入时间大于合理范围会自动设置，(月份设置-1被转为去年12月，月份设置12被转为明年1月)
+
+```javascript
+// 传入 年、月、日、时、分、秒(月的范围是[0,11])
+// 最少需要传入 年和月
+var date = new Date(2014, 3, 4, 4, 4, 4);
+console.log(date.toString());   //Fri Apr 04 2014 04:04:04 GMT+0800 (中国标准时间)
+new Date(2014, 3); //Tue Apr 01 2014 00:00:00 GMT+0800 (中国标准时间)
+```
+
+```javascript
+// 传入字符串
+// 最少需要传入年
+var date = new Date('2014-04-4 04:04:04');
+console.log(date.toString());   //Fri Apr 04 2014 04:04:04 GMT+0800 (中国标准时间)
+new Date('2014'); //Wed Jan 01 2014 08:00:00 GMT+0800 (中国标准时间)
+```
+
 ## 事件
 
 可以被JS侦测到的交互行为，事件发生后可以用JS实现交互效果
