@@ -753,41 +753,6 @@ graph LR
 
 使用`.`来访问对象的属性或方法，对象和方法的区别为有无`()`
 
-### window 对象
-
-> `window.console`       // 访问window对象的的console属性  
-> `window.document`     // 访问window对象的document属性  
-> `console.log()`        // 访问console对象的log方法  
-> `document.write()`  // 访问document的write方法  
-> `console`和`document`既是属性也是对象  
-
-### document 对象
-
-通过JS访问或修改元素时需要通过document对象提供的方法创建元素对象进行操作
-
-#### 通过元素id属性操作
-
-```html
-<body>
-  <div id="test">Hello</div>
-  <script>
-    var test = document.getElementById('test'); //根据元素id创建元素对象
-    alert(test.innerHTML); //通过innerHTML属性获取元素内容
-  </script>
-</body>
-```
-
-### String 对象
-
-直接定义一个字符串就可以作为String对象使用
-
-```javascript
-var str = 'apple';
-alert(str.length);           // 获取字符串长度
-alert(str.toUpperCase());    // 获取字符串转大写后的结果
-alert('apple'.toUpperCase());// 同上
-```
-
 ### 自定对象
 
 #### 定义和初始化对象
@@ -871,6 +836,188 @@ function DeepCopy(obj)
         o[i] = (typeof obj[i] === 'object') ? DeepCopy(obj[i]) : obj[i];
     return o;
 }
+```
+
+### 构造函数
+
+使用构造函数构建同一类对象，通过类创建的对象称为该类的实例，此过程称为实例化
+
+#### 内置构造函数
+
+```javascript
+var obj1 = new Object();
+var obj2 = {};                //通过字面量{}创建的对象是Object()的实例
+var str  = new String('123');
+// 查看对象由哪个构造函数创建([native code]表示函数代码是JS内置的)
+console.log(obj1.constructor); //输出：ƒ Object() { [native code] }
+console.log(obj2.constructor); //输出：ƒ Object() { [native code] }
+console.log(str.constructor);  //输出：ƒ String() { [native code] }
+```
+
+#### 自定义构造函数
+
+```javascript
+var p1 = new Person('Jack', 18);
+var p2 = new Person('fuck', 666);
+p1.sayHello();    //输出：Hello my name is Jack I'm 18 years old.
+p2.sayHello();    //输出：Hello my name is fuck I'm 666 years old.
+console.log(p1.constructor); //输出：ƒ Person(name, age)...(函数完整定义)
+function Person(name, age)
+{
+    this.name = name;
+    this.age  = age;
+    this.sayHello = function () {
+    console.log('Hello ' + 'my name is ' + this.name + " I'm " + this.age + ' years old.');
+    };
+}
+```
+
+```javascript
+// class关键字(ES6)
+class Person // 定义类
+{
+    constructor (name, age) // 构造方法
+    {
+        this.name = name;   // 添加属性
+        this.age  = age;
+    }
+    // 定义introduce()方法
+    introduce() { console.log('我叫 ' + this.name + ' 今年 ' + this.age + ' 岁。'); }
+}
+// 实例化会自动调用constructor()方法
+var p = new Person('abc', 24);
+p.introduce(); //输出：我叫 abc 今年 24 岁。
+```
+
+##### 私有成员
+
+在构造函数中使用`var`关键字定义变量，实例对象后无法通过`对象.成员`的方式访问
+
+```javascript
+var p = new Person();
+console.log(p.name);     //输出：undefined
+console.log(p.getName());//输出：boy
+function Person ()
+{
+    var name = 'boy';
+    this.getName = function() {return name;};
+}
+```
+
+##### return关键字
+
+
+```javascript
+//使用return返回一个基本数据类型，返回的依然是创建的对象
+var p = new Person();
+console.log(p);       //输出：Person {getName: ƒ}
+function Person ()
+{
+    var name = 'boy';
+    this.getName = function() {return name;};
+    return 123;
+}
+```
+
+```javascript
+//使用return返回复合数据类型，则返回该类型而不是创建的对象
+var p = new Person();
+console.log(p);       //输出：(2) [1, 2]
+function Person ()
+{
+    var name = 'boy';
+    this.getName = function() {return name;};
+    return [1,2];
+}
+```
+
+##### 函数中的this指向
+
+###### this指向情况
+
+1. 函数作为构造函数调用时，this指向创建的对象
+2. 直接通过函数名调用函数时，this指向全局对象(浏览器中为window对象)
+3. 将函数作为对象的方法调用时，this指向该对象
+
+```javascript
+function func() {return this};
+var obj = {func: func};
+console.log(func() === window); // true
+console.log(obj.func() === obj);// true
+```
+
+###### 更改this指向
+
+使用`apply()`和`call()`方法
+
+```javascript
+function showObject() {
+    console.log(this);
+}
+showObject();        //输出:Window {...}
+showObject.apply({});//输出:{}
+showObject.call({}); //输出:{}
+showObject();        //输出:Window {...}
+```
+
+```javascript
+function add() {
+    var sum = 0;
+    for (let i of arguments)
+        sum += i;
+    console.log(sum);
+}
+add.apply({}, [1, 2, 3]); //数组传参，输出:6
+add.call({}, 1, 2, 3);    //参数传参，输出:6
+```
+
+使用`bind()`方法(ES5)
+
+```javascript
+function showName(number) {
+    console.log(this.name + ' ' + number);
+}
+var name = 'Death';
+var test = showName.bind({name: 'The world'}, '21');
+showName(13); //输出：Death 13
+test();       //输出：The world 21
+```
+
+### 内置对象
+
+#### window 对象
+
+> `window.console`       // 访问window对象的的console属性  
+> `window.document`     // 访问window对象的document属性  
+> `console.log()`        // 访问console对象的log方法  
+> `document.write()`  // 访问document的write方法  
+> `console`和`document`既是属性也是对象  
+
+#### document 对象
+
+通过JS访问或修改元素时需要通过document对象提供的方法创建元素对象进行操作
+
+##### 通过元素id属性操作
+
+```html
+<body>
+  <div id="test">Hello</div>
+  <script>
+    var test = document.getElementById('test'); //根据元素id创建元素对象
+    alert(test.innerHTML); //通过innerHTML属性获取元素内容
+  </script>
+</body>
+```
+
+#### String 对象
+
+直接定义一个字符串就可以作为String对象使用
+
+```javascript
+var str = 'apple';
+alert(str.length);           // 获取字符串长度
+alert(str.toUpperCase());    // 获取字符串转大写后的结果
+alert('apple'.toUpperCase());// 同上
 ```
 
 ## 事件
