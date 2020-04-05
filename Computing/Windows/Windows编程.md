@@ -180,26 +180,76 @@ int WINAPI WinMain(
 //窗口过程函数
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	HDC	        hdc; //设备描述表句柄
-	PAINTSTRUCT ps;
-	RECT        rect;
+    HDC	        hdc; // 设备描述表句柄
+    PAINTSTRUCT ps;
+    RECT        rect;// 绘图区域
 
-	switch (message)
-	{
-	case WM_PAINT: // 窗口必须重新绘制时
-		hdc = BeginPaint(hwnd, &ps); //在无效区域中绘图，并清除WM_PAINT消息将无效区域变为有效
-		GetClientRect(hwnd, &rect);
-		DrawTextW(hdc, _T("Hello World!"), -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
-		EndPaint(hwnd, &ps);
-		return 0;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-	}
+    switch (message)
+    {
+    case WM_PAINT: // 窗口必须重新绘制时
+        hdc = BeginPaint(hwnd, &ps); //在无效区域中绘图，并清除WM_PAINT消息将无效区域变为有效
+        GetClientRect(hwnd, &rect);
+        DrawTextW(hdc, _T("Hello World!"), -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+        EndPaint(hwnd, &ps);
+        return 0;
+    case WM_DESTROY:
+        PostQuitMessage(0);
+        return 0;
+    }
+    return DefWindowProc(hwnd, message, wParam, lParam);
+}
+```
+
+## 窗口绘图
+
+### 被动绘图
+
+窗口过程函数接收到`WM_PAINT`消息时，在无效区域中绘图并**清除**该消息使无效区域变为有效区域
+
+```c
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    HDC        hdc; // 设备描述表句柄
+    PAINSTRUCT ps;
+    RECT       rect;// 绘图区域
+    
+    switch (message)
+    {
+    case WM_PAINT: // 窗口必须重新绘制时
+        hdc = BeginPaint(hwnd, &ps); // 在无效区域中绘图，并清除WM_PAINT消息将无效区域变为有效
+        // 绘图操作
+        EndPaint(hwnd, &ps); // 结束绘图
+        return 0;
+    //...
+    }
+    // 使用默认窗口过程函数处理其余消息
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 ```
 
+### 主动绘图
+
+随时在绘图区域的任何位置进行绘图
+
+```c
+LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    HDC     hdc; // 设备描述表句柄
+    RECT    rect;// 绘图区域
+    
+    switch (message)
+    {
+    case //... :
+        hdc = GetDC(hwnd);
+        // 绘图操作
+        ReleaseDC(hwnd,hdc); //结束绘图
+        return 0;
+    //...
+    }
+    // 使用默认窗口过程函数处理其余消息
+	return DefWindowProc(hwnd, message, wParam, lParam);
+}
+```
 
 ## 其他注意
  在VS中要注意默认编码为Unicode，使用Unicode时字符要使用`TCHAR`类型，字符串为`TCHARSTR`类型。对字符串使用`_T("")`宏来转换  
