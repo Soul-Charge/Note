@@ -9,6 +9,7 @@
 ```c
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
+    //...
 }
 ```
 
@@ -48,6 +49,11 @@ RegisterClass(&WndClass);
 程序运行过程中操作系统会在某一类窗口受到消息时调用窗口过程函数进行响应
 
 ```c
+// 可以使用默认窗口过程函数
+DefWindowProc(hwnd, message, wParam, lParam);
+```
+
+```c
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     // 使用switch处理对应的消息
@@ -64,19 +70,33 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 ```
 
-* `message`: 窗口消息，可能的值：`WM_PAINT`，其他值可以通过查看该值的定义位置找到
-* `wParam`: 含义根据`message`的内容而定，使用位屏蔽法判断
-    当`message`为鼠标消息时，该值指示Shift和Ctrl键或鼠标的状态
-    ```c
-  // 判断示例
-  if (MK_LBUTTON & wParam) //若鼠标左键按下则为真
-    ```
-* `lParam`:
-    当`message`为鼠标消息时，该值表示鼠标位置(低位字为x坐标，高位字为y坐标)
-    使用`LOWORD()`和`HIWORD()`宏进行获取
-    > 相关拓展：windows.h没有`sprintf()`可以使用`wsprintf()`
+#### `message`
+窗口消息，可能的值：`WM_PAINT`，其他值可以通过查看该值的定义位置找到
+
+#### `wParam`
+
+含义根据`message`的内容而定，使用位屏蔽法判断
+
+##### 鼠标消息
+
+当`message`为鼠标消息时，该值指示Shift和Ctrl键或鼠标的状态
+
+```c
+// 判断示例
+if (MK_LBUTTON & wParam) //若鼠标左键按下则为真
+```
+
+#### `lParam`
+
+##### 鼠标消息
+
+当`message`为鼠标消息时，该值表示鼠标位置(低位字为x坐标，高位字为y坐标)
+使用`LOWORD()`和`HIWORD()`宏进行获取
+> 相关拓展：windows.h没有`sprintf()`可以使用`wsprintf()`
 
 ### 创建窗口
+
+使用`CreateWindow()`函数创建窗口，创建后会发送`WM_CREATE`消息
 
 ```c
 hCommonWnd = CreateWindow(      // 保存窗口句柄用来对窗口进行操作
@@ -92,6 +112,31 @@ hCommonWnd = CreateWindow(      // 保存窗口句柄用来对窗口进行操作
 		hInstance,				// 程序实例句柄
 		NULL);
 ```
+
+#### `lpClassName`
+
+窗口类名，可以使用自定的窗口类或[系统预设窗口类](https://docs.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-createwindowa?redirectedfrom=MSDN#remarks)
+
+#### `dwStyle`
+
+窗口样式，中间用`|`隔开，常用样式：
+```c
+WS_VISIBLE // 可见
+WS_CHILD   // 表示窗口是子窗口
+```
+
+
+#### `hMenu`
+
+窗口菜单句柄，可以作为ID来表示窗口
+```c
+(HMENU)/*(int)ID */
+```
+> ID是一个int值，再转换为`HMENU`
+
+#### `hInstance`
+
+程序实例句柄，通常使用`WinMain()`的参数
 
 ### 显示窗口
 
@@ -249,6 +294,62 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
     // 使用默认窗口过程函数处理其余消息
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
+```
+
+## 窗口间通信
+
+### 子窗口给父窗口发送消息
+
+当控件发送消息给父窗口时将产生`WM_COMMAND`消息，在窗口过程里判断处理
+
+```c
+// 子窗口控件产生消息时
+LWORD(wParam) // 控件ID
+HIWORD(wParam)// 通知码
+lParam        // 子窗口句柄
+```
+
+```c
+// 例：处理子窗口消息
+// ...窗口过程函数中的一部分...
+case WM_COMMAND: //子窗口消息
+    switch (LOWORD(wParam)) //判断ID
+    {
+    case /* 窗口ID */: 
+        // if (HIWORD(wParam == BN_DOUBLECLICKED) //判断消息码，是否双击
+        break;
+    }
+    switch (lParam) //判断窗口句柄
+    {
+    case /* 窗口句柄 */: 
+        break;
+    }
+```
+
+#### Button
+
+双击通知码`BN_DOUBLECLICKED`, 仅当下压按钮风格包括`BS_NOTIFY`时才发送。
+
+
+### 父窗口给子窗口发送消息
+
+```c
+LRESULT SendMessage (
+    HWND hWnd,    // 接收消息的窗口的句柄
+    UINT Msg,     // 指定被发送的消息
+    WPARAM wParam,// 指定附加的消息特定信息
+    LPARAM IParam // 指定附加的消息特定信息
+);
+// 返回值：指定消息处理的结果，依赖于所发送的消息
+```
+
+#### `Msg`
+
+[窗口消息](https://docs.microsoft.com/zh-cn/windows/win32/winmsg/window-messages)
+
+```c
+// 例：修改按钮的文字
+SendMessage(hButton,WM_SETTEXT,(WPARAM)NULL,(LPARAM)"我是按钮");
 ```
 
 ## 其他注意
