@@ -1113,6 +1113,145 @@ console.log(date.toString());   //Fri Apr 04 2014 04:04:04 GMT+0800 (中国标�
 new Date('2014'); //Wed Jan 01 2014 08:00:00 GMT+0800 (中国标准时间)
 ```
 
+### 原型对象
+
+基于同一个构造函数创建的对象会重复独立保存相同的方法
+
+```javascript
+function Person(name) {
+    this.name = name;
+    this.introduce = function () { };
+}
+var p1 = new Person('Dio');
+var p2 = new Person('JOJO');
+console.log(p1.introduce === p2.introduce); // false
+```
+
+利用原型对象可以保存一些公共的属性和方法，基于原型创建的对象会自动拥有原型的属性和方法
+
+```javascript
+// 创建一个函数就会自动创建它的原型对象，构造函数为此函数
+function func() {}
+console.log(func.prototype);
+```
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+Person.prototype.introduce = function () { };
+var p1 = new Person('Dio');
+var p2 = new Person('JOJO');
+console.log(p1.introduce === p2.introduce); // true
+```
+
+### 继承
+
+在已有的对象的基础上继承其他对象
+
+#### 继承实现方式
+
+##### 继承原型对象
+
+在构造函数的原型中添加属性和方法
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+Person.prototype.sayHi = function () {
+    console.log("Hi I'm " + this.name);
+}
+var p = new Person('spw'); // 继承了原型对象中的sayHi()方法
+p1.sayHi();
+```
+
+对象创建后修改原型，继承此原型的对象继承来的属性或方法也会变化
+<span style="color:green"> **对象里继承来的成员类似于一种链接，原型中的成员改变，对象中对应的成员也会变化**</span>  
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+var p = new Person('A');
+console.log(p1.test);    // undefined
+// 在Person的原型中添加属性
+Person.prototype.test = 'test';
+console.log(p1.test);    // test
+```
+
+对象自身的成员会覆盖原型的成员
+<span style="color:orange">或者说对象只会从原型继承它没有的成员？</span>
+
+```javascript
+function Person(name) {
+    this.name = name;
+    this.say  = function () {console.log('我是构造函数的默认say()方法');}
+}
+var p = new Person('First');
+p.say();    // 输出：我是构造函数的默认say()方法
+// 修改Person的原型
+Person.prototype.say = function () {console.log('我是修改后的say()方法');};
+p.say();    // 输出：我是构造函数的默认say()方法
+```
+
+##### 替换原型对象
+
+用另一个对象替换原型，替换后不会改变已创建的对象，重新使用该构造函数创建的对象才是修改过的
+
+```javascript
+function Person(name) {}
+Person.prototype.say = function () {console.log('我是原型');}
+
+// 创建对象p1, p1的创建在替换前,所以是默认值
+var p1 = new Person();
+
+// 替换原型
+Person.prototype = {
+    say: function () {console.log('我是替换后的');}
+}
+// 如果使用下面这条语句则是修改原型，结果是对象p1和p2的say()方法都会输出"我是替换后的"
+// Person.prototype.say = function () {console.log('我是替换后的');}
+
+// 创建对象p2, 因为p2的创建在替换后，所以该对象的方法是替换后的
+var p2 = new Person();
+p1.say(); // 我是原型
+p2.say(); // 我是替换后的
+```
+
+下面的这个例子中，替换原型没有产生影响，参考上面的"对象自身的成员会覆盖原型的成员"
+
+```javascript
+function Person(name) {
+    this.name = name;
+    this.say  = function () {console.log('我是构造函数的默认say()方法');}
+}
+var p1 = new Person('test');
+Person.prototype = {
+    name: "replaced",
+    say : function () {console.log('我是用另一个对象替换原型后的say()方法');}
+}
+console.log(p1.name);
+p1.say();
+var p2 = new Person('test2');
+console.log(p2.name);
+p2.say();
+```
+
+##### 利用Object.create()实现继承(ES5)
+
+```javascript
+var obj = {
+    value: 'test'
+}
+// 以obj为原型对象，创建一个对象并返回
+var newObj = Object.create(obj);
+console.log(newObj.value);    // test
+```
+
+
+
+
 ## 事件
 
 可以被JS侦测到的交互行为，事件发生后可以用JS实现交互效果
