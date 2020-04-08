@@ -904,6 +904,25 @@ function Person ()
 }
 ```
 
+##### 静态成员
+
+构造函数使用的成员即为静态成员，相对的是构造函数创建的对象使用的实例成员
+
+```javascript
+function Person(name) {
+    this.name = name;
+}
+// 为Person对象添加静态成员
+Person.age = 17;
+// 构造函数使用静态成员
+console.log(Person.age);  // 17
+console.log(Person.name); // Person
+// 由构造函数创建的对象使用实例成员
+var p = new Person('abc');
+console.log(p.name);     // abc
+console.log(p.age);      // undefined
+```
+
 ##### return关键字
 
 
@@ -1180,7 +1199,7 @@ Person.prototype.test = 'test';
 console.log(p1.test);    // test
 ```
 
-对象自身的成员会覆盖原型的成员
+对象自身的成员会覆盖原型的成员 <a href="#toc_117">参考属性搜索原则</a>
 <span style="color:orange">或者说对象只会从原型继承它没有的成员？</span>
 
 ```javascript
@@ -1249,7 +1268,63 @@ var newObj = Object.create(obj);
 console.log(newObj.value);    // test
 ```
 
+##### 混入继承
 
+将一个对象的成员加到另一个对象
+和原型对象组合使用实现以对象的方式传递参数，或以对象的方式扩展原型的成员
+
+```javascript
+// 用来混入继承的extend函数
+function extend(o1, o2) {
+    for (var k in o2)
+        o1[k] = o2[k];
+}
+```
+
+```javascript
+// 用来混入继承的extend函数
+function extend(o1, o2) {
+    for (var k in o2)
+      o1[k] = o2[k];
+}
+function Person (obj) {
+    // 调用前面定义的混入函数，将参数对象的成员添加到实例对象中
+    extend(this, obj);
+};
+Person.prototype.extend = function(obj) {
+    // 调用前面定义的混入函数，将参数对象的成员添加到原型对象中
+    extend(this, obj);
+}
+// 给对象原型添加成员
+Person.prototype.extend(
+    {
+      sayHello: function() {console.log('你好，我是' + (this.name || '[没有名字]'));}
+    }
+);
+var p1 = new Person();
+var p2 = new Person({name: '张三', age: 666});
+p1.sayHello();  //输出：你好，我是[没有名字]
+p2.sayHello();  //输出：你好，我是张三
+```
+
+### 属性搜索原则
+
+对象访问属性的过程：在当前对象中搜索是否含有该成员，有则使用无则在其原型中查找，若原型也没有则查找原型的原型，直到找到或没找到返回`undefined`
+
+```javascript
+function Person() {
+    this.name = '我是Person对象的实例属性';
+}
+Person.prototype.name = '我是Person对象的原型的属性';
+var p = new Person();
+console.log(p.name);  // 我是Person对象的实例属性
+delete p.name;
+console.log(p.name);  // 我是Person对象的原型的属性
+delete Person.prototype.name;
+console.log(p.name);  // undefined
+```
+
+> 属性搜索原则只对属性的访问有效，对于属性的添加与修改都是在当前对象中操作
 
 
 ## 事件
