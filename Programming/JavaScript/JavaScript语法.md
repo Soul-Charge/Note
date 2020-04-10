@@ -725,6 +725,18 @@ var sum = (x, y) => x + y;
 console.log(sum(1,1)); //输出：2
 ```
 
+#### 通过实例化Function构造函数来创建函数
+
+`Function()`的第一个到第n个参数是创建的函数的参数列表，最后一个参数是函数体
+<a href="#toc_90">相关参考：构造函数</a>
+<a href="#toc_122">相关参考：函数的构造函数</a>
+
+```javascript
+// new Function('参数1', '参数2', ..., '函数体');
+var addNum = new Function('x', 'y', 'return x + y');
+console.log(addNum(1, 2)); // 3
+```
+
 ### 闭包函数
 
 闭包函数可以在函数外部读取函数内部的变量，并能让函数内部的变量一直保存在内存中
@@ -1325,6 +1337,78 @@ console.log(p.name);  // undefined
 ```
 
 > 属性搜索原则只对属性的访问有效，对于属性的添加与修改都是在当前对象中操作
+
+### 原型链
+
+#### 对象的构造函数
+
+原型对象有一个`constructor`属性，指向它的构造函数
+基于构造函数创建的实例对象访问的`constructor`属性通常是其原型的链接
+
+```javascirpt
+function Person() {}
+Person.prototype.constructor === Person //true
+```
+
+#### 对象的原型对象
+
+```javascript
+function Person() {}
+new Person().constructor.prototype === Person.prototype; //true
+```
+
+#### 函数的构造函数
+
+自定义函数和内置构造函数的构造函数是`Function`函数，其构造函数是其本身
+
+```javascript
+function Person() {}
+Person.constructor === Function; //true
+Number.constructor === Function; //true
+String.constructor === Function; //true
+Function.constructor === Function; //true
+```
+
+#### 原型对象的原型对象
+
+##### 使用`__proto__`访问原型对象
+
+因为使用`对象.constructor.prototype`的方法无法得到原型对象的原型对象，所以一些浏览器为对象添加了`__proto__`属性以访问原型
+> 只有实例对象有该属性
+
+```javascript
+function Person() {}
+new Person().__proto__ === Person.prototype; //true
+```
+
+`对象.constructor.prototype`访问到的是该对象当前继承的原型对象的构造函数的原型对象，不一定是实际构造构造函数的原型对象，通过`__proto__`可以访问到实际构造函数的原型对象
+
+```javascript
+function Person() {}
+function Func() {}
+Person.prototype = new Func();
+var p1 = new Person();
+p1.constructor === Func;           // true
+p1.constructor.prototype === Func.prototype; // true
+p1.__proto__ === Person.prototype; // true
+```
+
+##### 一些原型对象的原型对象
+
+```javascript
+function Person() {}
+Person.prototype.__proto__ === Object.prototype; // true
+Object.prototype.__proto__ === null // true
+```
+
+#### 原型链的结构
+
+1. 自定义函数及内置构造函数由`Function`函数创建
+2. 构造函数有一个原型对象，构造函数通过`prototype`属性指向原型，原型通过`constructor`指向构造函数
+3. 由构造函数创建的实例对象，继承自构造函数的原型对象，通过实例对象的`__proto__`属性可以直接访问原型对象
+4. 构造函数的原型对象继承自`Object`的原型对象，`Object`的原型对象的`__proto__`属性为`null`
+
+![原型链的结构](_v_images/20200410071129280_28601.png =700x)
 
 
 ## 事件
