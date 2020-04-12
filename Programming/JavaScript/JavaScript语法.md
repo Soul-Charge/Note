@@ -129,6 +129,27 @@ JS仅能对Number类型的数据进行运算，运算前操作数会被自动转
 > 优先级：从上到下递减  
 > 第二块的头部接在第一块的尾部  
 
+### instanceof运算符
+
+```
+实例对象 instanceof 构造函数
+// 检测构造函数的原型对象是否在实例对象的原型链中
+
+function funcA() {
+    this.a = 1;
+    this.b = 2;
+}
+function funcB() {}
+
+var obj = new funcA();
+obj.__proto__.c = 3;
+obj.__proto__.d = 4;
+// 原型链结构
+// {a:1, b:2} -> {c:3, d:4} -> Object.prototype -> null
+console.log(obj instanceof funcA); // true
+console.log(obj instanceof funcB); // false
+```
+
 ## 数据类型
 
 ### 基本数据类型
@@ -1159,7 +1180,7 @@ console.log(p1.introduce === p2.introduce); // false
 ```
 
 利用原型对象可以保存一些公共的属性和方法，基于原型创建的对象会自动拥有原型的属性和方法
-
+    
 ```javascript
 // 创建一个函数就会自动创建它的原型对象，构造函数为此函数
 function func() {}
@@ -1211,7 +1232,7 @@ Person.prototype.test = 'test';
 console.log(p1.test);    // test
 ```
 
-对象自身的成员会覆盖原型的成员 <a href="#toc_117">参考属性搜索原则</a>
+对象自身的成员会遮蔽原型的成员(property shadowing) <a href="#toc_117">参考属性搜索原则</a>
 <span style="color:orange">或者说对象只会从原型继承它没有的成员？</span>
 
 ```javascript
@@ -1227,6 +1248,10 @@ p.say();    // 输出：我是构造函数的默认say()方法
 ```
 
 ##### 替换原型对象
+
+<span style="color: green">替换原型对象的操作很慢，最好不要用，使用`Object.create()`创建新对象来实现继承更好</span>
+[参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)
+> `[[Prototype]]`表示原型对象, [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
 
 用另一个对象替换原型，替换后不会改变已创建的对象，重新使用该构造函数创建的对象才是修改过的
 
@@ -1250,7 +1275,7 @@ p1.say(); // 我是原型
 p2.say(); // 我是替换后的
 ```
 
-下面的这个例子中，替换原型没有产生影响，参考上面的"对象自身的成员会覆盖原型的成员"
+下面的这个例子中，替换原型没有产生影响，参考上面的"对象自身的成员会遮蔽原型的成员"
 
 ```javascript
 function Person(name) {
@@ -1374,7 +1399,6 @@ Function.constructor === Function; //true
 ##### 使用`__proto__`访问原型对象
 
 因为使用`对象.constructor.prototype`的方法无法得到原型对象的原型对象，所以一些浏览器为对象添加了`__proto__`属性以访问原型
-> 只有实例对象有该属性
 
 ```javascript
 function Person() {}
@@ -1401,6 +1425,21 @@ Person.prototype.__proto__ === Object.prototype; // true
 Object.prototype.__proto__ === null // true
 ```
 
+##### 使用`Object.get(set)ProtorypeOf()`获取和修改原型对象
+
+```javascript
+function Person() {}
+Person.prototype.a = 3;
+var p = new Person();
+
+console.log(p.__proto__.a);               // 3
+console.log(Object.getPrototypeOf(p).a);  // 3
+Object.setPrototypeOf(p, {a: 5});
+console.log(p.__proto__.a);               // 5
+console.log(Object.getPrototypeOf(p).a);  // 5
+```
+
+
 #### 原型链的结构
 
 1. 自定义函数及内置构造函数由`Function`函数创建
@@ -1409,6 +1448,20 @@ Object.prototype.__proto__ === null // true
 4. 构造函数的原型对象继承自`Object`的原型对象，`Object`的原型对象的`__proto__`属性为`null`
 
 ![原型链的结构](_v_images/20200410071129280_28601.png =700x)
+
+```javascript
+// 例：
+function f() {
+    this.a = 1;
+    this.b = 2;
+}
+var obj = new f();
+obj.__proto__.c = 3;
+obj.__proto__.d = 4;
+// 原型链结构
+// {a:1, b:2} -> {c:3, d:4} -> Object.prototype -> null
+```
+
 
 
 ## 事件
