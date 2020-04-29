@@ -1462,6 +1462,43 @@ obj.__proto__.d = 4;
 // {a:1, b:2} -> {c:3, d:4} -> Object.prototype -> null
 ```
 
+## BOM
+
+浏览器提供的内置对象组织起的模型
+
+![BOM结构](_v_images/20200415074927345_21702.png =500x)
+
+### window对象
+
+### 全局作用域
+
+全局作用域的变量函数都可以被window对象调用， 调用window对象的成员可以省略`window.`
+
+```javascript
+var num = '123';
+function getNum() {
+    return this.num;
+}
+console.log(window.num);         // 123
+console.log(getNum());           // 123
+console.log(window.getNum());    // 123
+console.log(window.Number(num)); // 123
+```
+
+定义在全局作用域中的函数内部的this指向window对象
+<span style="color:green">但作为构造函数调用时指向创建的对象[构造函数中的this指向](#toc_98)</span>
+
+```javascript
+var num = '123';
+function getNum() {
+    this.num = '222';
+}
+console.log(num); // 123
+console.log((new getNum()).num); // 222
+console.log(num); // 123
+```
+
+
 
 
 ## 事件
