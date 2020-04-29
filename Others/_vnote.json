@@ -17,6 +17,9 @@
         },
         {
             "name": "Schedule"
+        },
+        {
+            "name": "Book_notes"
         }
     ],
     "tags": [
