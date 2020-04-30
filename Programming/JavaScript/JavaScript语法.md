@@ -1498,8 +1498,160 @@ console.log((new getNum()).num); // 222
 console.log(num); // 123
 ```
 
+直接使用一个未定义的变量会出错，但通过`window.变量名`的方式不会报错而是`undefined`
+
+```javascript
+console.log(a);        // Uncaught ReferenceError: a is not defined
+console.log(window.a); // undefined
+```
+
+`delete`关键字可以删除window对象的属性，但对全局变量无效
+
+```javascript
+var a    = 1;
+window.b = 2;
+// delete 对全局变量无效
+delete a;
+console.log(a); // 1
+console.log(window.b); // 2
+// delete 对window的属性有效
+delete window.b;
+console.log(window.b); // undefined
+```
+
+### 对话框和窗口
+
+常用的窗口相关的属性和方法  
+![弹出对话框和窗口相关的属性与方法](_v_images/20200430103955777_30123.png =600x)
+
+#### window.open()
+
+```javascript
+open(URL, name, specs, replace);
+// URL: 打开页面的URL，没指定则打开一个空白窗口
+// name: 指定target属性或窗口名
+// specs: 设置浏览器窗口的特征的字符串， 多个特征之间使用逗号分隔(在引号内)
+// replace: 可选布尔值，是否替换当前窗口，默认false
+```
+
+name的可选值：
+![name的可选值](_v_images/20200430133304797_21144.png =500x)
+specs的可选值：
+![specs的可选值](_v_images/20200430133357726_26690.png =700x)
+<span style="color:green">设置了specs以后会以新窗口的形式打开窗口, (优先级低于浏览器的弹出窗口打开设置)</span>  
 
 
+#### 例：打开与关闭窗口
+
+```html
+<body style="font-family: Consolas;">
+    <p><input type="button" value="打开窗口" onclick="openWin()"></p>
+    <p><input type="button" value="关闭窗口" onclick="closeWin()"></p>
+    <p><input type="button" value="检查窗口" onclick="checkWin()"></p>
+    <p id="msg"></p> <!-- 显示检查消息 -->
+    <script>
+    var myWindow;
+    function openWin()
+    {
+        myWindow = open('', 'newWin', 'width=400, height=200, left=200');
+        myWindow.document.write('<p>窗口名称:' + myWindow.name + '</p>');
+        myWindow.document.write('<p>该窗口的夫窗口地址' + myWindow.parent.location + '</p>');
+    }
+    function closeWin()
+    {
+        myWindow.close();
+    }
+    function checkWin()
+    {
+        if (myWindow)
+            var str = myWindow.closed ? '窗口已关闭' : '窗口未关闭';
+        else
+            var str = '窗口未打开';
+        document.getElementById('msg').innerHTML = str;
+    }
+    </script>
+</body>
+```
+
+### 窗口的大小和位置操作
+
+用来设置窗口的位置和大小的一些属性和方法
+![设置窗口的大小和位置1](_v_images/20200430140126201_17383.png =700x)
+![设置窗口的大小和位置](_v_images/20200430140159067_20029.png =700x)
+> 表中的方法都只能对`window.open()`打开的窗口使用
+
+```html
+<body style="font-family: Consolas;">
+  <p><input type="button" value="打开窗口" onclick="openWin()"></p>
+  <p id="control">
+    调整窗口<br>
+    <input type="button" value="+" onclick="changeWin('add_height')">
+    <input type="button" value="⬆" onclick="changeWin('move_up')">
+    <input type="button" value="-" onclick="changeWin('sub_height')"> </br>
+    <input type="button" value="⬅" onclick="changeWin('move_left')">
+    <input type="button" value="✖" onclick="closeWin()">
+    <input type="button" value="➡" onclick="changeWin('move_right')"> </br>
+    <input type="button" value="+" onclick="changeWin('add_width')">
+    <input type="button" value="⬇" onclick="changeWin('move_down')">
+    <input type="button" value="-" onclick="changeWin('sub_width')">
+  </p>
+  <p id="msg"></p> <!-- 显示检查消息 -->
+  <script>
+    var myWindow;
+    function openWin()
+    {
+      myWindow = open('', 'newWin', 'width = 400, height = 400');
+      myWindow.document.write('<p>窗口名称:' + myWindow.name + '</p>');
+      myWindow.document.write('<p>该窗口的夫窗口地址' + myWindow.parent.location + '</p>');
+      getPosSize();
+    }
+    function getPosSize()
+    {
+      var x    = myWindow.screenLeft,  y    = myWindow.screenTop;
+      var inH  = myWindow.innerHeight, inW  = myWindow.innerWidth;
+      var outH = myWindow.outerHeight, outW = myWindow.outerWidth;
+      myWindow.document.write('<p>相对屏幕窗口的坐标:' + 'x:' + x + ',' + 'y:' + y + '</p>');
+      myWindow.document.write('<p>文档的高度和宽度:' + 'h:' + inH + ',' + 'w:' + inW + '</p>');
+      myWindow.document.write('<p>窗口的高度和宽度:' + 'h:' + outH + ',' + 'w:' + outW + '</p>');
+      myWindow.document.write('<hr>');
+    }
+    function changeWin(mode)
+    {
+      switch (mode)
+      {
+      case 'add_height':
+        myWindow.resizeBy(0,10);
+        break;
+      case 'add_width':
+        myWindow.resizeBy(10,0);
+        break;
+      case 'sub_height':
+        myWindow.resizeBy(0,-10);
+        break;
+      case 'sub_width':
+        myWindow.resizeBy(-10,0);
+        break;
+      case 'move_up':
+        myWindow.moveBy(0,-10);
+        break;
+      case 'move_down':
+        myWindow.moveBy(0,10);
+        break;
+      case 'move_left':
+        myWindow.moveBy(-10,0);
+        break;
+      case 'move_right':
+        myWindow.moveBy(10,0);
+        break;
+      }
+    }
+    function closeWin()
+    {
+      myWindow.close();
+    }
+  </script>
+</body>
+```
 
 ## 事件
 
