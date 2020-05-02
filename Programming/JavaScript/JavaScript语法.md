@@ -1653,6 +1653,62 @@ specs的可选值：
 </body>
 ```
 
+## 框架操作
+
+```html
+<iframe name="frame01"></iframe>
+<iframe name="frame02"></iframe>
+<iframe name="frame03"></iframe>
+<script>
+  // 获取框架对象
+  window.frames['frame01'].document.write('frame01');
+  window.frames.frame02.document.write('frame02');
+  window.frames[2].document.write('frame03');
+  // 获取框架数量
+  console.log(window.length); // 3
+</script>
+```
+
+## 定时器
+
+![](_v_images/20200502121950836_19650.png =700x)
+
+`setInterval()`虽然设置了按周期重复执行，但其本身只执行了一次
+
+```javascript
+var n = 0;
+setInterval(putMessage, 1000, n); // 设置每隔1秒调用一次putMessage(0)
+function putMessage(msg)
+{
+    console.log(msg); // 输出一直是0
+    n++;
+}
+```
+
+设置和取消定时
+
+```html
+<input value="开始计数" type="button" onclick="startCount()">
+<input type="text" id="count">
+<input value="停止计数" type="button" onclick="stopCount()">
+<script>
+    var timer = null, c = 0;
+    function startCount()
+    {
+        timer = setInterval(countPerSec, 1000);
+    }
+    function stopCount()
+    {
+        clearInterval(timer);
+    }
+    function countPerSec()
+    {
+        document.getElementById('count').value = ++c;
+    }
+</script>
+```
+
+
 ## 事件
 
 可以被JS侦测到的交互行为，事件发生后可以用JS实现交互效果
