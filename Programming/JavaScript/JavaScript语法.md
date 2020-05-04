@@ -1470,7 +1470,7 @@ obj.__proto__.d = 4;
 
 ### window对象
 
-### 全局作用域
+#### 全局作用域
 
 全局作用域的变量函数都可以被window对象调用， 调用window对象的成员可以省略`window.`
 
@@ -1519,12 +1519,12 @@ delete window.b;
 console.log(window.b); // undefined
 ```
 
-### 对话框和窗口
+#### 对话框和窗口
 
 常用的窗口相关的属性和方法  
 ![弹出对话框和窗口相关的属性与方法](_v_images/20200430103955777_30123.png =600x)
 
-#### window.open()
+##### window.open()
 
 ```javascript
 open(URL, name, specs, replace);
@@ -1541,7 +1541,7 @@ specs的可选值：
 <span style="color:green">设置了specs以后会以新窗口的形式打开窗口, (优先级低于浏览器的弹出窗口打开设置)</span>  
 
 
-#### 例：打开与关闭窗口
+##### 例：打开与关闭窗口
 
 ```html
 <body style="font-family: Consolas;">
@@ -1573,7 +1573,7 @@ specs的可选值：
 </body>
 ```
 
-### 窗口的大小和位置操作
+#### 窗口的大小和位置操作
 
 用来设置窗口的位置和大小的一些属性和方法
 ![设置窗口的大小和位置1](_v_images/20200430140126201_17383.png =700x)
@@ -1653,7 +1653,7 @@ specs的可选值：
 </body>
 ```
 
-## 框架操作
+#### 框架操作
 
 ```html
 <iframe name="frame01"></iframe>
@@ -1669,7 +1669,7 @@ specs的可选值：
 </script>
 ```
 
-## 定时器
+#### 定时器
 
 ![](_v_images/20200502121950836_19650.png =700x)
 
@@ -1707,6 +1707,81 @@ function putMessage(msg)
     }
 </script>
 ```
+
+### loaction对象
+
+#### 更改URL
+
+|            方法             |                 说明                 |
+| --------------------------- | ------------------------------------ |
+| `assgin(String URL)`        | 在当前标签页载入一个URL(可返回原文档)   |
+| `reload(Bool forcedReload)` | 重新载入当前页面(传true时绕过缓存读取)  |
+| `replace(String URL)`       | 在当前标签页载入一个URL(不可返回原文档) |
+
+> 有些情况下使用assign()也无法返回, [见此](https://segmentfault.com/q/1010000004898876/a-1020000004903511)
+
+#### 获取和修改URL参数
+
+使用location对象的属性来获取和修改URL
+[location对象的属性](https://developer.mozilla.org/zh-CN/docs/Web/API/Location)
+
+```javascript
+console.log(location.href); // 获取当前页面的URL
+location.href = "http://www.example.com"; // 修改URL
+```
+
+<span style="color:green">使用location的属性或方法跳转不会被浏览器拦截窗口</span>
+> 测试浏览器：chrome
+
+### history对象
+
+#### 历史记录跳转
+
+| 分类 |        名称        |                说明                 |
+| --- | ------------------ | ---------------------------------- |
+| 属性 | `length`           | 返回历史列表的网址数                 |
+| 方法 | `back()`           | 加载history列表的前一个URL           |
+| 方法 | `forward()`        | 加载history列表的后一个URL           |
+| 方法 | `go(Number pages)` | 加载history列表的前(+)/后(-)pages个的URL |
+
+> go(1) 等价于 forward(), go(-1) 等价于 back()
+
+#### 添加和修改历史记录
+
+```javascript
+[push|replace]State(Object state, String title[, String url])
+// state: 状态对象, popstate事件触发时, popstate事件的state属性会包含此对象的副本, 不需要使用则用''
+// title: 新页面的标题, 目前浏览器普遍忽视此参数, 故用''
+// url  : 新页面的URL, 必须与原URL同源, 可以是绝对路径或相对路径
+```
+
+pushState()和replaceState()对历史记录的修改会修改地址栏，但不会马上加载，当再次转到此地址时才会加载
+[参考例子](https://developer.mozilla.org/zh-CN/docs/Web/API/History_API#pushState_方法的例子)
+
+> 新页面URL必须与原URL同源：
+> <span style="color:green">应该是同一源文件的意思，即新URL必须和原URL指向同一个文件，故只能添加参数和锚点</span>
+>
+> ```javascript
+> var url = location.href; // 原URL
+> history.pushState('', '', url + '#a');   // 新URL为原URL添加锚点后的地址
+> history.pushState('', '', url + '?p=1'); // 添加参数
+> history.pushState('', '', url + '/test1/index.html'); // 错误：新URL与原URL非同源
+> ```
+>
+> 新URL使用绝对路径或相对路径
+> ```javascript
+> var url = location.href; // 原URL
+> // 下面两句效果相同
+> history.pushState('', '', url + '#a');   // 新URL为原URL添加锚点后的地址
+> history.pushState('', '', '#a');         // 新URL为原URL添加锚点后的地址
+> ```
+
+
+
+
+
+
+
 
 
 ## 事件
