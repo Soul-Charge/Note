@@ -1776,13 +1776,15 @@ pushState()和replaceState()对历史记录的修改会修改地址栏，但不�
 > history.pushState('', '', '#a');         // 新URL为原URL添加锚点后的地址
 > ```
 
+### navigator对象
 
+可以得到一些关于浏览器的信息[详见此](https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator)
 
+### screen对象
 
-
-
-
-
+用于返回当前渲染窗口中与屏幕相关的信息
+[参考](https://developer.mozilla.org/zh-CN/docs/Web/API/Screen)
+![主流screen对象的属性](_v_images/20200504160011543_12214.png =500x)
 
 ## 事件
 
