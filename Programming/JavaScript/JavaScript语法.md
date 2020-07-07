@@ -1786,6 +1786,121 @@ pushState()和replaceState()对历史记录的修改会修改地址栏，但不�
 [参考](https://developer.mozilla.org/zh-CN/docs/Web/API/Screen)
 ![主流screen对象的属性](_v_images/20200504160011543_12214.png =500x)
 
+## DOM
+
+一套规范文档内容的通用型标准  
+
+### DOM HTML
+
+DOM 中为操作HTML文档提供的属性和方法:
+文档(document)--HTML文件
+元素(element)-----标签
+节点(node)--------文档中所有内容
+
+#### DOM HTML 节点树
+
+一个HTML文件可以看作由文档内所有元素组成的节点树
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+  </head>
+  <!-- 我是一个注释节点 -->
+  <body style = "font-family: Consolas;">
+    <p>This is a paragraph</p>
+    <a href="#">link to</a>
+  </body>
+</html>
+```
+
+> 节点分类：
+> ----按照位置
+> 根节点：`<html>`标签
+> 子节点：某一个节点的下一级节点
+> 父节点：某一个节点的上一级节点
+> 兄弟节点：同一个节点下的子节点
+> ----按照作用
+> 属性节点：标签的属性名
+> 文本节点：标签节点内的文本
+> 注释节点：注释内容
+> 标签(元素)节点：文档中的标签
+
+```mermaid
+graph TD
+document --- root
+root --- head
+root --- comment
+root --- body
+head --- meta --- charset
+head --- title --- titleText
+comment --- commentText
+body --- p --- pText
+body --- a --- href
+body --- Style
+a --- aText
+
+document[文档<br>document]
+root[根元素<br><html>]
+head[元素<br><head>]
+body[元素<br><body>]
+meta[元素<br><meta>]
+title[元素<br><title>]
+p[元素<br><p>]
+a[元素<br><a>]
+charset[属性<br>charset]
+titleText[文本<br>demo]
+Style[属性<br>style]
+pText[文本<br>This is a paragraph]
+href[属性<br>href]
+aText[文本<br>link to]
+comment[注释节点]
+commentText[文本<br>我是一个注释节点]
+```
+
+#### DOM 对象的继承关系
+
+**元素对象**
+Element对象提供了用于以元素方式操作文档的属性和方法,如`.tagName`
+因Element对象继承自Node对象，所以也有Node对象中的属性和方法,如`.nodeName`
+**节点对象**
+Node对象提供了用于以节点方式操作文档的属性和方法如`.nodeName`
+其他节点操作
+![](_v_images/20200706115059953_26935.png =700x)
+
+继承关系显示例：
+```html
+<div id="test"></div>
+<script>
+    console.log(test.__proto__);    // 获取原型对象:HTMLDivElement{...}
+    console.log(document.__proto__);// 获取原型对象:HTMLDocument{...}
+    // ↑可在控制台中继续向上找原型
+    console.log(test.nodeName);     // 通过节点方式获取节点名: DIV
+    console.log(test.tagName);      // 通过元素方式获取标签名: DIV
+    console.log(document.nodeName); // 通过节点方式获取节点名 #document
+    console.log(document.tagName);  // document对象不是元素，故输出为undefined
+</script>
+```
+
+继承关系图示：
+
+```mermaid
+graph BT
+
+subgraph document
+window.document --继承--> HTMLDocument --继承--> Document
+end
+window.document --"getElementById('test')"--> div
+subgraph element
+div["<div id=#quot;test#quot;><div>"] --继承--> HTMLDivElement --继承--> HTMLElement --继承--> Element
+end
+Document --继承--> Node
+Element --继承--> Node
+Node --继承--> omit[...] --继承--> Object
+```
+
 ## 事件
 
 可以被JS侦测到的交互行为，事件发生后可以用JS实现交互效果
