@@ -1,0 +1,412 @@
+//获取验证码
+(function($, window){
+    $.ajaxSetup({
+        cache: false,
+        error: function (xhr, textStatus) {
+            if(textStatus !== 'abort')
+                showError('网络异常');
+        }
+    });
+
+    window.decorateTimingText = function(time){
+        return '重新获取（' + time + '）';
+    };
+
+    window.disableTimeBtn = function(){
+        //$('#codeBtn').attr('disabled', 'disabled').addClass('disable');
+        $('#codeBtn').hide();
+    };
+
+    window.enableTimeBtn = function(){
+        //$('#codeBtn').removeAttr('disabled').removeClass('disable');
+        $('#codeBtn').show();
+    };
+
+    window.timing = function(time){
+        $('#time').css('display', 'inline-block');
+        if(typeof time == 'string'){
+            $('#time').text(time);
+        }else{
+            var intervalID = setInterval(function(){
+                time = parseInt(time);
+                if(time === 1){
+                    enableTimeBtn();
+                    $('#time').hide().text(decorateTimingText(120));
+                    clearInterval(intervalID);
+                }else{
+                    $('#time').text(decorateTimingText(--time));
+                }
+            }, 1000);
+            return intervalID;
+        }
+    };
+
+    window.sendCodeHandle = function (type){
+        elementName = 'phone';
+        type = type || 'reg';
+        return function(e){
+            e.preventDefault();
+            var that = $(this);
+            if(that.hasClass('disable')){
+                return false;
+            }
+            disableTimeBtn();
+            timing('请稍后...');
+            var intervalID;
+            $.ajax({
+                url: 'sf.php?mod=code&ajaxdata=json',
+                data: {mobile: document.getElementsByName(elementName)[0].value, type: type},
+                dataType: 'json',
+                success: function(data){
+                    if(data.success){
+                        if(data.message){
+                            showError(data.message);
+                        }
+
+                        if(data.hashid){
+                            $('#hashid').val(data.hashid);
+                        }
+
+                        if(intervalID){
+                            clearInterval(intervalID);
+                        }
+                        intervalID = timing(120);
+                    }else{
+                        if(data.message){
+                            showError(data.message);
+                            enableTimeBtn();
+                            $('#time').hide();
+                        }else if(data.time){
+                            showError(data.time+'秒前才发过验证码，再等等吧');
+                            $('#time').text(decorateTimingText(120 - data.time));
+                            if(intervalID){
+                                clearInterval(intervalID);
+                            }
+                            intervalID = timing(120 - data.time);
+                        }
+                    }
+                }
+            });
+        };
+    };
+
+    window.initGetCodeEvent = function(type,isOne){
+        if(isOne){
+            $('#codeBtn').one('click', window.sendCodeHandle(type));
+        }else{
+            $('#codeBtn').on('click', window.sendCodeHandle(type));
+        }
+    };
+    window.updateNewPrompt = function(){
+        var ajax, intervalId;
+        return function(){
+            if(ajax){
+                ajax.abort();
+            }
+
+            ajax = $.ajax({
+                url: 'home.php?mod=space&do=newprompt',
+                jsonType: 'json',
+                success: function(data){
+                    if(typeof data == 'object'){
+                        var num = data.num
+                            ,myPost = parseInt(num.mypost)
+                            ,follow = parseInt(num.follow)
+                            ,system = parseInt(num.system)
+                            ,manage = parseInt(num.manage)
+                            ,$system = $('#pmSystem').find('.newprompt')
+                            ,$follow = $('#pmFollow').find('.newprompt')
+                            ,$myPost = $('#pmMypost').find('.newprompt')
+                            ,$manage = $('#pmManage').find('.newprompt')
+                            ;
+
+                        system ? $system.text(system).show() : $system.hide();
+                        manage ? $manage.text(manage).show() : $manage.hide();
+                        follow ? $follow.text(follow).show() : $follow.hide();
+                        myPost ? $myPost.text(myPost).show() : $myPost.hide();
+                    }
+                }
+            });
+            return ajax;
+        };
+    };
+
+})(jQuery, this);
+
+(function($) {
+    // window弹窗效果.....................................
+    $.fn.windowOverlay = function(){
+        var $overlay = $(this),
+            queue = [];
+
+        // 阻止父级页面滚动
+        $overlay.on('mousewheel', function(e) {
+            this.scrollTop += e.originalEvent.wheelDelta > 0 ? -60 : 60;
+            e.preventDefault();
+        });
+
+        $overlay.on('mousewheel', '*', function(e) {
+            this.scrollTop += e.originalEvent.wheelDelta > 0 ? -60 : 60;
+            if (this.scrollHeight > this.offsetHeight) return false;
+            e.preventDefault();
+        });
+
+        $overlay.on('DOMMouseScroll', function(e) {
+            this.scrollTop += e.originalEvent.detail > 0 ? 60 : -60;
+            e.preventDefault();
+        });
+
+        $overlay.on('DOMMouseScroll', '*', function(e) {
+            this.scrollTop += e.originalEvent.detail > 0 ? 60 : -60;
+            if (this.scrollHeight > this.offsetHeight) return false;
+            e.preventDefault();
+        });
+        // END 阻止父级页面滚动
+
+
+        $overlay.on('closeOverlay', function(e, callback) {
+            if (queue.length) {
+                if (callback) callback.call(this);
+                $(queue[0]).trigger('open');
+                return;
+            }
+            $(this).fadeOut(function() {
+                $(this).removeClass('is-active');
+                if (callback) callback.call(this);
+            });
+        });
+
+        $overlay.on('openOverlay', function(e, callback) {
+            $(this).fadeIn(function() {
+                $(this).addClass('is-active');
+                if (callback) callback.call(this);
+            });
+        });
+
+        $overlay.on('close', '.window', function(e, callback) {
+            var $window = $(this);
+            queue.shift();
+            $overlay.triggerHandler('closeOverlay', function() {
+                $overlay.find('.window').removeClass('is-active');
+                if (callback) callback.call($window[0]);
+            });
+        });
+
+        $overlay.on('open', '.window', function(e, callback) {
+
+            if ($(queue).index(this) === -1) queue.push(this);
+            if (queue[0] !== this) return;
+
+            $(this).addClass('is-active');
+            $overlay.triggerHandler('openOverlay', function() {
+                if (callback) callback = callback.bind(this);
+            });
+        });
+
+        $overlay.on('click', function(e) {
+            if (!queue.length || $.contains(queue[0], e.target) || queue[0] === e.target) return;
+            if($('#profile-window') && $('#profile-window')[0] == queue[0]) {
+                return;
+            }
+            $(queue[0]).trigger('close');
+        });
+
+        (function() {
+            var $cWindow = $overlay.find('.window.is-active');
+            if ($cWindow.length) {
+                $cWindow.removeClass('is-active');
+                $cWindow.trigger('open');
+            } else {
+                $overlay.removeClass('is-active');
+            }
+        })();
+
+        return this;
+    };
+
+    /*
+     * 为元素绑定异步请求操作:
+     * option.on: 触发异步请求的事件类型
+     * option.url: (string)请求url; (array)自定义url数组 ; (function)返回url的函数
+     * option.type: get | post 请求方式
+     * option.data: 请求数据
+     * option.dataType: 返回请求格式
+     * option.selector: 子元素
+     * option.error: 请求失败的回调函数
+     * option.complete: 回调函数
+     * option.success: 请求成功触发回调函数，参数<data, textStatus, jqXHR, 当前DOM元素>
+     * */
+    $.bindAjaxRequest = function bindAjaxRequest(elems, option) {
+        var $elems = $(elems),
+            defaultOption = {
+                on: 'click',
+                url: null,
+                type: 'get',
+                data: null,
+                cache: true,
+                dataType: 'json',
+                callback: null,
+                selector: null,
+                error: null,
+                success: null,
+                complete: null
+            },
+            XHRID = 'isProgress' + (bindAjaxRequest.guid++) + (Math.random() + '').replace(/\D/g, ''),
+            o;
+
+        o = $.extend({}, defaultOption, option);
+
+        $.each(['url', 'data'], function(index, keyName) {
+            var privateName = '_' + keyName;
+            if (typeof o[keyName] !== 'function') {
+                o[privateName] = o[keyName];
+                o[keyName] = $.isArray(o[keyName]) ? function() {
+                    var index = o['selector'] ?
+                        $elems.find(o['selector']).index(this): $elems.index(this);
+                    return o[privateName][index];
+                } : function() {
+                    return o[privateName];
+                };
+            }
+        });
+
+        $elems.on(o['on'], o['selector'], eventHandler);
+
+        function eventHandler(e, callback) {
+            e.preventDefault();
+            if ($(this).data(XHRID)) $(this).data(XHRID).abort();
+
+            var $that = $(this),
+                url = o['url'].apply(this),
+                data = o['data'].apply(this),
+                id;
+
+            if(typeof o['callback'] == 'function'){
+                if(o['callback'].call(this) === false){
+                    return false;
+                }
+            }
+
+            id = $.ajax({
+                url: url,
+                type: o['type'],
+                data: data,
+                dataType: o['dataType'],
+                error: o['error'],
+                success: function(data, textStatus, jqXHR) {
+                    if (o['success']) o['success'].call(this, data, textStatus, jqXHR, $that[0]);
+                    if (callback) callback.call(this, data, textStatus, jqXHR, $that[0]);
+                },
+                complete: function(jqXHR, textStatus) {
+                    $that.data(XHRID, null);
+                    if (o['complete']) o['complete'].call(this, jqXHR, textStatus, $that[0]);
+                }
+            });
+
+            $that.data(XHRID, id);
+        }
+    };
+
+    $.fn.bindAjaxRequest = function(option) {
+        $.bindAjaxRequest(this, option);
+        return this;
+    };
+
+    $.bindAjaxRequest.guid = 0;
+    // end
+
+    /*
+     * 检测url的hash值，执行回调函数：
+     * option.type: 触发改变hash值的事件类型
+     * option.prefix: hash值的前缀
+     * option.selector: 子元素选择符
+     * option.callback: 回调函数
+     * option.callbackName: 触发回调函数的事件名，方便在外部使用
+     * option.realtime: 是否监测hashchange事件触发回调函数
+     * */
+    $.bindHashEvent = function bindHashEvent(elems, option) {
+        var $elems = $(elems),
+            defaultOption = {
+                on: 'click',
+                off: null,
+                prefix: '/',
+                selector: null,
+                callback: null,
+                callbackName: 'jump.hash',
+                realtime: false
+            }, o;
+
+        o = typeof option === 'function' ?
+            $.extend({}, defaultOption, {callback: option}) :
+            $.extend({}, defaultOption, option);
+
+        $elems.on(o.on, o.selector, function() {
+            if (this.id) location.hash = o.prefix + this.id;
+        });
+
+        $elems.on(o.off, o.selector, function() {
+            var id = location.hash.replace(new RegExp('^#' + o.prefix), '');
+            if (this.id === id) location.hash = bindHashEvent.NONEHASH;
+        });
+
+        $elems.on(o.callbackName, function() {
+            var id = location.hash.replace(new RegExp('^#' + o.prefix), '');
+            o.callback.call(this, id);
+        });
+
+        if (o.realtime) {
+            $(window).on('hashchange', function() {
+                $elems.trigger(o.callbackName);
+            });
+        }
+
+        $elems.trigger(o.callbackName);
+    };
+
+    $.fn.bindHashEvent = function(option) {
+        $.bindHashEvent(this, option);
+        return this;
+    };
+
+    $.bindHashEvent.NONEHASH = (function() {
+        var hash;
+        do {
+            hash = 'NONEHASH_' + Math.random().toFixed(4).replace(/\D/g, '');
+        } while ($('#' + hash).length)
+        return hash;
+    })();
+    // end
+
+})(jQuery);
+
+
+// 全部注释掉 by hqh 2015/9/16 for TD 12306 [社区]设备登录、发帖框，点击旁边很容易消失
+// 给.window-overlay绑定动作
+//(function($) {
+//    // mod by hqh 2015/9/16 for TD 12253 [GCS1.2]从设备端跳转到bbs时，弹出登陆框两次
+//    $(function() {
+//        var $overlay = $('.window-overlay.is-active'),
+//            $box = $overlay.parent();
+//        var $overlay_win = $('.window--jumping-register');
+//
+//        $overlay_win.on('click', function(e) {
+//            e.stopImmediatePropagation();
+//        });
+//        $overlay.on('click', function() {
+//            $overlay.removeClass('is-active');
+//        });
+//
+//        //$overlay
+//        //    .remove()
+//        //    .each(function(i) {
+//        //        if (i === 0) return;
+//        //        $overlay.eq(0).append($(this).contents());
+//        //        $(this).remove();
+//        //    });
+//        //
+//        //$overlay.eq(0)
+//        //    .appendTo($('body'))
+//        //    .windowOverlay();
+//    });
+//})(jQuery);
+// END
