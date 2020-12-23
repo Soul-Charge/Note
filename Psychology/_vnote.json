@@ -8,6 +8,9 @@
     "sub_directories": [
         {
             "name": "notes"
+        },
+        {
+            "name": "Temp"
         }
     ],
     "tags": [

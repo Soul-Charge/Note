@@ -8,6 +8,9 @@
     "sub_directories": [
         {
             "name": "OverTheWire_Wargames"
+        },
+        {
+            "name": "信息安全相关（暂定）"
         }
     ],
     "tags": [

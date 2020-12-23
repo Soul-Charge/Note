@@ -1714,7 +1714,7 @@ function putMessage(msg)
 
 |            方法             |                 说明                 |
 | --------------------------- | ------------------------------------ |
-| `assgin(String URL)`        | 在当前标签页载入一个URL(可返回原文档)   |
+| `assign(String URL)`        | 在当前标签页载入一个URL(可返回原文档)   |
 | `reload(Bool forcedReload)` | 重新载入当前页面(传true时绕过缓存读取)  |
 | `replace(String URL)`       | 在当前标签页载入一个URL(不可返回原文档) |
 
@@ -1900,6 +1900,130 @@ Document --继承--> Node
 Element --继承--> Node
 Node --继承--> omit[...] --继承--> Object
 ```
+
+### HTML元素操作
+
+#### 获取元素
+
+##### 通过document对象的方法
+
+|                方法                 |                    说明                    |
+| ----------------------------------- | ----------------------------------------- |
+| `document.getElementById()`         | 返回对拥有指定id的第一个对象的引用           |
+| `document.getElementsByName()`      | 返回带有指定名称的对象引用的集合             |
+| `document.getElementsByTagName()`   | 返回带有指定标签名的对象引用集合             |
+| `document.getElementsByClassName()` | 返回带有指定类名的对象引用集合               |
+| `document.querySelector()`          | 返回匹配到指定元素或CSS选择器的第一个对象引用(HTML5) |
+| `document.querySelectorAll()`       | 返回匹配到指定元素或CSS选择器的对象引用集合(HTML5)   |
+
+例1：获得对象为引用
+```HTML
+<body>
+  <p id="phrase" class="phrase" name="phrase"> I'm a phrase. </p>
+</body>
+<script>
+  objById    = document.getElementById('phrase');
+  objByClass = document.getElementsByClassName('phrase');
+  objByName  = document.querySelector("[name='phrase']");
+  console.log(objById);    // <p id="phrase" class="phrase"> I'm a phrase. </p>
+  console.log(objByClass); // HTMLCollection [p#phrase.phrase, phrase: p#phrase.phrase]
+  console.log(objByName);  // <p id="phrase" class="phrase"> I'm a phrase. </p>
+  console.log(objById === objByClass[0]); // true
+  // 不延时执行的话就会导致前面的输出和后面一样
+  setTimeout(change, 1000);
+  function change() {
+    objById.innerHTML = 'changed';
+    console.log(objById);    // <p id="phrase" class="phrase">changed</p>
+    console.log(objByClass); // HTMLCollection [p#phrase.phrase, phrase: p#phrase.phrase]
+    console.log(objById === objByClass[0]); // true
+    console.log(objById === objByName);     // true
+  }
+</script>
+```
+
+> 修改`objById`同时`objByClass`和`objByName`也被修改，说明使用这些方法返回的是对象引用(浅复制)
+
+例2：`querySelector()`用法
+```HTML
+<body>
+  <p id="phrase" class="phrase" name="phrase"> I'm a phrase. </p>
+  <div name="phrase">I'm a divPhrase. </div>
+</body>
+<script>
+  objById    = document.querySelector('#phrase');
+  objByClass = document.querySelector('.phrase');
+  objByName  = document.querySelector("[name='phrase']");
+  objByName2 = document.querySelector("div[name='phrase']");
+  objsByName = document.querySelectorAll("[name='phrase']");
+  console.log(objById);    // <p id="phrase" class="phrase"> I'm a phrase. </p>
+  console.log(objByClass); // <p id="phrase" class="phrase"> I'm a phrase. /p>
+  console.log(objByName);  // <p id="phrase" class="phrase"> I'm a phrase. /p>
+  console.log(objByName2); // <div name="phrase">I'm a divPhrase. </div>
+  console.log(objsByName); // NodeList(2) [p#phrase.phrase, div]
+  console.log(objById === objsByName[0]); // true
+</script>
+```
+
+##### 通过document对象的属性
+
+[属性列表](https://developer.mozilla.org/zh-CN/docs/Web/API/Document#属性)
+
+使用例:
+
+```HTML
+<body>
+  <img id="img1" src="https://i.loli.net/2020/08/02/AhLPqnSWvIxHUsg.jpg">
+  <img id="img2" src="https://i.loli.net/2020/08/02/f64GYIDBwVx1LPl.jpg">
+</body>
+<script>
+  objImg1 = document.getElementById('img1');
+  console.log(document.body);
+  console.log(document.images);      // HTMLCollection(2) [img#img1, img#img2, img1: img#img1, img2: img#img2]
+  console.log(document.images[0]);   // <img id="img1" src="https://i.loli.net/2020/08/02/AhLPqnSWvIxHUsg.jpg"> 
+  console.log(objImg1 === document.images[0]); // true(使用两种方法获得的对象一样)
+</script>
+```
+
+##### 通过Element对象的方法和属性
+
+|         方法/属性         |             说明              |
+| ------------------------ | ----------------------------- |
+| `getElementsByName()`    | 返回带有指定名称的对象引用的集合 |
+| `getElementsByTagName()` | 返回带有指定标签名的对象引用集合 |
+| `children`               | 返回所有子元素引用集合          |
+
+> 用法和document对象的同名方法相同
+
+使用例:
+
+```HTML
+<body>
+  <ul id="number">
+    <ol id="odd"> <li>1</li><li>3</li><li>5</li> </ol>
+    </br>
+    <ol id="even"> <li>2</li><li>4</li><li>6</li> </ol>
+  </ul>
+</body>
+<script>
+  // id为number的元素的所有li子元素
+  var numberList     = document.getElementById('number').getElementsByTagName('li');
+  // id为odd的元素的所有li子元素
+  var oddList        = document.getElementById('odd').getElementsByTagName('li');
+  // id为odd的元素的所有子元素
+  var numberChildren = document.getElementById('number').children;
+  console.log(numberList);     // HTMLCollection(6) [li, li, li, li, li, li]
+  console.log(oddList);        // HTMLCollection(3) [li, li, li]
+  console.log(numberChildren); // HTMLCollection(3) [ol#odd, br, ol#even, odd: ol#odd, even: ol#even]
+</script>
+```
+
+
+
+
+
+
+
+
 
 ## 事件
 
