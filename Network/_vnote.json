@@ -8,6 +8,9 @@
     "sub_directories": [
         {
             "name": "ComputerNetworking"
+        },
+        {
+            "name": "tips"
         }
     ],
     "tags": [
