@@ -603,13 +603,95 @@ chmod 600 /home/creeper/.ssh/id_rsa_bandit13to14
 # 之后即可直连Bandit14@bandit.labs.overthewire.org
 ```
 
+### 密码
+
+虽然此Level使用ssh key认证登录但仍有密码，用于Level 14 -> Level 15
+
+```text
+4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+```
+
 ## Level 14 -> Level 15
 
 ### 相关知识
 
+**telnet**
+
+> The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+> 通过向localhost的30000端口提交当前Level的密码，可以检索到下一Level的密码。
+
+故连接到localhost的30000端口后发送Level 14 的密码即可，localhost虽为本地主机，但仍可用telnet登录
+
+### 问题排查
+
+```shell
+telnet localhost
+# Trying 127.0.0.1...
+# telnet: Unable to connect to remote host: Connection refused
+```
+
+问题应为端口号占用，连接时加上可用端口号，如在此处使用网页给出的30000
+[参考文章](https://blog.csdn.net/renmengqisheng/article/details/90579205)
+
+```shell
+telnet localhost 30000
+# Trying 127.0.0.1...
+# Connected to localhost.
+# Escape character is '^]'.
+```
+
 ### 具体操作
 
+
+1. 使用telnet登录127.0.0.1(localhost)
+
+    ```shell
+    telnet localhost 30000
+    # Trying 127.0.0.1...
+    # Connected to localhost.
+    # Escape character is '^]'.
+    # 粘贴Level14的密码↓
+    4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+    # Correct!
+    # 得到密码↓
+    # BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+    # Connection closed by foreign host.
+    ```
+
+2. 网上找向端口发送字符串找到的，原理尚未明确
+
+    ```shell
+    (echo '4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e'; sleep 2) | telnet localhost 30000
+    # Trying 127.0.0.1...
+    # Connected to localhost.
+    # Escape character is '^]'.
+    # Correct!
+    # BfMYroe26WYalil77FoDi9qh59eK5xNr
+    ```
+
+3. 使用ssh连接到localhost后发送Level14的密码？
+    目前没找到可行方法，尝试：
+    ```shell
+    ssh -p 30000 localhost
+    # ssh_exchange_identification: Connection closed by remote host
+    ssh -v -p 30000 localhost
+    # 其中一条调试信息↓
+    # debug1: ssh_exchange_identification: Wrong! Please enter the correct current password
+    # 可知问题应为没有输入密码
+    # 尝试输入密码↓
+    echo 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e | ssh -v -p 30000 localhost
+    # debug1: ssh_exchange_identification: Wrong! Please enter the correct current password
+    # 使用类似 2. 的方法，仍然不行
+    (echo '4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e'; sleep 2) | ssh -v -p 30000 localhost
+    # debug1: ssh_exchange_identification: Wrong! Please enter the correct current password
+    ```
+
 ### 密码
+
+```text
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+```
 
 ## Level 15 -> Level 16
 
