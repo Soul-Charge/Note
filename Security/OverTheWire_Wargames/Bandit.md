@@ -820,21 +820,84 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 -----END RSA PRIVATE KEY-----
 ```
 
+## Level 17 -> Level 18
 
+### 提示内容理解
 
+> The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new
+> 下一级的密码在passwords.new中，是passwords.old和passwords.new之间唯一被改变的一行。
 
+显然是查看两个文件的不同处
 
+### 相关知识
 
+**[diff命令](https://www.runoob.com/linux/linux-comm-diff.html)**
 
+### 具体操作
 
+```shell
+diff password.old password.new
+### 输出分割线
+42c42 # 表示第42行
+< w0Yfolrc5bwjS4qw5mq1nnQi6mF03bii # .old该行的内容
+---
+> kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd # .new该行的内容，Level 18 的密码
+### 输出分割线
+```
 
+### 密码
 
+```text
+kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+```
 
+### 更多
 
+关于登录后自动登出：
+来自 Level 18 -> Level 19 的页面提示
+> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
+> 使用SSH登录badit18会自动登出
 
+使用命令
+```shell
+ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat .bashrc'
+```
+查看.bashrc，实现方式应该就是加了一行exit 0
+也就是写一句退出，导致登录后自动执行退出命令
 
+## Level 18 -> Level 19
 
+### 提示内容理解
 
+> The password for the next level is stored in a file readme in the homedirectory.
+> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
+> 概括：密码就在登录后用户目录下但是登录自动登出
+
+本想着使用su命令但发现报错`Authentication failure`，[关于此错误](https://blog.csdn.net/ACK_ACK/article/details/106320127)，大概就是切换到非root用户的其他用户也要先获得root权限
+于是只能看回ssh命令尝试找到查看/home/bandit18/readme的方法
+
+### 相关知识
+
+[更多关于ssh命令的内容（看SSH远程操作那一节）](https://blog.csdn.net/pipisorry/article/details/52269785)
+当然可以直接`man ssh`查看
+
+```shell
+# 使用ssh在远程主机上执行操作
+ssh usr@host 'command'
+```
+
+### 具体操作
+
+```shell
+ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat readme'
+# 粘贴 Level 18 的密码
+```
+
+### 密码
+
+```text
+IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+```
 
 
 
