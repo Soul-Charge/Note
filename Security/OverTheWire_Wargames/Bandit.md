@@ -726,8 +726,99 @@ closed
 cluFn7wTiGryunymYOu4RcffSxQluehd
 ```
 
+## Level 16 -> Level 17
 
+### 提示内容理解
 
+> The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. 
+> 下一Level的认证信息(ssh 私钥)可以通过向 localhost 的一个端口发送当前 Level 的密码得到，端口范围：31000到32000
+> First find out which of these ports have a server listening on them. 
+> 首先找到有服务监听的端口
+> Then find out which of those speak SSL and which don't. 
+> 然后找到分辨哪些是SSL的
+> There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+> 只有一个服务会提供下一 Level 的认证信息，其他的只会返回输入
+
+所以需要扫描localhost的指定范围内的端口并判断其服务类型
+
+### 相关知识
+
+**[nmap](https://nmap.org/man/zh/)**
+
+直接输入nmap或使用`man nmap`即可查看用法
+使用`-pn-n`以设置端口范围(n为数字)
+> -p <port ranges>: Only scan specified ports
+> Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+
+使用`-sV`选项以查看服务类型
+> -sV: Probe open ports to determine service/version info
+
+**[SSL多私钥管理`II`(相对于上面的)](http://php-note.com/article/657.html)**
+
+### 具体操作
+
+```shell
+nmap -p31000-32000 -sV localhost
+# ### 有用信息部分↓ ###
+PORT      STATE SERVICE     VERSION
+31046/tcp open  echo
+31518/tcp open  ssl/echo
+31691/tcp open  echo
+31790/tcp open  ssl/unknown
+31960/tcp open  echo
+# ### 有用输出信息部分↑ ###
+openssl s_client -host localhost -port 31790
+# 连接成功后粘贴 Level 16 的密码↓
+cluFn7wTiGryunymYOu4RcffSxQluehd
+# 之后显示用于连接 Level 17 的私钥（这里不贴了看下面子标题私钥）
+```
+
+创建新文件并粘贴私钥后，修改~/.ssh/config
+为了兼容同一ip不同用户而修改config↓（记得修改在~/.ssh/下对应的私钥文件名）
+```config
+Host github.com
+IdentityFile ~/.ssh/id_rsa
+
+Host bandit.labs.overthewire.org
+IdentityFile ~/.ssh/id_rsa_bandit14
+User bandit14
+
+Host bandit.labs.overthewire.org
+IdentityFile ~/.ssh/id_rsa_bandit17
+User bandit17
+```
+
+### 私钥
+
+```text
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+```
 
 
 
