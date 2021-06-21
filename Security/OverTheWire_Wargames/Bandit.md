@@ -697,6 +697,55 @@ BfMYroe26WYalil77FoDi9qh59eK5xNr
 
 ### 相关知识
 
+> The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost **using SSL encryption**.
+> **using SSL encryption**，表示要使用经过SSL加密的连接方式
+
+SSL/TLS
+[浅谈SSL/TLS工作原理](https://zhuanlan.zhihu.com/p/36981565)
+SSL/TLS 的客户端程序
+[s_client文档](https://www.openssl.net.cn/docs/235.html)
+
 ### 具体操作
 
+```shell
+openssl s_client -host localhost -port 30001
+# 中间输出一大串没必要放出来了
+# 粘贴Level 15 的密码
+BfMYroe26WYalil77FoDi9qh59eK5xNr
+# 直接显示密码了
+Correct!
+cluFn7wTiGryunymYOu4RcffSxQluehd
+
+closed
+# ###
+```
+
 ### 密码
+
+```text
+cluFn7wTiGryunymYOu4RcffSxQluehd
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
