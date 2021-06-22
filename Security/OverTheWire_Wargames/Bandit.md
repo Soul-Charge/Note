@@ -1072,3 +1072,60 @@ cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
 ```
 
+## Level 22 -> Level 23
+
+### 提示内容理解
+
+> A program is running automatically at regular intervals from cron, the time-based job scheduler. 
+> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行
+> Look in /etc/cron.d/ for the configuration and see what command is being executed.
+> 查看/etc/cron.d/下的配置文件看看运行的命令是什么
+
+和上一level一样
+
+> **NOTE**: Looking at shell scripts written by other people is a very useful skill. 
+> 提示：观察别人写的shell脚本是一项非常有用的技能。
+> The script for this level is intentionally made easy to read. 
+> 这个level的脚本特地写的非常易读
+> If you are having problems understanding what it does, try executing it to see the debug information it prints.
+> 如果你不懂它做了什么，试试运行一下看调试信息（用调试模式看吧,bash -x file.sh）
+
+### 相关知识
+
+[shell编程-变量](https://www.runoob.com/linux/linux-shell-variable.html)
+能看懂下面那个shell脚本就行，主要就是使用变量
+
+### 具体操作
+
+```shell
+cat cronjob_bandit23
+# @reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+# * * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+cat /usr/bin/cronjob_bandit23.sh
+```
+
+文件内容↓，作用是将运行此文件的用户密码输入到一个临时文件中，文件名通过用户名加密生成，就是这句↓
+`echo I am user $myname | md5sum | cut -d ' ' -f 1`
+
+```bash
+#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+```
+
+```shell
+echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+# 8ca319486bfbbc3663ea0fbe81326349
+cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+```
+
+### 密码
+
+```text
+jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+```
