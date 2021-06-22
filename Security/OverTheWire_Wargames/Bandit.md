@@ -1031,3 +1031,44 @@ screen tmux就算了，WSL不咋好用
 ```text
 gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 ```
+
+## Level 21 -> Level 22
+
+### 提示内容理解
+
+> A program is running automatically at regular intervals from cron, the time-based job scheduler. 
+> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行
+> Look in /etc/cron.d/ for the configuration and see what command is being executed.
+> 查看/etc/cron.d/下的配置文件看看运行的命令是什么
+
+了解一下corntab然后看看配置文件找密码
+
+### 相关知识
+
+**[crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)**
+知道这个命令用来设定配置文件中的计划任务就行了，当然还要能看懂配置文件↑
+
+### 具体操作
+
+```shell
+ls /etc/cron.d/
+# cronjob_bandit15_root  cronjob_bandit22  cronjob_bandit24
+# cronjob_bandit17_root  cronjob_bandit23  cronjob_bandit25_root
+cat /etc/cron.d/cronjob_bandit22
+# @reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+# * * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+cat /usr/bin/cronjob_bandit22.sh
+# ### 文件内容↓ ###
+#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+# ### 文件内容↑ ###(看第二行，把 Level 22 的密码输入到那个文件里了
+cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+```
+
+### 密码
+
+```text
+Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+```
+
