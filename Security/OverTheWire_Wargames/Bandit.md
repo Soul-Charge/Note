@@ -940,3 +940,94 @@ Run a command as another user.
 ```text
 GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 ```
+
+## Level 20 -> Level 21
+
+### 提示内容理解
+
+> There is a setuid binary in the homedirectory that does the following: 
+> ~/目录下有一个setuid二进制文件并且它会这样工作：
+> it makes a connection to localhost on the port you specify as a commandline argument. 
+> 它会通过你从命令行指定的端口建立对localhost的连接
+> It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). 
+> 然后它会从连接中读取一行文本并且与 Level20 的密码比对
+> If the password is correct, it will transmit the password for the next level (bandit21).
+> 如果密码正确它会发送 Level21 的密码
+
+因为提供的程序需要给定端口连接到localhost，所以需要在localhost上开放一个服务监听端口用来提供连接
+看看提示里说可能用到的命令...可以用`nc`
+[参考视频(7:22)](https://www.youtube.com/watch?v=n7zhPMf0hxA)
+我咋就没想到这个qwq
+
+### 相关知识
+
+**[nc命令](https://www.runoob.com/linux/linux-comm-nc.html)**
+**[Job Control（工作控制）](https://www.cnblogs.com/echobfy/p/3851497.html)**
+screen tmux就算了，WSL不咋好用
+
+### 具体操作
+
+1. 使用Job Control一个本地终端完成
+    ```shell
+    nc -lvp 2333
+    # listening on [any] 2333 ...
+    # <Ctrl + Z>
+    # [1]+  Stopped                 nc -lvp 2333
+    bg %1
+    # [1]+ nc -lvp 2333 &
+    ./suconnect 2333
+    # connect to [127.0.0.1] from localhost [127.0.0.1] 44586
+    # <Ctrl + Z>
+    # [2]+  Stopped                 ./suconnect 2333
+    bg %2
+    # ###
+    [2]- ./suconnect 2333 &
+
+    [1]+  Stopped                 nc -lvp 2333
+    # ###
+    fg %1
+    # nc -lvp 2333
+    # 粘贴 Level 20 的密码
+    # GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+    # Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+    # Password matches, sending next password
+    # gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+    ```
+2. 直接两个本地终端远程连接
+    本地终端A：
+
+    ```shell
+    nc -lvp 2333
+    # listening on [any] 2333 ...
+    ```
+
+    本地终端B：
+
+    ```shell
+    ./suconnect 2333
+    ```
+
+    本地终端A：
+    ```shell
+    # connect to [127.0.0.1] from localhost [127.0.0.1] 40654
+    # 粘贴 Level 20 的密码
+    ```
+
+    本地终端B：
+
+    ```shell
+    # Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+    # Password matches, sending next password
+    ```
+
+    本地终端A：
+
+    ```shell
+    # gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+    ```
+
+### 密码
+
+```text
+gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+```
