@@ -899,7 +899,44 @@ ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat readme'
 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 ```
 
+## Level 19 -> Level20
 
+### 提示内容理解
 
+> To gain access to the next level, you should use the setuid binary in the homedirectory. 
+> 为获得得到下一level的密码的权限，你需要使用~/目录下的setuid 二进制文件
+> Execute it without arguments to find out how to use it. 
+> 不输入参数执行它来了解如何使用
+> The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
+> 使用了这个setuid二进制文件后，可以在老地方(/etc/bandit_pass)找到密码
 
+首先根据提示了解什么是setuid
+[参考文章](https://blog.csdn.net/weixin_44575881/article/details/86552016)，概括：通过设置文件setuid权限可以使任何拥有执行该文件的用户以root权限运行此文件（普通执行变成root身份执行）
+然后查看`bandit20-do`的用法：
 
+```shell
+./bandit20-do
+# ###
+Run a command as another user.
+  Example: ./bandit20-do id
+```
+
+提示指出该程序可作为另一个用户执行命令
+但要注意`Example: ./bandit20-do id`，里的id不是用户的id
+而是相当于` ./bandit20-do command`的用法例
+再结合文件名可知此文件可以以bandit20的身份访问`/etc/bandit_pass/bandit20`
+
+然而到这里setuid并没有什么存在感，因为根本不需要管。
+这里唯一和setuid有关系的就是文件`bandit20-do`已经设置了setuid权限
+
+### 具体操作
+
+```shell
+./bandit20-do cat /etc/bandit_pass/bandit20
+```
+
+### 密码
+
+```text
+GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+```
