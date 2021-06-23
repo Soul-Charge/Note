@@ -1129,3 +1129,78 @@ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 ```text
 jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
 ```
+
+## Level 23 -> Level 24
+
+### 相关知识
+
+**[shell编程-流程控制](https://www.runoob.com/linux/linux-shell-process-control.html)**
+
+`for i in *` 表示变量值为当前目录下所有非隐藏文件和目录名
+`for i in *`表示变量值为当前目录下所有隐藏文件名和目录名
+`for i in * .*`即可表示当前目录下所有文件和目录名
+
+**stat命令**：显示文件/文件系统的信息
+
+[也许用得上的参考文章](https://www.cnblogs.com/klb561/p/9241228.html)
+`man stat`查看此level用到的选项
+`--format`设置输出格式
+`%U`设置格式为显示用户名
+
+### 具体操作
+
+```shell
+ls /etc/cron.d/
+# cronjob_bandit15_root  cronjob_bandit22  cronjob_bandit24
+# cronjob_bandit17_root  cronjob_bandit23  cronjob_bandit25_root
+cat /etc/cron.d/cronjob_bandit24
+# @reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+# * * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+cat /usr/bin/cronjob_bandit24.sh
+```
+
+```bash
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+```
+
+通过↑此文件↑得知可以被执行的文件在/var/spool/bandit24/目录下
+
+```
+mkdir /tmp/514
+echo "cat /etc/bandit_pass/bandit24 > /tmp/514/pass" > /var/spool/bandit24/a.sh
+# ↑创建文件a.sh并写入双引号内文本↑
+# 等待一分钟
+cat /tmp/514/pass
+```
+
+`a.sh`不直接输出密码是因为`cronjob_bandit24`中清除了执行内容显示
+因为这个→`&> /dev/null`
+
+### 密码
+
+```text
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+```
+
+### 问题（已解决(大概)）
+
+为什么<span style="color:green">bandit24的计划任务</span><span style="color:red">运行的脚本</span>运行的bandit23的脚本可以读取bandit24的密码
+
+个人理解：.sh文件本身只是一堆命令，所以bandit24执行bandit23的.sh实际上是bandit24执行一些命令
