@@ -890,7 +890,6 @@ ssh usr@host 'command'
 
 ```shell
 ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat readme'
-# 粘贴 Level 18 的密码
 ```
 
 ### 密码
