@@ -1204,3 +1204,88 @@ UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 为什么<span style="color:green">bandit24的计划任务</span><span style="color:red">运行的脚本</span>运行的bandit23的脚本可以读取bandit24的密码
 
 个人理解：.sh文件本身只是一堆命令，所以bandit24执行bandit23的.sh实际上是bandit24执行一些命令
+
+
+## Level 24 -> Level 25
+
+### 提示内容理解
+
+> A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. 
+> 一个守护进程在监听30002端口，如果你向其发送bandit24的密码和一个4位数密码，它就会给你bandit25的密码。
+> There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+> 除了尝试所有的10000种组合，也就是所谓的 "brute-forcing"(暴力破解？），没有任何方法可以得到这个四位数密码。
+
+明显就是要向localhost的30002端口发起大量尝试，不过这里注意思维不要类比到一般的账号密码登录，应该使用nc一次发送10000行而不是运行10000次nc命令
+
+### 相关知识
+
+**nc命令**
+
+nc可以像telnet一样连接主机，虽然很多地方不明确但是目前只知道这里用nc才行，（不然就一个个手动试吧
+
+```shell
+# 连接方法：
+nc hostname port
+```
+**通过nc向目标发送数据**
+
+```shell
+command | nc hostname port
+```
+
+效果相当于连接后输入一行回车等一次回应在输入这样循环往复
+
+**还是shell编程-流程控制**
+两个例子简单说明算了，以后吧[shell.md](../../Programming/Shell%20script/shell.md)的内容补完可以引用这个
+
+```shell
+#!/bin/bash
+
+for i in {0000..9999};
+do
+    echo $i;
+done;
+```
+
+输出内容：
+
+```text
+0000
+0001
+中间省略
+9998
+9999
+```
+
+```shell
+#!/bin/bash
+
+for i in {3..1};
+do
+    echo $i;
+done;
+```
+
+输出内容：
+
+```text
+3
+2
+1
+```
+
+
+### 具体操作
+
+```shell
+# 创建一个文件夹存放生成的“密码 pincode”行
+mkdir /tmp/514
+for i in {0000..9999}; do echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ $i" > /tmp/514/pass.txt;done;
+cat /tmp/514/pass.txt | nc localhost 30002
+```
+
+### 密码
+
+```text
+uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+```
