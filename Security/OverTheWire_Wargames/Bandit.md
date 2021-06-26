@@ -898,6 +898,12 @@ ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat readme'
 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 ```
 
+### 更多
+
+使用ssh远程执行命令不会分配tty（终端设备），而加上`-t`参数则可分配tty
+区别表现为未分配tty执行命令后断开连接误无消息，分配tty执行命令后断开会提示Connection to xxx closed.
+此方法成功需要用户shell正常，反例见25->26,26的shell无法解析命令（个人理解）
+
 ## Level 19 -> Level20
 
 ### 提示内容理解
