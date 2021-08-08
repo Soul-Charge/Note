@@ -194,10 +194,18 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 [Linux 文件基本属性](https://www.runoob.com/linux/linux-file-attr-permission.html)
 [find 命令关于权限匹配的解释](https://blog.csdn.net/nianhuo5678/article/details/18326957)
 
+
 ```shell
 在path路径下查找大小为233字节的文件
 find path -size 233c
 ```
+> -size n[cwbkMG]
+>'b'    for 512-byte blocks (this is the default if no suffix is used)
+>'c'    for bytes
+>'w'    for two-byte words
+>'k'    for Kilobytes (units of 1024 bytes)
+>'M'    for Megabytes (units of 1048576 bytes)
+>'G'    for Gigabytes (units of 1073741824 bytes)
 
 ### 具体操作
 
@@ -1294,3 +1302,20 @@ cat /tmp/514/pass.txt | nc localhost 30002
 ```text
 uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 ```
+
+## Level 25 -> Level 26
+
+### 提示内容理解
+
+> Logging in to bandit26 from bandit25 should be fairly easy… 
+> 从bandit25登录到bandit26应该很简单...
+> The shell for user bandit26 is not /bin/bash, but something else. 
+> bandit26的shell不是/bin/bash，而是其他的东西
+> Find out what it is, how it works and how to break out of it. 
+> 找出它是什么，它如何工作以及如何突破它（跳出？）
+
+应该想到bandit26的shell不是bash带来的影响不只是表面上的登录后断开连接的，如果shell有问题就无法让终端与内核交互
+
+### 相关知识
+
+因为bandit26的shell不能解析命令所以无法用ssh远程执行命令（个人理解，不太懂
