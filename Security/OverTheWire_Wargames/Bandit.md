@@ -250,7 +250,7 @@ HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 ### 相关知识
 
 网页提示
-> The password for the next level is stored in the file data.txt next to the word millionth
+> The password for the next level is stored in the file **data.txt** next to the word **millionth**
 > 可知密码在单词"millionth"旁边
 
 可使用grep, vim等具有文本匹配的工具
@@ -559,61 +559,77 @@ cat data8.bin
     chmod 600 /home/creeper/.ssh/id_rsa_bandit13to14
     ```
 
+**使用密钥文件登录**
+
+```shell
+ssh -i sshkeyfile hostname
+```
+
 
 ### 具体操作
 
-```shell
-ls
-# sshkey.private
-cat sshkey.private
-# ### 输出内容分界线 ###
------BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAxkkOE83W2cOT7IWhFc9aPaaQmQDdgzuXCv+ppZHa++buSkN+
-gg0tcr7Fw8NLGa5+Uzec2rEg0WmeevB13AIoYp0MZyETq46t+jk9puNwZwIt9XgB
-ZufGtZEwWbFWw/vVLNwOXBe4UWStGRWzgPpEeSv5Tb1VjLZIBdGphTIK22Amz6Zb
-ThMsiMnyJafEwJ/T8PQO3myS91vUHEuoOMAzoUID4kN0MEZ3+XahyK0HJVq68KsV
-ObefXG1vvA3GAJ29kxJaqvRfgYnqZryWN7w3CHjNU4c/2Jkp+n8L0SnxaNA+WYA7
-jiPyTF0is8uzMlYQ4l1Lzh/8/MpvhCQF8r22dwIDAQABAoIBAQC6dWBjhyEOzjeA
-J3j/RWmap9M5zfJ/wb2bfidNpwbB8rsJ4sZIDZQ7XuIh4LfygoAQSS+bBw3RXvzE
-pvJt3SmU8hIDuLsCjL1VnBY5pY7Bju8g8aR/3FyjyNAqx/TLfzlLYfOu7i9Jet67
-xAh0tONG/u8FB5I3LAI2Vp6OviwvdWeC4nOxCthldpuPKNLA8rmMMVRTKQ+7T2VS
-nXmwYckKUcUgzoVSpiNZaS0zUDypdpy2+tRH3MQa5kqN1YKjvF8RC47woOYCktsD
-o3FFpGNFec9Taa3Msy+DfQQhHKZFKIL3bJDONtmrVvtYK40/yeU4aZ/HA2DQzwhe
-ol1AfiEhAoGBAOnVjosBkm7sblK+n4IEwPxs8sOmhPnTDUy5WGrpSCrXOmsVIBUf
-laL3ZGLx3xCIwtCnEucB9DvN2HZkupc/h6hTKUYLqXuyLD8njTrbRhLgbC9QrKrS
-M1F2fSTxVqPtZDlDMwjNR04xHA/fKh8bXXyTMqOHNJTHHNhbh3McdURjAoGBANkU
-1hqfnw7+aXncJ9bjysr1ZWbqOE5Nd8AFgfwaKuGTTVX2NsUQnCMWdOp+wFak40JH
-PKWkJNdBG+ex0H9JNQsTK3X5PBMAS8AfX0GrKeuwKWA6erytVTqjOfLYcdp5+z9s
-8DtVCxDuVsM+i4X8UqIGOlvGbtKEVokHPFXP1q/dAoGAcHg5YX7WEehCgCYTzpO+
-xysX8ScM2qS6xuZ3MqUWAxUWkh7NGZvhe0sGy9iOdANzwKw7mUUFViaCMR/t54W1
-GC83sOs3D7n5Mj8x3NdO8xFit7dT9a245TvaoYQ7KgmqpSg/ScKCw4c3eiLava+J
-3btnJeSIU+8ZXq9XjPRpKwUCgYA7z6LiOQKxNeXH3qHXcnHok855maUj5fJNpPbY
-iDkyZ8ySF8GlcFsky8Yw6fWCqfG3zDrohJ5l9JmEsBh7SadkwsZhvecQcS9t4vby
-9/8X4jS0P8ibfcKS4nBP+dT81kkkg5Z5MohXBORA7VWx+ACohcDEkprsQ+w32xeD
-qT1EvQKBgQDKm8ws2ByvSUVs9GjTilCajFqLJ0eVYzRPaY6f++Gv/UVfAPV4c+S0
-kAWpXbv5tbkkzbS0eaLPTKgLzavXtQoTtKwrjpolHKIHUz6Wu+n4abfAIRFubOdN
-/+aLoRQ0yBDRbdXMsZN/jvY44eM+xRLdRVyMmdPtP8belRi2E2aEzA==
------END RSA PRIVATE KEY-----
-# ### 输出内容分界线 ###
-# 复制以上私钥内容
-vim ~/.ssh/id_rsa_bandit13to14
-# <i> <粘贴> <Esc> <w> <q> <Enter>
-vim ~/.ssh/config
-# <i> <输入以下短线包围的内容> <Esc> <w> <q> <Enter>
--------------
-Host github.com
-IdentityFile ~/.ssh/id_rsa
+1. 添加ssh私钥(多私钥添加与管理）
+    ```shell
+    ls
+    # sshkey.private
+    cat sshkey.private
+    # ### 输出内容分界线 ###
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEpAIBAAKCAQEAxkkOE83W2cOT7IWhFc9aPaaQmQDdgzuXCv+ppZHa++buSkN+
+    gg0tcr7Fw8NLGa5+Uzec2rEg0WmeevB13AIoYp0MZyETq46t+jk9puNwZwIt9XgB
+    ZufGtZEwWbFWw/vVLNwOXBe4UWStGRWzgPpEeSv5Tb1VjLZIBdGphTIK22Amz6Zb
+    ThMsiMnyJafEwJ/T8PQO3myS91vUHEuoOMAzoUID4kN0MEZ3+XahyK0HJVq68KsV
+    ObefXG1vvA3GAJ29kxJaqvRfgYnqZryWN7w3CHjNU4c/2Jkp+n8L0SnxaNA+WYA7
+    jiPyTF0is8uzMlYQ4l1Lzh/8/MpvhCQF8r22dwIDAQABAoIBAQC6dWBjhyEOzjeA
+    J3j/RWmap9M5zfJ/wb2bfidNpwbB8rsJ4sZIDZQ7XuIh4LfygoAQSS+bBw3RXvzE
+    pvJt3SmU8hIDuLsCjL1VnBY5pY7Bju8g8aR/3FyjyNAqx/TLfzlLYfOu7i9Jet67
+    xAh0tONG/u8FB5I3LAI2Vp6OviwvdWeC4nOxCthldpuPKNLA8rmMMVRTKQ+7T2VS
+    nXmwYckKUcUgzoVSpiNZaS0zUDypdpy2+tRH3MQa5kqN1YKjvF8RC47woOYCktsD
+    o3FFpGNFec9Taa3Msy+DfQQhHKZFKIL3bJDONtmrVvtYK40/yeU4aZ/HA2DQzwhe
+    ol1AfiEhAoGBAOnVjosBkm7sblK+n4IEwPxs8sOmhPnTDUy5WGrpSCrXOmsVIBUf
+    laL3ZGLx3xCIwtCnEucB9DvN2HZkupc/h6hTKUYLqXuyLD8njTrbRhLgbC9QrKrS
+    M1F2fSTxVqPtZDlDMwjNR04xHA/fKh8bXXyTMqOHNJTHHNhbh3McdURjAoGBANkU
+    1hqfnw7+aXncJ9bjysr1ZWbqOE5Nd8AFgfwaKuGTTVX2NsUQnCMWdOp+wFak40JH
+    PKWkJNdBG+ex0H9JNQsTK3X5PBMAS8AfX0GrKeuwKWA6erytVTqjOfLYcdp5+z9s
+    8DtVCxDuVsM+i4X8UqIGOlvGbtKEVokHPFXP1q/dAoGAcHg5YX7WEehCgCYTzpO+
+    xysX8ScM2qS6xuZ3MqUWAxUWkh7NGZvhe0sGy9iOdANzwKw7mUUFViaCMR/t54W1
+    GC83sOs3D7n5Mj8x3NdO8xFit7dT9a245TvaoYQ7KgmqpSg/ScKCw4c3eiLava+J
+    3btnJeSIU+8ZXq9XjPRpKwUCgYA7z6LiOQKxNeXH3qHXcnHok855maUj5fJNpPbY
+    iDkyZ8ySF8GlcFsky8Yw6fWCqfG3zDrohJ5l9JmEsBh7SadkwsZhvecQcS9t4vby
+    9/8X4jS0P8ibfcKS4nBP+dT81kkkg5Z5MohXBORA7VWx+ACohcDEkprsQ+w32xeD
+    qT1EvQKBgQDKm8ws2ByvSUVs9GjTilCajFqLJ0eVYzRPaY6f++Gv/UVfAPV4c+S0
+    kAWpXbv5tbkkzbS0eaLPTKgLzavXtQoTtKwrjpolHKIHUz6Wu+n4abfAIRFubOdN
+    /+aLoRQ0yBDRbdXMsZN/jvY44eM+xRLdRVyMmdPtP8belRi2E2aEzA==
+    -----END RSA PRIVATE KEY-----
+    # ### 输出内容分界线 ###
+    # 复制以上私钥内容
+    vim ~/.ssh/id_rsa_bandit13to14
+    # <i> <粘贴> <Esc> <w> <q> <Enter>
+    vim ~/.ssh/config
+    # <i> <输入以下短线包围的内容> <Esc> <w> <q> <Enter>
+    -------------
+    Host github.com
+    IdentityFile ~/.ssh/id_rsa
 
-Host bandit.labs.overthewire.org
-IdentityFile ~/.ssh/id_rsa_bandit13to14
--------------
-chmod 600 /home/creeper/.ssh/id_rsa_bandit13to14
-# 之后即可直连Bandit14@bandit.labs.overthewire.org
-```
+    Host bandit.labs.overthewire.org
+    IdentityFile ~/.ssh/id_rsa_bandit13to14
+    -------------
+    chmod 600 /home/creeper/.ssh/id_rsa_bandit13to14
+    # 之后即可直连Bandit14@bandit.labs.overthewire.org
+    ```
+
+2. 添加ssh私钥
+    在`~/.ssh/`目录下创建文件`id_rsa`后粘贴bandit14的私钥内容
+
+3. 直接使用密钥文件
+    ```shell
+    ssh -i sshkey.private bandit14@localhost
+    ```
 
 ### 密码
 
 虽然此Level使用ssh key认证登录但仍有密码，用于Level 14 -> Level 15
+密码位置：/etc/bandit_pass/bandit14
 
 ```text
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
@@ -678,7 +694,16 @@ telnet localhost 30000
     # BfMYroe26WYalil77FoDi9qh59eK5xNr
     ```
 
-3. 使用ssh连接到localhost后发送Level14的密码？
+3. 使用nc命令
+    ```shell
+    nc localhost 30000
+    # 粘贴bandit14的密码↓
+    4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+    Correct!
+    BfMYroe26WYalil77FoDi9qh59eK5xNr
+    ```
+
+4. 使用ssh连接到localhost后发送Level14的密码？
     目前没找到可行方法，尝试：
     ```shell
     ssh -p 30000 localhost
@@ -781,6 +806,7 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 # 之后显示用于连接 Level 17 的私钥（这里不贴了看下面子标题私钥）
 ```
 
+（此处使用管理多私钥的方式添加私钥）
 创建新文件并粘贴私钥后，修改~/.ssh/config
 为了兼容同一ip不同用户而修改config↓（记得修改在~/.ssh/下对应的私钥文件名）
 ```config
