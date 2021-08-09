@@ -1348,3 +1348,82 @@ uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 ### 相关知识
 
 因为bandit26的shell不能解析命令所以无法用ssh远程执行命令（个人理解，不太懂
+
+**在vi/vim中执行shell命令**（目前尚未明确，以下结论通过bandit26测试得出）
+底线命令模式：
+
+1. `:command`
+    使用编辑器shell处理命令并将结果发送至底线行（输入底线命令的位置）
+
+2. `:! command`
+    暂时退出编辑器使用当前用户shell执行命令，完成后在命令行显示结果并提示输入回车或命令返回编辑器
+
+验证例：
+
+```shell
+# 通过登录bandit26后执行的more进入vi
+:set shell
+# 显示：shell=/usr/bin/showtext
+:echo 10
+# 显示：10
+# 以下两命令均显示~/text.txt的内容（即登入bandit26自动执行的more的结果）
+:! echo 10
+:! set shell
+# 多次执行 ':shell' 后往上滑动发现多个并排bandit26的字符画，再往上为登入消息，
+# 可推测命令的执行过程是将'shell'命令发送至当前用户shell处理（运行了/usr/bin/showtext）
+# （此文所有操作均在WSL 中进行）
+```
+
+故推测使用`:! command`执行命令是将命令交给当前用户shell处理，使用`:command`执行命令是用vi/vim的shell处理
+
+其他可参考文章：
+https://blog.csdn.net/bnxf00000/article/details/46618465/
+https://www.cnblogs.com/jiqing9006/p/10045464.html
+
+### 具体操作
+
+缩小终端窗口然后登入bandit26，看到more的提示
+![More](_v_images/20210809190832736_5394.png)
+
+按`v`键进入vi编辑器并还原窗口至合适的大小
+![vi](_v_images/20210809190929541_5018.png)
+
+输入底线命令：
+`:set shell=/bin/bash`
+`:shell`
+成功得到bash
+![bash](_v_images/20210809191251656_26490.png)
+
+```shell
+# 直接查看bandit26的密码
+cat /etc/badnit_pass/bandit26
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+```
+
+### 密码
+
+```txt
+5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+```
+
+## Level 26 -> Level 27
+
+### 具体操作
+
+```shell
+# 使用home目录下的bandit27-do；
+./bandit27-do cat /etc/bandit_pass/bandit27
+3ba3118a22e93127a4ed485be72ef5ea
+```
+
+### 密码
+
+```txt
+3ba3118a22e93127a4ed485be72ef5ea
+```
+
+
+
+
+
+
