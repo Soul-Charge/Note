@@ -1422,8 +1422,34 @@ cat /etc/badnit_pass/bandit26
 3ba3118a22e93127a4ed485be72ef5ea
 ```
 
+## Level 27 -> Level 28
 
+### 相关知识
 
+**git**
+克隆仓库
+git clone 仓库地址
+
+### 具体操作
+
+```shell
+mkdir /tmp/27repo
+cd /tmp/27repo
+git clone ssh://bandit27-git@localhost/home/bandit27-git/repo
+# 其他略
+yes
+# 粘贴bandit27的密码：3ba3118a22e93127a4ed485be72ef5ea
+# 其他略
+cd repo
+cat README
+# The password to the next level is: 0ef186ac70e04ea33b4c1853d2526fa2
+```
+
+### 密码
+
+```txt
+0ef186ac70e04ea33b4c1853d2526fa2
+```
 
 
 
