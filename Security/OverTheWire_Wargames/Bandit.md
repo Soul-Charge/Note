@@ -1448,7 +1448,7 @@ cat README
 ### 密码
 
 ```txt
-0ef186ac70e04ea33b4c1853d2526fa2
+    0ef186ac70e04ea33b4c1853d2526fa2
 ```
 
 ## Level 28 -> Level 29
@@ -1509,6 +1509,16 @@ cd repo
     # HEAD is now at c086d11 add missing data
     cat README.md
     # 原本密码xxx(多少个x略)变为 bbc96594b4e001778eee9975372716b2
+    ```
+
+3. 直接查看某一提交的更改
+
+    ```git
+    git log
+    # 其余输出略，哈希值: c086d11a00c0648d095d04c089786efef5e01264
+    git show c086d11a00c0648d095d04c089786efef5e01264
+    # -- password: <TBD>
+    # +- password: bbc96594b4e001778eee9975372716b2
     ```
 
 ### 密码
