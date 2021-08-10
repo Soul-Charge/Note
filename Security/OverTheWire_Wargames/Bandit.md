@@ -1531,6 +1531,32 @@ bbc96594b4e001778eee9975372716b2
 
 ### 相关知识
 
+**Git**
+[分支管理](../../Tools/GitHub/Git.md#toc_11)
+[从远程仓库获取](../../Tools/GitHub/Git.md#toc_17)
+
 ### 具体操作
 
+从仓库本地分支找不到密码故考虑与仓库链接的远程仓库
+
+```shell
+git branch -a
+------输出↓------
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/dev
+  remotes/origin/master
+  remotes/origin/sploits-dev
+------输出↑------
+# 使用远程仓库origin的dev分支为来源在本地仓库创建分支dev
+checkout -b dev origin/dev
+cat README.md
+# - username: bandit30
+# - password: 5b90576bedb2cc04c86a9e924ce42faf
+```
+
 ### 密码
+
+```txt
+5b90576bedb2cc04c86a9e924ce42faf
+```
