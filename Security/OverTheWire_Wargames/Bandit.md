@@ -67,23 +67,29 @@ CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
 处理带空格的文件名的文件：  
 
-> 下例中 command 表示输入的命令
-> 文件名为f i le
-> \<Tab\>为按下Tab按键
+> 下例中 command 表示输入的命令  
+> 文件名为f i le  
+> \<Tab\>为按下Tab按键  
 
 1. 用 \ 转义空格
+
     ```shell
     command f\ i\ le
     ```
+
 2. 用双引号包围文件名
+
     ```shell
     command "f i le"
     ```
+
 3. 使用Tab键自动补全
+
     ```shell
     command f<Tab> ↓变为
     command f\ i\ le
     ```
+
     ```shell
     command "f<Tab> ↓变为
     command "f i le"
@@ -93,19 +99,19 @@ CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
 
 /*  省略登录操作 */
 
-1
+1. Tab
 
-```shell
-cat s<tab>
-cat spaces\ in\ this\ file
-```
+    ```shell
+    cat s<tab>
+    cat spaces\ in\ this\ file
+    ```
 
-2
+2. "Tab
 
-```
-cat "s<tab>
-cat "spaces is this file"
-```
+    ```
+    cat "s<tab>
+    cat "spaces is this file"
+    ```
 
 ### 密码
 
@@ -125,9 +131,9 @@ UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
 cd 文件夹名
 ```
 
-**隐藏文件**
+**隐藏文件**  
 
-以英文句点(`.`)开头的文件为隐藏文件，可使用`ls -a`列出隐藏文件
+以英文句点(`.`)开头的文件为隐藏文件，可使用`ls -a`列出隐藏文件  
 
 ### 具体操作
 
@@ -188,24 +194,24 @@ koReBOKuIDDepwhWk7jZC0RTdopnAYKh
 
 ### 相关知识
 
-**find命令**
-[文档](http://www.gnu.org/software/findutils/manual/find.html)
-关于find命令按权限搜索可参考:
-[Linux 文件基本属性](https://www.runoob.com/linux/linux-file-attr-permission.html)
-[find 命令关于权限匹配的解释](https://blog.csdn.net/nianhuo5678/article/details/18326957)
+**find命令**  
+[文档](http://www.gnu.org/software/findutils/manual/find.html)  
+关于find命令按权限搜索可参考:  
+[Linux 文件基本属性](https://www.runoob.com/linux/linux-file-attr-permission.html)  
+[find 命令关于权限匹配的解释](https://blog.csdn.net/nianhuo5678/article/details/18326957)  
 
 
 ```shell
 在path路径下查找大小为233字节的文件
 find path -size 233c
 ```
-> -size n[cwbkMG]
->'b'    for 512-byte blocks (this is the default if no suffix is used)
->'c'    for bytes
->'w'    for two-byte words
->'k'    for Kilobytes (units of 1024 bytes)
->'M'    for Megabytes (units of 1048576 bytes)
->'G'    for Gigabytes (units of 1073741824 bytes)
+> -size n[cwbkMG]  
+>'b'    for 512-byte blocks (this is the default if no suffix is used)  
+>'c'    for bytes  
+>'w'    for two-byte words  
+>'k'    for Kilobytes (units of 1024 bytes)  
+>'M'    for Megabytes (units of 1048576 bytes)  
+>'G'    for Gigabytes (units of 1073741824 bytes)  
 
 ### 具体操作
 
@@ -225,8 +231,8 @@ DXjZPULLxYr17uwoI01bNLQbtFemEgo7
 
 ### 相关知识
 
-[find命令Owner相关选项](https://www.gnu.org/software/findutils/manual/html_mono/find.html#Owner)
-[重定向](https://www.runoob.com/linux/linux-shell-io-redirections.html)
+[find命令Owner相关选项](https://www.gnu.org/software/findutils/manual/html_mono/find.html#Owner)  
+[重定向](https://www.runoob.com/linux/linux-shell-io-redirections.html)  
 
 ### 具体操作
 
@@ -249,18 +255,20 @@ HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
 
 ### 相关知识
 
-网页提示
-> The password for the next level is stored in the file **data.txt** next to the word **millionth**
-> 可知密码在单词"millionth"旁边
+网页提示：  
+> The password for the next level is stored in the file **data.txt** next to the word **millionth**  
+> 可知密码在单词"millionth"旁边  
 
 可使用grep, vim等具有文本匹配的工具
 
 1. grep基本匹配
+
     ```shell
     # pattern 为需要匹配的字符串文本
     grep pattern file
     ```
 2. vim文本匹配
+
     ```shell
     # 用vim打开文件
     vim file
@@ -277,6 +285,7 @@ grep millionth data.txt
 ```
 
 ### 密码
+
 ```text
 cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 ```
@@ -285,11 +294,11 @@ cvX2JJa4CFALtqS87jk27qwqGhBM9plV
 
 ### 相关知识
 
-**sort命令**
-用于对文本进行排序，此处用于使重复行相邻以使用uniq删除重复行
+**sort命令**  
+用于对文本进行排序，此处用于使重复行相邻以使用uniq删除重复行  
 
-**[uniq命令](https://www.runoob.com/linux/linux-comm-uniq.html)**
-删除重复行，或留下非重复行，(只在重复行相邻时起效，具体参考↑)
+**[uniq命令](https://www.runoob.com/linux/linux-comm-uniq.html)**  
+删除重复行，或留下非重复行，(只在重复行相邻时起效，具体参考↑)  
 
 ```shell
 # 显示只出现一次的行
@@ -311,6 +320,7 @@ sort data.txt | uniq -u
 ```
 
 ### 密码
+
 ```text
 UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 ```
@@ -319,9 +329,9 @@ UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
 
 ### 相关知识
 
-根据提示：
-> The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
-可知密码为前面有几个`=`(至少两个)引导的可读字符串
+根据提示：  
+> The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.  
+可知密码为前面有几个`=`(至少两个)引导的可读字符串  
 
 ```shell
 # 使grep处理二进制文件
@@ -331,17 +341,21 @@ grep -a pattern file
 ### 具体操作
 
 1. vim
+
     ```shell
     vim data.txt
     # 输入/==
     # 找到正常可读的那一段
     ```
+
     ![example_vim](_v_images/20210619122924770_21528.png)
 2. grep
+
     ```shell
     grep -a == data.txt
     找到多个=后跟可读的那一串
     ```
+
     ![example_grep](_v_images/20210619122953034_29392.png)
 
 ### 密码
@@ -365,8 +379,8 @@ base 64 -d file
 command | base64
 ```
 
-base64会在源内容尾部添加换行符后加密，以便在解密时末尾换行
-下例添加终端提示符 $ 便于说明
+base64会在源内容尾部添加换行符后加密，以便在解密时末尾换行  
+下例添加终端提示符 $ 便于说明  
 
 ```shell
 # 加密文本 514
@@ -385,6 +399,7 @@ $
 ```
 
 但若解密文本 NTE0 可知 514 加密文本是 NTE0
+
 ```shell
 $ echo NTE0 | base64 -d
 514$
@@ -409,11 +424,11 @@ IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR
 
 ### 相关知识
 
-[参考阅读提及到的ROT-13](https://baike.baidu.com/item/ROT13/7086083?fr=aladdin)
+[参考阅读提及到的ROT-13](https://baike.baidu.com/item/ROT13/7086083?fr=aladdin)  
 
 ### 具体操作
 
-直接百度ROT13找一个在线解码把文件里的内容放上去解码即可
+直接百度ROT13找一个在线解码把文件里的内容放上去解码即可  
 
 ### 密码
 
@@ -440,16 +455,16 @@ xxd -b file # 以二进制方式查看文件
 xxd -r file1 file2 # 将hexdump文件还原为二进制文件到file2
 ```
 
-[tar gzip bzip2，三个解压缩命令](https://www.runoob.com/w3cnote/linux-tar-gz.html)
-> 1、\*.tar 用 tar –xvf 解压 
-> 2、\*.gz 用 gzip -d或者gunzip 解压 
-> 3、\*.tar.gz和\*.tgz 用 tar –xzf 解压 
-> 4、\*.bz2 用 bzip2 -d或者用bunzip2 解压 
-> 5、\*.tar.bz2用tar –xjf 解压 
-> 6、\*.Z 用 uncompress 解压 
-> 7、\*.tar.Z 用tar –xZf 解压 
-> 8、\*.rar 用 unrar e解压 
-> 9、\*.zip 用 unzip 解压
+[tar gzip bzip2，三个解压缩命令](https://www.runoob.com/w3cnote/linux-tar-gz.html)  
+> 1、\*.tar 用 tar –xvf 解压  
+> 2、\*.gz 用 gzip -d或者gunzip 解压  
+> 3、\*.tar.gz和\*.tgz 用 tar –xzf 解压  
+> 4、\*.bz2 用 bzip2 -d或者用bunzip2 解压  
+> 5、\*.tar.bz2用tar –xjf 解压  
+> 6、\*.Z 用 uncompress 解压  
+> 7、\*.tar.Z 用tar –xZf 解压  
+> 8、\*.rar 用 unrar e解压  
+> 9、\*.zip 用 unzip 解压  
 
 ### 具体操作
 
@@ -522,20 +537,20 @@ cat data8.bin
 
 **openssh**
 
-简单讲就是在本地生成一对密钥，把公钥放在需要登录的远程主机上，私钥留在本地主机，在访问时进行配对。
-此处在Bandit13用户的文件夹里留有登录Bandit14用户的私钥，所以只需把该私钥添加到本地主机即可
-但过程中可能会遇到几个坑
+简单讲就是在本地生成一对密钥，把公钥放在需要登录的远程主机上，私钥留在本地主机，在访问时进行配对。  
+此处在Bandit13用户的文件夹里留有登录Bandit14用户的私钥，所以只需把该私钥添加到本地主机即可  
+但过程中可能会遇到几个坑  
 
-1. 复制私钥
-    私钥的内容从`-----BEGIN RSA PRIVATE KEY-----`开始，
-    到`-----END RSA PRIVATE KEY-----`结束，
-    在这里就是把`sshkey.private`文件的全部内容复制
-2. 可能的多私钥管理
-    如果本地主机没有过ssh key 则直接在`~/.ssh/`目录下创建文件`id_rsa`后粘贴内容即可
-    但如果本地已有私钥则为了避免冲突需要进行管理[详见](https://gaomf.cn/2016/06/17/OpenSSH使用多个私钥（SSH%20Key）配置/)
-    为防链接失效的个人例：
-    创建文件`~/.ssh/config`
-    文件内容：
+1. 复制私钥  
+    私钥的内容从`-----BEGIN RSA PRIVATE KEY-----`开始，  
+    到`-----END RSA PRIVATE KEY-----`结束，  
+    在这里就是把`sshkey.private`文件的全部内容复制  
+2. 可能的多私钥管理  
+    如果本地主机没有过ssh key 则直接在`~/.ssh/`目录下创建文件`id_rsa`后粘贴内容即可  
+    但如果本地已有私钥则为了避免冲突需要进行管理[详见](https://gaomf.cn/2016/06/17/OpenSSH使用多个私钥（SSH%20Key）配置/)  
+    为防链接失效的个人例：  
+    创建文件`~/.ssh/config`  
+    文件内容：  
 
     ```config
     Host github.com
@@ -545,7 +560,7 @@ cat data8.bin
     IdentityFile ~/.ssh/id_rsa_bandit13to14
     ```
 
-3. 私钥权限
+3. 私钥权限  
     若私钥权限太开放则会被忽略，提示内容：
 
     ```text
@@ -555,6 +570,7 @@ cat data8.bin
     ```
 
     修改密钥权限为600即可
+
     ```shell
     chmod 600 /home/creeper/.ssh/id_rsa_bandit13to14
     ```
@@ -569,6 +585,7 @@ ssh -i sshkeyfile hostname
 ### 具体操作
 
 1. 添加ssh私钥(多私钥添加与管理）
+
     ```shell
     ls
     # sshkey.private
@@ -618,18 +635,19 @@ ssh -i sshkeyfile hostname
     # 之后即可直连Bandit14@bandit.labs.overthewire.org
     ```
 
-2. 添加ssh私钥
+2. 添加ssh私钥  
     在`~/.ssh/`目录下创建文件`id_rsa`后粘贴bandit14的私钥内容
 
 3. 直接使用密钥文件
+
     ```shell
     ssh -i sshkey.private bandit14@localhost
     ```
 
 ### 密码
 
-虽然此Level使用ssh key认证登录但仍有密码，用于Level 14 -> Level 15
-密码位置：/etc/bandit_pass/bandit14
+虽然此Level使用ssh key认证登录但仍有密码，用于Level 14 -> Level 15  
+密码位置：/etc/bandit_pass/bandit14  
 
 ```text
 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
@@ -641,10 +659,10 @@ ssh -i sshkeyfile hostname
 
 **telnet**
 
-> The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
-> 通过向localhost的30000端口提交当前Level的密码，可以检索到下一Level的密码。
+> The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.  
+> 通过向localhost的30000端口提交当前Level的密码，可以检索到下一Level的密码。  
 
-故连接到localhost的30000端口后发送Level 14 的密码即可，localhost虽为本地主机，但仍可用telnet登录
+故连接到localhost的30000端口后发送Level 14 的密码即可，localhost虽为本地主机，但仍可用telnet登录  
 
 ### 问题排查
 
@@ -654,8 +672,8 @@ telnet localhost
 # telnet: Unable to connect to remote host: Connection refused
 ```
 
-问题应为端口号占用，连接时加上可用端口号，如在此处使用网页给出的30000
-[参考文章](https://blog.csdn.net/renmengqisheng/article/details/90579205)
+问题应为端口号占用，连接时加上可用端口号，如在此处使用网页给出的30000  
+[参考文章](https://blog.csdn.net/renmengqisheng/article/details/90579205)  
 
 ```shell
 telnet localhost 30000
@@ -695,6 +713,7 @@ telnet localhost 30000
     ```
 
 3. 使用nc命令
+
     ```shell
     nc localhost 30000
     # 粘贴bandit14的密码↓
@@ -703,8 +722,9 @@ telnet localhost 30000
     BfMYroe26WYalil77FoDi9qh59eK5xNr
     ```
 
-4. 使用ssh连接到localhost后发送Level14的密码？
+4. 使用ssh连接到localhost后发送Level14的密码？  
     目前没找到可行方法，尝试：
+
     ```shell
     ssh -p 30000 localhost
     # ssh_exchange_identification: Connection closed by remote host
@@ -730,13 +750,13 @@ BfMYroe26WYalil77FoDi9qh59eK5xNr
 
 ### 相关知识
 
-> The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost **using SSL encryption**.
-> **using SSL encryption**，表示要使用经过SSL加密的连接方式
+> The password for the next level can be retrieved by submitting the password of the current level to port 30001 on localhost **using SSL encryption**.  
+> **using SSL encryption**，表示要使用经过SSL加密的连接方式  
 
-SSL/TLS
-[浅谈SSL/TLS工作原理](https://zhuanlan.zhihu.com/p/36981565)
-SSL/TLS 的客户端程序
-[s_client文档](https://www.openssl.net.cn/docs/235.html)
+SSL/TLS  
+[浅谈SSL/TLS工作原理](https://zhuanlan.zhihu.com/p/36981565)  
+SSL/TLS 的客户端程序  
+[s_client文档](https://www.openssl.net.cn/docs/235.html)  
 
 ### 具体操作
 
@@ -763,14 +783,14 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 
 ### 提示内容理解
 
-> The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. 
-> 下一Level的认证信息(ssh 私钥)可以通过向 localhost 的一个端口发送当前 Level 的密码得到，端口范围：31000到32000
-> First find out which of these ports have a server listening on them. 
-> 首先找到有服务监听的端口
-> Then find out which of those speak SSL and which don't. 
-> 然后找到分辨哪些是SSL的
-> There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
-> 只有一个服务会提供下一 Level 的认证信息，其他的只会返回输入
+> The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000.  
+> 下一Level的认证信息(ssh 私钥)可以通过向 localhost 的一个端口发送当前 Level 的密码得到，端口范围：31000到32000  
+> First find out which of these ports have a server listening on them.  
+> 首先找到有服务监听的端口  
+> Then find out which of those speak SSL and which don't.  
+> 然后找到分辨哪些是SSL的  
+> There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.  
+> 只有一个服务会提供下一 Level 的认证信息，其他的只会返回输入  
 
 所以需要扫描localhost的指定范围内的端口并判断其服务类型
 
@@ -778,13 +798,13 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 
 **[nmap](https://nmap.org/man/zh/)**
 
-直接输入nmap或使用`man nmap`即可查看用法
-使用`-pn-n`以设置端口范围(n为数字)
-> -p <port ranges>: Only scan specified ports
-> Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9
+直接输入nmap或使用`man nmap`即可查看用法  
+使用`-pn-n`以设置端口范围(n为数字)  
+> -p <port ranges>: Only scan specified ports  
+> Ex: -p22; -p1-65535; -p U:53,111,137,T:21-25,80,139,8080,S:9  
 
-使用`-sV`选项以查看服务类型
-> -sV: Probe open ports to determine service/version info
+使用`-sV`选项以查看服务类型  
+> -sV: Probe open ports to determine service/version info  
 
 **[SSL多私钥管理`II`(相对于上面的)](http://php-note.com/article/657.html)**
 
@@ -806,9 +826,10 @@ cluFn7wTiGryunymYOu4RcffSxQluehd
 # 之后显示用于连接 Level 17 的私钥（这里不贴了看下面子标题私钥）
 ```
 
-（此处使用管理多私钥的方式添加私钥）
-创建新文件并粘贴私钥后，修改~/.ssh/config
-为了兼容同一ip不同用户而修改config↓（记得修改在~/.ssh/下对应的私钥文件名）
+（此处使用管理多私钥的方式添加私钥）  
+创建新文件并粘贴私钥后，修改~/.ssh/config  
+为了兼容同一ip不同用户而修改config↓（记得修改在~/.ssh/下对应的私钥文件名）  
+
 ```config
 Host github.com
 IdentityFile ~/.ssh/id_rsa
@@ -858,8 +879,8 @@ vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
 
 ### 提示内容理解
 
-> The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new
-> 下一级的密码在passwords.new中，是passwords.old和passwords.new之间唯一被改变的一行。
+> The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new  
+> 下一级的密码在passwords.new中，是passwords.old和passwords.new之间唯一被改变的一行。  
 
 显然是查看两个文件的不同处
 
@@ -887,33 +908,36 @@ kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
 
 ### 更多
 
-关于登录后自动登出：
-来自 Level 18 -> Level 19 的页面提示
-> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
-> 使用SSH登录badit18会自动登出
+关于登录后自动登出：  
+来自 Level 18 -> Level 19 的页面提示  
+> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.  
+> 使用SSH登录badit18会自动登出  
 
-使用命令
+使用命令：
+
 ```shell
 ssh -p 2220 bandit18@bandit.labs.overthewire.org 'cat .bashrc'
 ```
-查看.bashrc，实现方式应该就是加了一行exit 0
-也就是写一句退出，导致登录后自动执行退出命令
+
+查看.bashrc，实现方式应该就是加了一行exit 0  
+也就是写一句退出，导致登录后自动执行退出命令  
 
 ## Level 18 -> Level 19
 
 ### 提示内容理解
 
-> The password for the next level is stored in a file readme in the homedirectory.
-> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
-> 概括：密码就在登录后用户目录下但是登录自动登出
+> The password for the next level is stored in a file readme in the homedirectory.  
+> Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.  
+> 概括：密码就在登录后用户目录下但是登录自动登出  
 
-本想着使用su命令但发现报错`Authentication failure`，[关于此错误](https://blog.csdn.net/ACK_ACK/article/details/106320127)，大概就是切换到非root用户的其他用户也要先获得root权限
-于是只能看回ssh命令尝试找到查看/home/bandit18/readme的方法
+本想着使用su命令但发现报错`Authentication failure`，[关于此错误](https://blog.csdn.net/ACK_ACK/article/details/106320127)  
+大概就是切换到非root用户的其他用户也要先获得root权限  
+于是只能看回ssh命令尝试找到查看/home/bandit18/readme的方法  
 
 ### 相关知识
 
-[更多关于ssh命令的内容（看SSH远程操作那一节）](https://blog.csdn.net/pipisorry/article/details/52269785)
-当然可以直接`man ssh`查看
+[更多关于ssh命令的内容（看SSH远程操作那一节）](https://blog.csdn.net/pipisorry/article/details/52269785)  
+当然可以直接`man ssh`查看  
 
 ```shell
 # 使用ssh在远程主机上执行操作
@@ -934,24 +958,24 @@ IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
 
 ### 更多
 
-使用ssh远程执行命令不会分配tty（终端设备），而加上`-t`参数则可分配tty
-区别表现为未分配tty执行命令后断开连接误无消息，分配tty执行命令后断开会提示Connection to xxx closed.
-此方法成功需要用户shell正常，反例见25->26,26的shell无法解析命令（个人理解）
+使用ssh远程执行命令不会分配tty（终端设备），而加上`-t`参数则可分配tty  
+区别表现为未分配tty执行命令后断开连接误无消息，分配tty执行命令后断开会提示Connection to xxx closed.  
+此方法成功需要用户shell正常，反例见25->26,26的shell无法解析命令（个人理解）  
 
 ## Level 19 -> Level20
 
 ### 提示内容理解
 
-> To gain access to the next level, you should use the setuid binary in the homedirectory. 
-> 为获得得到下一level的密码的权限，你需要使用~/目录下的setuid 二进制文件
-> Execute it without arguments to find out how to use it. 
-> 不输入参数执行它来了解如何使用
-> The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
-> 使用了这个setuid二进制文件后，可以在老地方(/etc/bandit_pass)找到密码
+> To gain access to the next level, you should use the setuid binary in the homedirectory.  
+> 为获得得到下一level的密码的权限，你需要使用~/目录下的setuid 二进制文件  
+> Execute it without arguments to find out how to use it.  
+> 不输入参数执行它来了解如何使用  
+> The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.  
+> 使用了这个setuid二进制文件后，可以在老地方(/etc/bandit_pass)找到密码  
 
-首先根据提示了解什么是setuid
-[参考文章](https://blog.csdn.net/weixin_44575881/article/details/86552016)，概括：通过设置文件setuid权限可以使任何拥有执行该文件的用户以root权限运行此文件（普通执行变成root身份执行）
-然后查看`bandit20-do`的用法：
+首先根据提示了解什么是setuid  
+[参考文章](https://blog.csdn.net/weixin_44575881/article/details/86552016)，概括：通过设置文件setuid权限可以使任何拥有执行该文件的用户以root权限运行此文件（普通执行变成root身份执行）  
+然后查看`bandit20-do`的用法：  
 
 ```shell
 ./bandit20-do
@@ -960,13 +984,13 @@ Run a command as another user.
   Example: ./bandit20-do id
 ```
 
-提示指出该程序可作为另一个用户执行命令
-但要注意`Example: ./bandit20-do id`，里的id不是用户的id
-而是相当于` ./bandit20-do command`的用法例
-再结合文件名可知此文件可以以bandit20的身份访问`/etc/bandit_pass/bandit20`
+提示指出该程序可作为另一个用户执行命令  
+但要注意`Example: ./bandit20-do id`，里的id不是用户的id  
+而是相当于` ./bandit20-do command`的用法例  
+再结合文件名可知此文件可以以bandit20的身份访问`/etc/bandit_pass/bandit20`  
 
-然而到这里setuid并没有什么存在感，因为根本不需要管。
-这里唯一和setuid有关系的就是文件`bandit20-do`已经设置了setuid权限
+然而到这里setuid并没有什么存在感，因为根本不需要管。  
+这里唯一和setuid有关系的就是文件`bandit20-do`已经设置了setuid权限  
 
 ### 具体操作
 
@@ -984,25 +1008,25 @@ GbKksEFF4yrVs6il55v6gwY5aVje5f0j
 
 ### 提示内容理解
 
-> There is a setuid binary in the homedirectory that does the following: 
-> ~/目录下有一个setuid二进制文件并且它会这样工作：
-> it makes a connection to localhost on the port you specify as a commandline argument. 
-> 它会通过你从命令行指定的端口建立对localhost的连接
-> It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). 
-> 然后它会从连接中读取一行文本并且与 Level20 的密码比对
-> If the password is correct, it will transmit the password for the next level (bandit21).
-> 如果密码正确它会发送 Level21 的密码
+> There is a setuid binary in the homedirectory that does the following:  
+> ~/目录下有一个setuid二进制文件并且它会这样工作：  
+> it makes a connection to localhost on the port you specify as a commandline argument.  
+> 它会通过你从命令行指定的端口建立对localhost的连接  
+> It then reads a line of text from the connection and compares it to the password in the previous level (bandit20).  
+> 然后它会从连接中读取一行文本并且与 Level20 的密码比对  
+> If the password is correct, it will transmit the password for the next level (bandit21).  
+> 如果密码正确它会发送 Level21 的密码  
 
-因为提供的程序需要给定端口连接到localhost，所以需要在localhost上开放一个服务监听端口用来提供连接
-看看提示里说可能用到的命令...可以用`nc`
-[参考视频(7:22)](https://www.youtube.com/watch?v=n7zhPMf0hxA)
-我咋就没想到这个qwq
+因为提供的程序需要给定端口连接到localhost，所以需要在localhost上开放一个服务监听端口用来提供连接  
+看看提示里说可能用到的命令...可以用`nc`  
+[参考视频(7:22)](https://www.youtube.com/watch?v=n7zhPMf0hxA)  
+我咋就没想到这个qwq  
 
 ### 相关知识
 
-**[nc命令](https://www.runoob.com/linux/linux-comm-nc.html)**
-**[Job Control（工作控制）](https://www.cnblogs.com/echobfy/p/3851497.html)**
-screen tmux就算了，WSL不咋好用
+**[nc命令](https://www.runoob.com/linux/linux-comm-nc.html)**  
+**[Job Control（工作控制）](https://www.cnblogs.com/echobfy/p/3851497.html)**  
+screen tmux就算了，WSL不咋好用  
 
 ### 具体操作
 
@@ -1075,17 +1099,17 @@ gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
 
 ### 提示内容理解
 
-> A program is running automatically at regular intervals from cron, the time-based job scheduler. 
-> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行
-> Look in /etc/cron.d/ for the configuration and see what command is being executed.
-> 查看/etc/cron.d/下的配置文件看看运行的命令是什么
+> A program is running automatically at regular intervals from cron, the time-based job scheduler.  
+> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行  
+> Look in /etc/cron.d/ for the configuration and see what command is being executed.  
+> 查看/etc/cron.d/下的配置文件看看运行的命令是什么  
 
 了解一下corntab然后看看配置文件找密码
 
 ### 相关知识
 
-**[crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)**
-知道这个命令用来设定配置文件中的计划任务就行了，当然还要能看懂配置文件↑
+**[crontab命令](https://www.runoob.com/linux/linux-comm-crontab.html)**  
+知道这个命令用来设定配置文件中的计划任务就行了，当然还要能看懂配置文件↑  
 
 ### 具体操作
 
@@ -1115,24 +1139,24 @@ Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
 
 ### 提示内容理解
 
-> A program is running automatically at regular intervals from cron, the time-based job scheduler. 
-> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行
-> Look in /etc/cron.d/ for the configuration and see what command is being executed.
-> 查看/etc/cron.d/下的配置文件看看运行的命令是什么
+> A program is running automatically at regular intervals from cron, the time-based job scheduler.  
+> 一个程序正通过基于时间的任务调度程序以一定的时间间隔运行  
+> Look in /etc/cron.d/ for the configuration and see what command is being executed.  
+> 查看/etc/cron.d/下的配置文件看看运行的命令是什么  
 
-和上一level一样
+和上一level一样  
 
-> **NOTE**: Looking at shell scripts written by other people is a very useful skill. 
-> 提示：观察别人写的shell脚本是一项非常有用的技能。
-> The script for this level is intentionally made easy to read. 
-> 这个level的脚本特地写的非常易读
-> If you are having problems understanding what it does, try executing it to see the debug information it prints.
-> 如果你不懂它做了什么，试试运行一下看调试信息（用调试模式看吧,bash -x file.sh）
+> **NOTE**: Looking at shell scripts written by other people is a very useful skill.  
+> 提示：观察别人写的shell脚本是一项非常有用的技能。  
+> The script for this level is intentionally made easy to read.  
+> 这个level的脚本特地写的非常易读  
+> If you are having problems understanding what it does, try executing it to see the debug information it prints.  
+> 如果你不懂它做了什么，试试运行一下看调试信息（用调试模式看吧,bash -x file.sh）  
 
 ### 相关知识
 
-[shell编程-变量](https://www.runoob.com/linux/linux-shell-variable.html)
-能看懂下面那个shell脚本就行，主要就是使用变量
+[shell编程-变量](https://www.runoob.com/linux/linux-shell-variable.html)  
+能看懂下面那个shell脚本就行，主要就是使用变量  
 
 ### 具体操作
 
@@ -1143,8 +1167,8 @@ cat cronjob_bandit23
 cat /usr/bin/cronjob_bandit23.sh
 ```
 
-文件内容↓，作用是将运行此文件的用户密码输入到一个临时文件中，文件名通过用户名加密生成，就是这句↓
-`echo I am user $myname | md5sum | cut -d ' ' -f 1`
+文件内容↓，作用是将运行此文件的用户密码输入到一个临时文件中，文件名通过用户名加密生成，就是这句↓  
+`echo I am user $myname | md5sum | cut -d ' ' -f 1`  
 
 ```bash
 #!/bin/bash
@@ -1173,18 +1197,18 @@ jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
 
 ### 相关知识
 
-**[shell编程-流程控制](https://www.runoob.com/linux/linux-shell-process-control.html)**
+**[shell编程-流程控制](https://www.runoob.com/linux/linux-shell-process-control.html)**  
 
-`for i in *` 表示变量值为当前目录下所有非隐藏文件和目录名
-`for i in *`表示变量值为当前目录下所有隐藏文件名和目录名
-`for i in * .*`即可表示当前目录下所有文件和目录名
+`for i in *` 表示变量值为当前目录下所有非隐藏文件和目录名  
+`for i in *`表示变量值为当前目录下所有隐藏文件名和目录名  
+`for i in * .*`即可表示当前目录下所有文件和目录名  
 
 **stat命令**：显示文件/文件系统的信息
 
-[也许用得上的参考文章](https://www.cnblogs.com/klb561/p/9241228.html)
-`man stat`查看此level用到的选项
-`--format`设置输出格式
-`%U`设置格式为显示用户名
+[也许用得上的参考文章](https://www.cnblogs.com/klb561/p/9241228.html)  
+`man stat`查看此level用到的选项  
+`--format`设置输出格式  
+`%U`设置格式为显示用户名  
 
 ### 具体操作
 
@@ -1232,7 +1256,7 @@ chmod a+x /var/spool/bandit24/a.sh
 cat /tmp/514/pass
 ```
 
-`a.sh`不直接输出密码是因为`cronjob_bandit24`中清除了执行内容显示
+`a.sh`不直接输出密码是因为`cronjob_bandit24`中清除了执行内容显示  
 因为这个→`&> /dev/null`
 
 ### 密码
@@ -1252,10 +1276,10 @@ UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
 
 ### 提示内容理解
 
-> A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. 
-> 一个守护进程在监听30002端口，如果你向其发送bandit24的密码和一个4位数密码，它就会给你bandit25的密码。
-> There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
-> 除了尝试所有的10000种组合，也就是所谓的 "brute-forcing"(暴力破解？），没有任何方法可以得到这个四位数密码。
+> A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode.  
+> 一个守护进程在监听30002端口，如果你向其发送bandit24的密码和一个4位数密码，它就会给你bandit25的密码。  
+> There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.  
+> 除了尝试所有的10000种组合，也就是所谓的 "brute-forcing"(暴力破解？），没有任何方法可以得到这个四位数密码。  
 
 明显就是要向localhost的30002端口发起大量尝试，不过这里注意思维不要类比到一般的账号密码登录，应该使用nc一次发送10000行而不是运行10000次nc命令
 
@@ -1277,7 +1301,7 @@ command | nc hostname port
 
 效果相当于连接后输入一行回车等一次回应在输入这样循环往复
 
-**还是shell编程-流程控制**
+**还是shell编程-流程控制**  
 两个例子简单说明算了，以后吧[shell.md](../../Programming/Shell%20script/shell.md)的内容补完可以引用这个
 
 ```shell
@@ -1336,12 +1360,12 @@ uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 
 ### 提示内容理解
 
-> Logging in to bandit26 from bandit25 should be fairly easy… 
-> 从bandit25登录到bandit26应该很简单...
-> The shell for user bandit26 is not /bin/bash, but something else. 
-> bandit26的shell不是/bin/bash，而是其他的东西
-> Find out what it is, how it works and how to break out of it. 
-> 找出它是什么，它如何工作以及如何突破它（跳出？）
+> Logging in to bandit26 from bandit25 should be fairly easy…  
+> 从bandit25登录到bandit26应该很简单...  
+> The shell for user bandit26 is not /bin/bash, but something else.  
+> bandit26的shell不是/bin/bash，而是其他的东西  
+> Find out what it is, how it works and how to break out of it.  
+> 找出它是什么，它如何工作以及如何突破它（跳出？）  
 
 应该想到bandit26的shell不是bash带来的影响不只是表面上的登录后断开连接的，如果shell有问题就无法让终端与内核交互
 
@@ -1349,7 +1373,7 @@ uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 
 因为bandit26的shell不能解析命令所以无法用ssh远程执行命令（个人理解，不太懂
 
-**在vi/vim中执行shell命令**（目前尚未明确，以下结论通过bandit26测试得出）
+**在vi/vim中执行shell命令**（目前尚未明确，以下结论通过bandit26测试得出）  
 底线命令模式：
 
 1. `:command`
@@ -1374,24 +1398,24 @@ uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
 # （此文所有操作均在WSL 中进行）
 ```
 
-故推测使用`:! command`执行命令是将命令交给当前用户shell处理，使用`:command`执行命令是用vi/vim的shell处理
+故推测使用`:! command`执行命令是将命令交给当前用户shell处理，使用`:command`执行命令是用vi/vim的shell处理  
 
-其他可参考文章：
-https://blog.csdn.net/bnxf00000/article/details/46618465/
-https://www.cnblogs.com/jiqing9006/p/10045464.html
+其他可参考文章：  
+https://blog.csdn.net/bnxf00000/article/details/46618465/  
+https://www.cnblogs.com/jiqing9006/p/10045464.html  
 
 ### 具体操作
 
-缩小终端窗口然后登入bandit26，看到more的提示
-![More](_v_images/20210809190832736_5394.png)
+缩小终端窗口然后登入bandit26，看到more的提示  
+![More](_v_images/20210809190832736_5394.png)  
 
-按`v`键进入vi编辑器并还原窗口至合适的大小
-![vi](_v_images/20210809190929541_5018.png)
+按`v`键进入vi编辑器并还原窗口至合适的大小  
+![vi](_v_images/20210809190929541_5018.png)  
 
-输入底线命令：
-`:set shell=/bin/bash`
-`:shell`
-成功得到bash
+输入底线命令：  
+`:set shell=/bin/bash`  
+`:shell`  
+成功得到bash  
 ![bash](_v_images/20210809191251656_26490.png)
 
 ```shell
@@ -1426,9 +1450,9 @@ cat /etc/badnit_pass/bandit26
 
 ### 相关知识
 
-**git**
-克隆仓库
-`git clone 仓库地址`
+**git**  
+克隆仓库  
+`git clone 仓库地址`  
 
 ### 具体操作
 
@@ -1455,9 +1479,9 @@ cat README
 
 ### 相关知识
 
-**git历史版本操作**
-[参考](../../Tools/GitHub/Git.md#toc_12)
-[git查看某次提交/更新所更改的文件及内容](https://blog.csdn.net/hbult/article/details/103079755)
+**git历史版本操作**  
+[参考](../../Tools/GitHub/Git.md#toc_12)  
+[git查看某次提交/更新所更改的文件及内容](https://blog.csdn.net/hbult/article/details/103079755)  
 
 ### 具体操作
 
@@ -1531,8 +1555,8 @@ bbc96594b4e001778eee9975372716b2
 
 ### 相关知识
 
-**Git**
-[分支管理](../../Tools/GitHub/Git.md#toc_11)
+**Git**  
+[分支管理](../../Tools/GitHub/Git.md#toc_11)  
 [从远程仓库获取](../../Tools/GitHub/Git.md#toc_17)
 
 ### 具体操作
