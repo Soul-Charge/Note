@@ -1457,6 +1457,7 @@ cat README
 
 **git历史版本操作**
 [参考](../../Tools/GitHub/Git.md#toc_12)
+[git查看某次提交/更新所更改的文件及内容](https://blog.csdn.net/hbult/article/details/103079755)
 
 ### 具体操作
 
@@ -1469,32 +1470,46 @@ yes
 # 粘贴bandit28的密码：0ef186ac70e04ea33b4c1853d2526fa2
 cd repo
 # 查看README.md发现密码被修改且目录下无其他隐藏文件故从仓库历史记录操作
-git log
-# ---------------- 一大堆输出 ----------------
-commit edd935d60906b33f0619605abd1689808ccdd5ee
-Author: Morla Porla <morla@overthewire.org>
-Date:   Thu May 7 20:14:49 2020 +0200
-
-    fix info leak
-
-commit c086d11a00c0648d095d04c089786efef5e01264
-Author: Morla Porla <morla@overthewire.org>
-Date:   Thu May 7 20:14:49 2020 +0200
-
-    add missing data
-
-commit de2ebe2d5fd1598cd547f4d56247e053be3fdc38
-Author: Ben Dover <noone@overthewire.org>
-Date:   Thu May 7 20:14:49 2020 +0200
-
-    initial commit of README.md
-# ---------------- 一大堆输出 ----------------
-# 使仓库回到 add missing data 版本
-git reset --hard c086d11a00c0648d095d04c089786efef5e01264
-# HEAD is now at c086d11 add missing data
-cat README.md
-# 原本密码xxx(多少个x略)变为 bbc96594b4e001778eee9975372716b2
 ```
+
+1. 直接查看更改
+
+    ```git
+    git log -p
+    # 找到密码修改的行，如：↓
+    # -- password: <TBD>
+    # +- password: bbc96594b4e001778eee9975372716b2
+    ```
+
+2. 回溯版本查看文件
+
+    ```git
+    git log
+    # ---------------- 一大堆输出 ----------------
+    commit edd935d60906b33f0619605abd1689808ccdd5ee
+    Author: Morla Porla <morla@overthewire.org>
+    Date:   Thu May 7 20:14:49 2020 +0200
+
+        fix info leak
+
+    commit c086d11a00c0648d095d04c089786efef5e01264
+    Author: Morla Porla <morla@overthewire.org>
+    Date:   Thu May 7 20:14:49 2020 +0200
+
+        add missing data
+
+    commit de2ebe2d5fd1598cd547f4d56247e053be3fdc38
+    Author: Ben Dover <noone@overthewire.org>
+    Date:   Thu May 7 20:14:49 2020 +0200
+
+        initial commit of README.md
+    # ---------------- 一大堆输出 ----------------
+    # 使仓库回到 add missing data 版本
+    git reset --hard c086d11a00c0648d095d04c089786efef5e01264
+    # HEAD is now at c086d11 add missing data
+    cat README.md
+    # 原本密码xxx(多少个x略)变为 bbc96594b4e001778eee9975372716b2
+    ```
 
 ### 密码
 
