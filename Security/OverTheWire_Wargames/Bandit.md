@@ -1428,7 +1428,7 @@ cat /etc/badnit_pass/bandit26
 
 **git**
 克隆仓库
-git clone 仓库地址
+`git clone 仓库地址`
 
 ### 具体操作
 
@@ -1461,6 +1461,8 @@ cat README
 ### 具体操作
 
 ```shell
+mkdir /tmp/28repo
+cd /tmp/28repo
 # 克隆并进入仓库文件夹查看内容
 git clone ssh://bandit28-git@localhost/home/bandit28-git/repo
 yes
@@ -1499,3 +1501,11 @@ cat README.md
 ```text
 bbc96594b4e001778eee9975372716b2
 ```
+
+## Level 29 -> Level 30
+
+### 相关知识
+
+### 具体操作
+
+### 密码
