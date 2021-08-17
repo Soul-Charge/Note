@@ -1472,7 +1472,7 @@ cat README
 ### 密码
 
 ```txt
-    0ef186ac70e04ea33b4c1853d2526fa2
+0ef186ac70e04ea33b4c1853d2526fa2
 ```
 
 ## Level 28 -> Level 29
@@ -1583,4 +1583,54 @@ cat README.md
 
 ```txt
 5b90576bedb2cc04c86a9e924ce42faf
+```
+
+## Level 30 -> Level 31
+
+### 相关知识
+
+**[Git 标签](https://www.runoob.com/git/git-tag.html)**  
+
+**[Git 对象、底层命令](https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-Git-%E5%AF%B9%E8%B1%A1)**  
+
+`git show-ref`  
+显示`.git/refs`下所有文件内容和其路径，文件内容为提交的哈希值  
+`.git/refs/heads/`下的文件为对应分支的最近一次提交，如`.git/refs/heads/master`内容为master分支下最近一次提交的哈希值  
+`.git/refs/tags/`下的文件为标签对应的提交的哈希值  
+
+**Level 30 中提供的仓库的可能实现方式**（不包含远程仓库）  
+
+```shell
+mkdir repo
+cd repo
+git init
+echo "just an epmty file... muahaha" > README.md
+echo 47e603bb428404d265f59c42920d81e5 | git hash-object -w --stdin
+# f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea
+git tag secret
+echo f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea > .git/refs/tags/secret
+```
+
+### 具体操作
+
+```shell
+mkdir /tmp/30repo
+cd /tmp/30repo
+ssh://bandit30-git@localhost/home/bandit30-git/repo
+yes
+# 粘贴bandit30的密码：5b90576bedb2cc04c86a9e924ce42faf
+cd repo
+git show-ref
+# 3aefa229469b7ba1cc08203e5d8fa299354c496b refs/heads/master
+# 3aefa229469b7ba1cc08203e5d8fa299354c496b refs/remotes/origin/HEAD
+# 3aefa229469b7ba1cc08203e5d8fa299354c496b refs/remotes/origin/master
+# f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea refs/tags/secret
+git show f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea
+# 47e603bb428404d265f59c42920d81e5
+```
+
+### 密码
+
+```txt
+47e603bb428404d265f59c42920d81e5
 ```
