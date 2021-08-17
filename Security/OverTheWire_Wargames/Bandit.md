@@ -1634,3 +1634,51 @@ git show f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea
 ```txt
 47e603bb428404d265f59c42920d81e5
 ```
+
+## Level 31 -> Level 32
+
+### 相关知识
+
+**[git推送到远程仓库](../../Tools/GitHub/Git.md#toc_16)**  
+
+**[.gitignore](https://www.jianshu.com/p/699ed86028c2):设置让git忽略的文件**  
+
+### 具体操作
+
+```shell
+# 省略创建文件夹过程
+git clone ssh://bandit31-git@localhost/home/bandit31-git/repo
+yes
+# 粘贴 Level 31 的密码：47e603bb428404d265f59c42920d81e5
+cd repo
+cat README.md
+```
+
+> This time your task is to push a file to the remote repository.  
+> Details:  
+>    File name: key.txt  
+>    Content: 'May I come in?'  
+>    Branch: master  
+
+根据要求在当前目录创建文件，使用其中一种方式暂存文件  
+
+1. 使用`git add key.txt -f`强行暂存文件  
+2. 删除`.gitignore`中的`*.txt`后用`git add key.txt`  
+
+提交并推送：  
+
+```shell
+git commit -m "add key.txt"
+git push
+yes
+# 粘贴 Level 31 的密码：47e603bb428404d265f59c42920d81e5
+```
+
+> remote: Well done! Here is the password for the next level:  
+> remote: 56a9bf19c63d650ce78e6ec0354ee45e  
+
+### 密码
+
+```txt
+56a9bf19c63d650ce78e6ec0354ee45e
+```
