@@ -1480,7 +1480,7 @@ cat README
 ### 相关知识
 
 **git历史版本操作**  
-[参考](../../Tools/GitHub/Git.md#toc_12)  
+[参考](../../Tools/GitHub/Git.md#历史版本操作)  
 [git查看某次提交/更新所更改的文件及内容](https://blog.csdn.net/hbult/article/details/103079755)  
 
 ### 具体操作
@@ -1556,8 +1556,8 @@ bbc96594b4e001778eee9975372716b2
 ### 相关知识
 
 **Git**  
-[分支管理](../../Tools/GitHub/Git.md#toc_11)  
-[从远程仓库获取](../../Tools/GitHub/Git.md#toc_17)
+[分支管理](../../Tools/GitHub/Git.md#分支的操作)  
+[从远程仓库获取](../../Tools/GitHub/Git.md#从远程仓库获取)  
 
 ### 具体操作
 
@@ -1639,7 +1639,7 @@ git show f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea
 
 ### 相关知识
 
-**[git推送到远程仓库](../../Tools/GitHub/Git.md#toc_16)**  
+**[git推送到远程仓库](../../Tools/GitHub/Git.md#3推送至远程仓库)**  
 
 **[.gitignore](https://www.jianshu.com/p/699ed86028c2):设置让git忽略的文件**  
 
