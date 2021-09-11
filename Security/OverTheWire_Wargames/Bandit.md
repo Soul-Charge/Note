@@ -7,7 +7,8 @@
 ### 相关知识
 
 ssh基本登录与基本的`ls` `cat` 命令  
-ssh 确定端口、主机名和用户名用法例1：
+ssh 确定端口、主机名和用户名用法  
+例1：
 
 ```shell
 ssh -p 端口 用户名@主机名
@@ -379,12 +380,25 @@ base 64 -d file
 command | base64
 ```
 
-base64会在源内容尾部添加换行符后加密，以便在解密时末尾换行  
+[实现具体细节](http://www.ruanyifeng.com/blog/2008/06/base64.html)  
+
+**终端中的特性：**  
+base64命令会在源内容尾部添加换行符后加密，以使得使用输出内容解密时末尾会换行  
 下例添加终端提示符 $ 便于说明  
+
+```txt
+文件内容：
+    a.txt
+514
+    b.txt
+NTE0Cg==
+    c.txt
+NTE0
+```
 
 ```shell
 # 加密文本 514
-$ echo 514 | base64
+$ base64 a.txt
 NTE0Cg==
 $
 # 此处看似文本514加密后文本为NTE0Cg==
@@ -392,16 +406,16 @@ $
 
 ```shell
 # 解密文本 NTE0Cg==
-$ echo NTE0Cg== | base64 -d
+$ base64 -d b.txt
 514
 $
 # 此处看似解密反证结论同上
 ```
 
-但若解密文本 NTE0 可知 514 加密文本是 NTE0
+但若解密文本 NTE0 可知 514 加密后文本是 NTE0
 
 ```shell
-$ echo NTE0 | base64 -d
+$ base64 -d c.txt
 514$
 # ↑，因为解密文本514尾部没有换行符，所以后面紧跟提示符$
 ```
