@@ -70,7 +70,66 @@ C编译器会运行链接器把源代码和C库的代码合并。
 
 #### 7.维护和修改
 
-修复错误，添加功能，修改实现方式
+修复错误，添加功能，修改实现方式  
+
+### 提高源码可读性
+
+* 选择有意义的变量名
+    ```c
+    int appleNum, melonNum, totalNum; // √
+    int a, m, n; // X
+    ```
+* 使用注释
+* 使用空行分隔
+    ```c
+    /* 这里的注释是用来说明在哪里分隔 */
+    /* 预处理器指令 */
+    #include <stdio.h>
+
+    /* 函数声明 */
+    void ShowMenu(void);
+
+    int main(void)
+    {
+        /* 定义变量 */
+        int appleNum, melonNum, totalNum;
+
+        /* 赋值和计算 */
+        appleNum = 5;
+        melonNum = 4;
+        totalNum = appleNum + melonNum;
+
+        /* 其他函数调用 */
+        printf("There are %d apple and %d melon.\n", appleNum, melonNum);
+        printf("The total is %d.\n", totalNum);
+
+        return 0;
+    }
+    
+    void ShowMenu(void)
+    {
+    // 略
+    }
+    ```
+* 一行一个语句
+* 在程序开始处说明文件名和程序的目的
+    ```c
+    /* fathm_ft.c -- 把两个 fathoms 换算成英尺 */
+    ```
+
+### 调试程序的方法
+
+#### 语法错误
+
+若程序存在语法错误在编译时编译器会报告错误，只需记住语言的语法，以及发现错误的位置可能在实际位置之后  
+
+#### 语义错误
+
+语法正确但逻辑错误导致结果不对  
+
+* 根据代码还原逻辑运算过程
+* 在特定位置使用输出语句获取变量值的变化
+* 使用调试器一步步执行程序
 
 ## 编程机制
 
