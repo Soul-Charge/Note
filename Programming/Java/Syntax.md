@@ -883,6 +883,19 @@ Java不支持多继承，即基类只能为一个类名，而不能是一个类�
 2. 实例化：`new`，使用关键字new创建对象
 3. 初始化：`构造器();`，调用构造器初始化对象
 
+#### this关键字
+
+代表对当前对象的引用，通常有以下三种使用情况  
+
+1. 访问当前对象的成员变量
+    `this.变量名;`
+    当成员变量和形参或局部变量同名时，用以引用类的成员变量
+2. 访问当前对象的成员方法
+    `this.成员方法名();`
+3. 当有重载的构造方法时，引用同一个类的其他构造方法
+    **只能用在构造器的第一句，且不能和super()同时出现**
+    `this(可选的参数);`
+
 ### 类的封装
 
 使用private修饰符使成员变量对外隐藏，同时提供成员变量对外的公共访问方法，将赋取值分离  
@@ -931,6 +944,256 @@ public class EncapsulationTest {
 
 **使用Eclipse自动生成getters()和setters()方法**  
 主菜单上【Source】-->【Generate Getters and Setters...】--> 勾选上要生成方法的变量名 --> 【Generate】  
+
+### 类的继承
+
+[参考(简](https://www.runoob.com/java/java-inheritance.html)  
+[参考(详](https://www.runoob.com/w3cnote/java-extends.html)  
+
+#### 继承的规则（重要）
+
+**前提规则：**  
+
+类在继承后，实例化子类时：  
+
+1. 先初始化父类再初始化子类  
+2. 子类会默认隐式的调用super()，即隐式调用父类无参构造器来初始化父类  
+
+**可能出现问题的情况：**  
+
+1. 父类被显式指定有参构造器，此时父类默认的无参构造器消失  
+2. 子类的构造器中因为只有默认的隐式调用父类无参构造器，而此时父类没有无参构造器  
+3. 出错：Implicit super constructor TestClass() is undefined. Must explicitly invoke another constructor  
+
+**解决：**  
+
+* 删除父类中的有参构造器
+* 给父类指定有参构造器的同时指定一个无参构造器
+* 不给父类添加无参构造器，但是在子类的构造器中使用带参数的super()指定父类有参构造器
+
+#### super关键字
+
+表示对当前对象直接父类（继承自最近的父类）对象的引用，一般有以下三种使用情况  
+
+1. 访问子类中被隐藏的直接父类成员变量
+    `super.成员变量名;`
+2. 调用子类中被重写的直接父类成员方法
+    `super.成员方法名();`
+3. 调用直接父类的构造方法
+    **只能用在构造方法第一句，且不能和this()同时出现**
+    `super(可选的参数);`
+
+继承自基类的成员变量，可以使用三种方法赋值（见下例）  
+
+```Java
+class Shape {
+    String color;
+
+    Shape() {
+    }
+    Shape(String color) {
+        this.color = color;
+    }
+}
+class Circle extends Shape {
+    private double radius;
+
+    Circle() {
+    }
+    Circle(String color, double radius) {
+        /* 可用三种方法给继承来的变量赋值 */
+        //super(color);        // 调用基类的构造器
+        //this.color = color;  // 使用this指向继承来的变量
+        super.color = color;   // 使用super指向从基类继承来的变量
+        this.radius = radius;
+    }
+}
+public class InheritanceTest {
+
+    public static void main(String[] args) {
+        
+        Shape s = new Shape("blue");
+        Circle c = new Circle("red", 10);
+        System.out.println(s.color); // blue
+    }
+}
+```
+
+> 其他：  
+> 个人理解向：super关键字方法基类成员访问的是当前类继承的成员  
+> 使用super访问修改基类成员变量不会修改基类实例化的对象，见上例main()内  
+
+#### 父类的私有成员变量
+
+父类中用private修饰的成员变量无法被子类继承，但若父类声明了非私有的getters()和setters()方法，则子类可以通过此方法访问父类私有变量  
+
+```Java
+/* InheritanceTest2.java -- 测试子类使用父类getters()和setters()方法 */
+class SuperClass {
+    private String superS = "SuperClass";
+
+    String getSuperS() {
+        return superS;
+    }
+    void setSuperS(String superS) {
+        this.superS = superS;
+    }
+}
+class SubClass extends SuperClass{
+        private String subS = "SubClass";
+
+    void show() {
+        System.out.println("子类中访问父类私有变量superS: " + getSuperS());
+        System.out.println("子类中设置父类私有变量superS为: " + subS);
+        setSuperS(subS);
+        System.out.println("子类中访问父类私有变量superS: " + getSuperS());
+    }
+}
+public class InheritanceTest2 {
+
+    public static void main(String[] args) {
+
+        SubClass sc = new SubClass();
+        sc.show();
+    }
+}
+```
+
+> 输出：  
+> 子类中访问父类私有变量superS: SuperClass  
+> 子类中设置父类私有变量superS为: SubClass  
+> 子类中访问父类私有变量superS: SubClass  
+
+#### 变量隐藏
+
+当子类声明了和父类同名的变量时，子类中继承的父类变量会被隐藏，仍然存在但不可直接访问  
+属性隐藏时，子类执行继承自父类的方法时处理继承自父类的变量，执行自己的方法时处理自己定义的变量  
+若希望在属性隐藏，执行自己定义的方法时处理继承自父类的变量，需要使用super关键字  
+
+```Java
+/* VarHideTest.java -- 测试变量隐藏 */
+class Person {
+    int age = 18;
+    void show() {
+        System.out.println("My age is " + age);
+    }
+}
+class Student extends Person {
+    int age = 20;
+    void showInfo() {
+        System.out.println("My age is " + age); // 继承来的变量被隐藏，此处的age使用的是派生类的
+        System.out.println("But my origin age is " + super.age); // 使用super关键字选择继承来的变量
+    }
+}
+public class VarHideTest {
+
+    public static void main(String[] args) {
+
+        Student s = new Student();
+        s.show();     // 使用继承的方法，处理继承来的变量
+        s.showInfo(); // 使用派生类声明的方法，处理派生类定义的变量
+    }
+}
+```
+
+#### 方法重写(Override)
+
+[参考](https://www.runoob.com/java/java-override-overload.html)  
+[参考2](https://www.runoob.com/w3cnote/java-extends.html)  
+
+派生出的子类可以重写父类的方法，需要在子类中声明 `返回值、方法名、参数列表` 全部相同的方法，并且访问权限要大于父类方法  
+
+> 通过修饰符设定访问权限，权限从大到小：public protected default private  
+
+重写方法后，可以通过`super.方法名();`的方法访问被重写的父类方法  
+一般在被重写的方法上添加`@Override`的注释（见下例）  
+
+```Java
+/* OverrideTest.java -- 测试重写 */
+class Animal {
+    void breathe() {
+        System.out.println("动物可以呼吸");
+    }
+    void move() {
+        System.out.println("->动物<-可以移动");
+    }
+}
+class Dog extends Animal {
+    @Override
+    void move() {
+        System.out.println("->狗<-可以移动");
+    }
+}
+public class OverrideTest {
+
+    public static void main(String[] args) {
+
+        Dog d = new Dog();
+        d.breathe();
+        d.move();
+    }
+}
+```
+
+
+
+> 输出：  
+> My age is 18  
+> My age is 20  
+> But my origin age is 18  
+
+### 抽象类和抽象方法
+
+[参考](https://www.runoob.com/java/java-abstraction.html)  
+
+#### 抽象类
+
+* 使用abstract关键字声明抽象类，抽象类不能实例化对象，一般用来给子类继承，也可以内含静态方法  
+* 继承了抽象类的子类，除非声明为抽象类，否则必须实现其父类的抽象方法（抽象方法见下）  
+
+```Java
+abstract class Shape {
+    abstract double getPerimeter();
+}
+class Rectangle extends Shape { // 未实现父类中的抽象方法，错误
+
+    double getArea(double length, double width) {
+        return length * width;
+    }
+}
+```
+
+#### 抽象方法
+
+* 使用abstract关键字声明抽象方法，抽象方法的声明不能有方法体，参数列表可选，在末尾要添加分号  
+* 抽象方法可以用来规范子类的行为，使子类中具有相同的**方法名、返回值类型、或形参数的形式**  
+* 抽象方法声明中形参列表形式需要和子类中方法实现匹配，如抽象方法声明中无形参列表，则在实现中也不能有形参列表  
+
+```Java
+abstract class Shape {
+    abstract double getArea(double length, double width);
+    abstract double getPerimeter();
+}
+class Rectangle extends Shape {
+
+    float getArea(double length, double width) { // 返回值类型和父类中抽象方法声明不一致，错误
+        return (float)length * (float)width;
+    }
+    double getPerimeter(double length, double width) { // 参数列表和父类中抽象方法声明不一致，错误
+        return (length + width) * 2;
+    }
+}
+class Circle extends Shape {
+    double radius;
+
+    double getArea(double radius) { // 因为参数列表和父类中抽象方法声明不一致，错误
+        return Math.PI * radius * radius;
+    }
+    double getPerimeter() { // 形参列表和返回值类型都和父类抽象方法声明一致，正常
+        return Math.PI * radius * radius;
+    }
+}
+```
 
 ### 内部类
 
