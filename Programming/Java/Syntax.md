@@ -1321,6 +1321,17 @@ public class Example6_6 {
 }
 ```
 
+### 接口
+
+[参考1](https://www.runoob.com/java/java-interfaces.html)  
+[参考2](https://www.runoob.com/w3cnote/java-extends.html)  
+
+>  参考2中“接口只能有抽象的方法”需修正为“接口内可有抽象方法和静态非抽象方法“，详见参考1  
+
+* 接口内成员只能有常量不能有变量，常量建议一直保留可省略的修饰符：`public static final`  
+* 接口内的抽象方法可以省略`public`和`abstract`但建议保留  
+* 实现接口的类中，对方法进行实现也要使用`public`修饰符，因为方法可见性要一致  
+
 ### 内部类
 
 [参考](https://www.runoob.com/w3cnote/java-inner-class-intro.html)  
