@@ -1163,6 +1163,27 @@ class Rectangle extends Shape { // 未实现父类中的抽象方法，错误
 }
 ```
 
+##### 抽象类的构造器
+
+抽象类虽然不能实例化但是有构造器，和继承时的规则一样，若显式定义了构造器的抽象类被继承，则其子类应调用父类有参构造器  
+
+```Java
+abstract class AbstractClass {
+    AbstractClass(String spaceHolder) {
+        System.out.println("这条语句在抽象类的构造器内");
+    }
+    abstract void method();
+}
+class SubClass extends AbstractClass {
+    SubClass(String spaceHolder) {
+        super(spaceHolder); // 若没有这句，或者super内的参数不是String类型则会出错
+    }
+    void method() {
+        System.out.println("这条语句是抽象方法的实现");
+    }
+}
+```
+
 #### 抽象方法
 
 * 使用abstract关键字声明抽象方法，抽象方法的声明不能有方法体，参数列表可选，在末尾要添加分号  
@@ -1194,6 +1215,10 @@ class Circle extends Shape {
     }
 }
 ```
+
+#### 抽象类和接口的比较
+
+* 抽象类被继承，抽象方法被继承并被实现，接口被实现  
 
 ### 最终类和最终方法
 
