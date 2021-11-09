@@ -1321,6 +1321,25 @@ public class Example6_6 {
 }
 ```
 
+**关于向上转型**  
+向上转型可自动发生，不需要进行显式操作，因此在传递参数时，需要接收父类引用变量的时候可以传入子类引用变量  
+
+```Java
+class Father {
+    void method() {}
+}
+class Son extends Father {
+    void method() {}
+}
+public class Test {
+    static void runMethod(Father f) {f.method();}
+    public static void main(String[] args) {
+        Son s = new Son();
+        runMethod(s); // 向上转型，将子类引用s转为父类引用
+    }
+}
+```
+
 ### 接口
 
 [参考1](https://www.runoob.com/java/java-interfaces.html)  
@@ -1331,6 +1350,118 @@ public class Example6_6 {
 * 接口内成员只能有常量不能有变量，常量建议一直保留可省略的修饰符：`public static final`  
 * 接口内的抽象方法可以省略`public`和`abstract`但建议保留  
 * 实现接口的类中，对方法进行实现也要使用`public`修饰符，因为方法可见性要一致  
+
+### //TODO多态
+
+[参考](https://www.cnblogs.com/chenssy/p/3372798.html)  
+
+> 不懂目前了解到的多态实现的意义  
+> Q：参考中`System.out.println("1--" + a1.show(b));`，为什么需要接收D或A类型对象的a1.show()可以接收B类型的b对象  
+> A：因为B类继承自A类型，所以b对象引用传递中向上转型为A类引用，调用show(A obj)方法  
+
+#### 编译时多态
+
+使用方法重载来实现编译时多态，即调用重载方法时根据参数的不同来选择具体的方法，相同的方法做出不同的行为  
+
+#### 运行时多态
+
+定义：在执行期间判断所引用对象的实际类型，根据其实际的类型调用其相应的方法  
+
+**运行时多态必要条件**  
+
+* 继承/实现
+    通过继承或者实现接口来为向上转型提供基础  
+* 重写
+    使多态有意义，若不进行重写，则调用的方法为父类方法，而不是根据运行时引用的类型执行不同的子类方法  
+* 向上转型
+    通过向上转型将具体类引用转为通用类引用，实现多态的定义（在运行时才知道通用类引用变量引用的对象是哪个）  
+    具体类：子类/实现接口的类，通用类：父类/接口类，子类更具体，父类更通用  
+
+**附属（虽然以目前了解看似为必要条件之一）**  
+
+* 接收父类引用，以此调用子类方法的方法  
+
+考虑如下代码  
+
+例一：两种方法的对比  
+
+```Java
+/* Wind Stringed Brass类的声明略 */
+public class Music {
+
+    public static void tune(Instrument i) { // 接收父类引用调用子类方法的方法
+        i.play(Note.MIDDLE_C);
+    }
+    public static void main(String[] args) {
+        Wind flute       = new Wind();
+        Stringed violin  = new Stringed();
+        Brass frenchHorn = new Brass();
+        /* 向上转型(upcasting) */
+        tune(flute);
+        tune(violin);
+        tune(frenchHorn);
+    }
+}
+```
+
+```Java
+/* Wind Stringed Brass类的声明略 */
+public class Music2 {
+    /* 使用重载而不是运行时多态 */
+    public static void tune(Wind i) {
+        i.play(Note.MIDDLE_C);
+    }
+    public static void tune(Stringed i) {
+        i.play(Note.MIDDLE_C);
+    }
+    public static void tune(Brass i) {
+        i.play(Note.MIDDLE_C);
+    }
+    public static void main(String[] args) {
+        Wind flute       = new Wind();
+        Stringed violin  = new Stringed();
+        Brass frenchHorn = new Brass();
+        /* 不使用向上转型 */
+        tune(flute);
+        tune(violin);
+        tune(frenchHorn);
+    }
+}
+```
+
+> 以上两种方式效果相同，由此理解多态的意义之一为减少重复代码  
+
+例二：  接口实现多态以及多态附属条件
+
+```Java
+interface Animal1 {
+    public abstract void shout();
+}
+class Cat implements Animal1 {
+    public void shout() {
+        System.out.println("喵~");
+    }
+}
+class Bird implements Animal1 {
+    public void shout() {
+        System.out.println("喳喳");
+    }
+}
+public class Example6_11 {
+
+    public static void main(String[] args) {
+        Animal1 cat  = new Cat();
+        Animal1 bird = new Bird();
+        animalShout(cat);
+        animalShout(bird);
+    }
+    static void animalShout(Animal1 an) {
+        an.shout();
+    }
+}
+```
+
+> 结合此例，得出多态的实现一般包含接收父类引用的方法，用此方法调用子类方法  
 
 ### 内部类
 
