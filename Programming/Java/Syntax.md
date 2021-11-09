@@ -1617,9 +1617,79 @@ public class TestLocalClass {
 }
 ```
 
+#### TODO匿名类
 
-#### //TODO匿名类
+[参考](https://www.cnblogs.com/chenssy/p/3390871.html)  
+用于继承类或实现接口进行一次性实例化对象  
 
-无法理解没有讲继承和接口就将匿名类是搞什么，等补完其他的再来  
+**使用方式：**  
+在需要传入对象的地方，在new和构造器后面加上用花括号包围的匿名类内容：  
+匿名类的内容为实例化对象的模板，其本身为继承自对象类型的类，使用一次后失效  
 
+```Java
+new 对象类型(可能的参数列表) {
+    匿名类的内容
+}
+```
 
+对象类型：匿名类继承的类或实现的接口  
+
+一个使用匿名类继承的例子：
+
+```Java
+public class Example5_10 {
+
+    void doThings(MyObj obj) {
+        obj.doSomething();
+    }
+    public static void main(String[] args) {
+        Example5_10 demo = new Example5_10();
+        MyObj obj = new MyObj();
+
+        demo.doThings(obj); // 将MyObj类的实例obj传入方法
+        
+        demo.doThings(new MyObj()); // 将直接生成没有引用的实例传入方法
+        
+        demo.doThings(new MyObj() { // 将使用匿名类作为模板生成的实例传入方法
+            void doSomething() {
+                System.out.println("Hello world");
+            }
+        });
+    }
+}
+```
+
+一个使用匿名类实现接口的例子：  
+
+```Java
+interface GeometryShape { // 几何形状接口
+    public abstract void showShape();
+}
+
+public class AnonymousClassTest {
+
+    static void showGeometryShape(GeometryShape gShape) {
+        gShape.showShape();
+    }
+    void showGeometryShape2(GeometryShape gShape) {
+        gShape.showShape();
+    }
+
+    public static void main(String[] args) {
+        /* 使用接口实现几何形状接口，调用方式一，静态方法 */
+        showGeometryShape(new GeometryShape() {
+            public void showShape() {
+                System.out.println("在静态方法调用中用匿名类实现几何接口");
+            }
+        });
+
+        /* 使用接口实现几何形状接口，调用方式二，静态方法 */
+        AnonymousClassTest anonTest = new AnonymousClassTest();
+        anonTest.showGeometryShape2(new GeometryShape() {
+            public void showShape() {
+                System.out.println("在实例方法调用中实现几何接口");
+            }
+        });
+    }
+}
+```
