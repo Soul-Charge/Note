@@ -1617,7 +1617,7 @@ public class TestLocalClass {
 }
 ```
 
-#### TODO匿名类
+#### 匿名类
 
 [参考](https://www.cnblogs.com/chenssy/p/3390871.html)  
 用于继承类或实现接口进行一次性实例化对象  
@@ -1693,3 +1693,52 @@ public class AnonymousClassTest {
     }
 }
 ```
+
+## 常用类
+
+### Number抽象类和包装类
+
+[参考1](https://www.runoob.com/java/java-number.html)  
+[参考2](http://c.biancheng.net/java/60/)  
+
+#### 装箱和拆箱
+
+```Java
+/* 自动装箱拆箱 */
+int m = 500;
+Integer obj = m;  // 自动装箱，自动将基本数据类型的m装箱为包装类
+int n = obj;  // 自动拆箱，自动将包装类obj转换为基本数据类型
+```
+
+**关于装箱对象的相等关系**  
+使用手动装箱的方式创建的对象不相同  
+使用自动装箱的对象，对象值在[-128,127]之间且相同的对象相同  
+[参考](https://blog.csdn.net/sinat_43606156/article/details/86540489)  
+
+```Java
+/* 自动装箱产生的对象之间相等的情况 */
+Integer intObj = 10;
+Integer intObj2 = 10;
+System.out.println(intObj == intObj2); // true
+/* 手动装箱对象不同 */
+Integer intObjA = new Integer(10);
+Integer intObjB = new Integer(10);
+System.out.println(intObjA == intObjB); // false
+/* 超出范围自动装箱对象不同 */
+Integer intObjOut1 = new Integer(128);
+Integer intObjOut2 = new Integer(128);
+System.out.println(intObjOut1 == intObjOut2); // false
+/* 超出范围自动装箱对象不同 */
+Integer intObjOut3 = new Integer(-129);
+Integer intObjOut4 = new Integer(-129);
+System.out.println(intObjOut3 == intObjOut4); // false
+```
+
+**关于equals()方法**  
+equals()方法定义在Object类中，故所有对象都有该方法，该方法原作用是比较内存直接的值，如对象的地址，相当于==  
+在一些类中该方法被重写，如String.equals()和Integer.equals()，作用是比较对象的值而非地址  
+
+
+
+
+
