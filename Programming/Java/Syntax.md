@@ -179,6 +179,42 @@ String s3 = s1 + s2; // s3为String1String2
 
 ### 空类型
 
+### 字符串
+
+没有字符串基本类型，但有三种用于字符串的类  
+
+#### String类
+
+[参考，下方单独列出需要补充的](https://www.runoob.com/java/java-string.html)  
+[参考2](http://c.biancheng.net/java/40/)  
+
+##### compareTo()
+
+`int compareTo(String anotherString)`  
+
+* 两个字符串的第一个字母相同时：返回两个字符串的长度差值（字符串减参数字符串）  
+* 两个字符串的第一个字母不同时：返回两个字母的ASCII码值差（字符串首字母减参数字符串首字母）  
+* 两个字符串相同时：返回0（相当于首字母相同返回长度差0）  
+
+##### compareToIgnoreCase()
+
+同compareTo()，但是不区分大小写，在计算差值时同样忽略大小写  
+
+##### copyValueOf()
+
+`String copyValueOf(char[] data)`  
+`String copyValueOf(char[] data, int offset, int count)`  
+
+该方法将接收的字符数组转为字符串返回，添加offset和count参数可设置开始复制的位置和要复制的字符个数  
+
+#### StringBuffer类
+
+[参考](http://c.biancheng.net/view/852.html)  
+
+#### StringBuilder类
+
+[参考](https://www.runoob.com/java/java-stringbuffer.html)  
+
 ### 数据类型转换
 
 不同数据类型的值可以混合运算，但需要转换为同一类型  
